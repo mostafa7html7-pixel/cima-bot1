@@ -108,6 +108,14 @@
             overflow-x: hidden;
         }
 
+        /* UI Effects Canvas Overlay */
+        #fx-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 60;
+        }
+
         /* Professional CRT Scanline Overlay */
         body::before {
             content: " ";
@@ -505,6 +513,9 @@
 
     <!-- Gold Dust Luxury Canvas -->
     <canvas id="gold-dust-canvas"></canvas>
+
+    <!-- FX Particles Canvas -->
+    <canvas id="fx-canvas"></canvas>
 
     <!-- Electric Pulse Container -->
     <div id="pulse-canvas"></div>
@@ -1582,6 +1593,7 @@
                 activeQuizCorrectIndex: 1,
                 chartInstance: null,
                 navParticles: [],
+                fxParticles: [],
                 congratsTemplates: [
                     "ألف مبروك للبطل [NAME] على تجاوز حاجز الـ 100 نقطة اليوم!",
                     "تحية فخر واعتزاز لـ [NAME]، قدوة شباب الفشن في العمل التطوعي.",
@@ -1646,6 +1658,7 @@
                 this.renderUsersLeaderboard();
                 this.updateDynamicGlow();
                 this.initGoldDust();
+                this.initFXCanvas();
                 this.initNavParticles();
                 this.startCongratsTicker();
                 setTimeout(() => this.updateNavIndicator('home'), 100);
@@ -2166,6 +2179,66 @@
                 this.playSlideSound();
             },
 
+            // محرك المؤثرات البصرية (Particle FX Engine)
+            initFXCanvas() {
+                const canvas = document.getElementById('fx-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                const resize = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                };
+                resize();
+                window.addEventListener('resize', resize);
+
+                const render = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    for (let i = this.state.fxParticles.length - 1; i >= 0; i--) {
+                        const p = this.state.fxParticles[i];
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vy += 0.15; // Gravity effect
+                        p.alpha *= 0.96;
+                        p.size *= 0.98;
+                        
+                        if (p.alpha < 0.01) {
+                            this.state.fxParticles.splice(i, 1);
+                            continue;
+                        }
+
+                        ctx.fillStyle = `rgba(212, 161, 59, ${p.alpha})`; // Gold Burst
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    requestAnimationFrame(render);
+                };
+                render();
+            },
+
+            // إطلاق انفجار الجزيئات من عداد النقاط
+            spawnScoreBurst() {
+                const el = document.getElementById('user-points');
+                if (!el || this.state.isLowPower) return;
+                
+                const rect = el.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                for (let i = 0; i < 30; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 8 + 2;
+                    this.state.fxParticles.push({
+                        x: centerX,
+                        y: centerY,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed - 3, // Initial upward pop
+                        alpha: 1,
+                        size: Math.random() * 4 + 2
+                    });
+                }
+            },
+
             // محرك جزيئات التنقل الإبداعي
             initNavParticles() {
                 const canvas = document.getElementById('nav-particle-canvas');
@@ -2299,6 +2372,7 @@
                         el.classList.add('nav-pulse-trigger');
                     });
                     this.playEnergySound();
+                    this.spawnScoreBurst();
 
                     setTimeout(() => {
                         elementsToPulse.forEach(el => el.classList.remove('nav-pulse-trigger'));
