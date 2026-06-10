@@ -570,10 +570,16 @@
         <div class="sidebar-content absolute left-4 top-4 bottom-24 w-[280px] backdrop-blur-3xl border border-white/20 dark:border-white/5 shadow-2xl p-6 flex flex-col rounded-[2rem] neon-nav-wrap overflow-hidden" onclick="event.stopPropagation()">
             <div class="scan-line"></div>
             <div class="flex justify-between items-center mb-8 pb-4 border-b border-burgundy-100/20 dark:border-charcoal-800">
-                <h2 class="text-xl font-black text-burgundy-800 dark:text-white">القائمة</h2>
-                <button onclick="app.toggleSidebar()" class="w-9 h-9 rounded-xl bg-white/50 dark:bg-charcoal-800/50 flex items-center justify-center shadow-sm">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+                <h2 class="text-xl font-black text-burgundy-800 dark:text-white leading-none">القائمة</h2>
+                <div class="flex items-center gap-2">
+                    <!-- Professional Theme Toggle at the Top -->
+                    <button onclick="app.toggleTheme()" class="w-10 h-10 rounded-xl bg-white/10 dark:bg-charcoal-800/50 flex items-center justify-center border border-white/20 text-gold-500 shadow-neon-gold transition-all active:scale-90" title="تبديل المظهر">
+                        <i id="theme-icon-mobile-top" class="fa-solid fa-moon text-lg"></i>
+                    </button>
+                    <button onclick="app.toggleSidebar()" class="w-10 h-10 rounded-xl bg-white/50 dark:bg-charcoal-800/50 flex items-center justify-center shadow-sm text-slate-500">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
             </div>
             
             <div class="space-y-4 flex flex-col">
@@ -598,12 +604,11 @@
                     <span class="font-bold text-slate-700 dark:text-slate-200">مستشار AI</span>
                 </button>
                 <hr class="border-burgundy-100/20 dark:border-charcoal-800 my-2">
-                <button onclick="app.toggleLowPowerMode(); app.toggleSidebar()" class="sidebar-item flex items-center gap-4 p-4 rounded-2xl text-slate-500 dark:text-slate-400" style="transition-delay: 0.3s">
-                    <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-charcoal-800 flex items-center justify-center"><i id="pwr-icon-mobile" class="fa-solid fa-battery-full"></i></div>
-                    <span class="font-bold">توفير الطاقة</span>
-                </button>
-                <button onclick="app.toggleTheme(); app.toggleSidebar()" class="sidebar-item flex items-center gap-4 p-4 rounded-2xl text-slate-500 dark:text-slate-400" style="transition-delay: 0.3s">
-                    <i class="fa-solid fa-moon"></i> تبديل المظهر
+                <button onclick="app.toggleLowPowerMode(); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl transition-all duration-300" style="transition-delay: 0.3s">
+                    <div class="sidebar-icon w-11 h-11 rounded-xl bg-white/5 dark:bg-charcoal-800/50 flex items-center justify-center shadow-sm transition-all duration-300 border border-white/10 text-slate-400 group-hover:rotate-12">
+                        <i id="pwr-icon-mobile" class="fa-solid fa-battery-full"></i>
+                    </div>
+                    <span class="font-bold text-slate-700 dark:text-slate-200">توفير الطاقة</span>
                 </button>
             </div>
         </div>
@@ -2053,10 +2058,13 @@
 
             updateThemeUI() {
                 const htmlEl = document.documentElement;
+                const mobileIconTop = document.getElementById('theme-icon-mobile-top');
                 if (this.state.isDarkTheme) {
                     htmlEl.classList.add('dark');
+                    if (mobileIconTop) mobileIconTop.className = 'fa-solid fa-sun';
                 } else {
                     htmlEl.classList.remove('dark');
+                    if (mobileIconTop) mobileIconTop.className = 'fa-solid fa-moon';
                 }
             },
 
