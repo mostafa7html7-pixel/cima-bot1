@@ -107,6 +107,19 @@
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
+
+        /* Professional CRT Scanline Overlay */
+        body::before {
+            content: " ";
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 9999;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            opacity: 0.3;
+        }
         
         /* Optimization: Hardware Acceleration */
         #gold-dust-canvas, #pulse-canvas, #theme-curtain {
@@ -176,12 +189,12 @@
 
         /* Neon Pulse Animation for Navigation */
         @keyframes nav-neon-pulse {
-            0% { box-shadow: 0 0 15px rgba(var(--neon-glow-rgb), 0.2), inset 0 0 10px rgba(var(--neon-glow-rgb), 0.1); }
-            50% { box-shadow: 0 0 35px rgba(var(--neon-glow-rgb), 0.8), inset 0 0 20px rgba(var(--neon-glow-rgb), 0.4); border-color: rgba(var(--neon-glow-rgb), 0.8); }
-            100% { box-shadow: 0 0 15px rgba(var(--neon-glow-rgb), 0.2), inset 0 0 10px rgba(var(--neon-glow-rgb), 0.1); }
+            0% { box-shadow: 0 0 15px rgba(var(--neon-glow-rgb), 0.2); transform: scale(1); }
+            50% { box-shadow: 0 0 50px rgba(var(--neon-glow-rgb), 0.9); transform: scale(1.03); border-color: rgba(var(--neon-glow-rgb), 0.8); }
+            100% { box-shadow: 0 0 15px rgba(var(--neon-glow-rgb), 0.2); transform: scale(1); }
         }
         .nav-pulse-trigger {
-            animation: nav-neon-pulse 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            animation: nav-neon-pulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         /* Neon Glow Presets */
@@ -573,7 +586,7 @@
                 <h2 class="text-xl font-black text-burgundy-800 dark:text-white leading-none">القائمة</h2>
                 <div class="flex items-center gap-2">
                     <!-- Professional Theme Toggle at the Top -->
-                    <button onclick="app.toggleTheme()" class="w-10 h-10 rounded-xl bg-white/10 dark:bg-charcoal-800/50 flex items-center justify-center border border-white/20 text-gold-500 shadow-neon-gold transition-all active:scale-90" title="تبديل المظهر">
+                    <button id="sidebar-theme-btn" onclick="app.toggleTheme()" class="w-10 h-10 rounded-xl bg-white/10 dark:bg-charcoal-800/50 flex items-center justify-center border border-white/20 text-gold-500 shadow-neon-gold transition-all active:scale-90" title="تبديل المظهر">
                         <i id="theme-icon-mobile-top" class="fa-solid fa-moon text-lg"></i>
                     </button>
                     <button onclick="app.toggleSidebar()" class="w-10 h-10 rounded-xl bg-white/50 dark:bg-charcoal-800/50 flex items-center justify-center shadow-sm text-slate-500">
@@ -2274,15 +2287,21 @@
                 const targetVal = this.state.points;
                 if (currentVal === targetVal) return;
 
-                // Trigger Neon Pulse on all Navigation Containers (Desktop & Mobile)
-                if (navContainers.length > 0 && targetVal > currentVal) {
-                    navContainers.forEach(container => {
-                        container.classList.remove('nav-pulse-trigger');
-                        void container.offsetWidth; // Force Reflow
-                        container.classList.add('nav-pulse-trigger');
+                // Trigger Neon Pulse on all Navigation Containers and the Sidebar Theme Button
+                if (targetVal > currentVal) {
+                    const sidebarThemeBtn = document.getElementById('sidebar-theme-btn');
+                    const elementsToPulse = [...navContainers];
+                    if (sidebarThemeBtn) elementsToPulse.push(sidebarThemeBtn);
+
+                    elementsToPulse.forEach(el => {
+                        el.classList.remove('nav-pulse-trigger');
+                        void el.offsetWidth; // Force Reflow
+                        el.classList.add('nav-pulse-trigger');
                     });
+                    this.playEnergySound();
+
                     setTimeout(() => {
-                        navContainers.forEach(container => container.classList.remove('nav-pulse-trigger'));
+                        elementsToPulse.forEach(el => el.classList.remove('nav-pulse-trigger'));
                     }, 800);
                 }
 
@@ -2317,6 +2336,39 @@
                 }
                 
                 document.documentElement.style.setProperty('--neon-glow-rgb', rgb);
+            },
+
+            // محرك صوت شحن الطاقة الاحترافي (Energy Charge SFX)
+            playEnergySound() {
+                try {
+                    if (!this.audioCtx) {
+                        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+                    
+                    const oscillator = this.audioCtx.createOscillator();
+                    const gainNode = this.audioCtx.createGain();
+                    const filter = this.audioCtx.createBiquadFilter();
+
+                    oscillator.type = 'sawtooth';
+                    // يبدأ بتردد منخفض ويتصاعد بسرعة ليعطي شعور الشحن
+                    oscillator.frequency.setValueAtTime(80, this.audioCtx.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(880, this.audioCtx.currentTime + 0.6);
+
+                    filter.type = 'highpass';
+                    filter.frequency.setValueAtTime(200, this.audioCtx.currentTime);
+
+                    gainNode.gain.setValueAtTime(0, this.audioCtx.currentTime);
+                    gainNode.gain.linearRampToValueAtTime(0.08, this.audioCtx.currentTime + 0.15);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioCtx.currentTime + 0.6);
+
+                    oscillator.connect(filter);
+                    filter.connect(gainNode);
+                    gainNode.connect(this.audioCtx.destination);
+
+                    oscillator.start();
+                    oscillator.stop(this.audioCtx.currentTime + 0.6);
+                } catch (e) {}
             },
 
             // محاكاة صوت نقرة ميكانيكية خفيفة باستخدام Web Audio API
