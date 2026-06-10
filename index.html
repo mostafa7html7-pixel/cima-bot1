@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
+<html lang="ar" dir="rtl" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,8 +70,8 @@
                         mono: ['Inter', 'monospace']
                     },
                     boxShadow: {
-                        'neon-burgundy': '0 0 15px rgba(128, 0, 32, 0.4)',
-                        'neon-gold': '0 0 15px rgba(212, 161, 59, 0.4)',
+                        'neon-burgundy': '0 0 10px rgba(128, 0, 32, 0.6), 0 0 20px rgba(128, 0, 32, 0.2)',
+                        'neon-gold': '0 0 10px rgba(212, 161, 59, 0.6), 0 0 25px rgba(212, 161, 59, 0.3)',
                         'premium': '0 20px 40px -12px rgba(0, 0, 0, 0.1), 0 10px 20px -10px rgba(128, 0, 32, 0.1)',
                     }
                 }
@@ -107,6 +107,104 @@
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
+        
+        /* Optimization: Hardware Acceleration */
+        #gold-dust-canvas, #pulse-canvas, #theme-curtain {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000;
+            will-change: transform;
+            contain: strict;
+        }
+
+        /* Gold Dust Luxury Background Effect */
+        #gold-dust-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* Electric Pulse Background Effect */
+        #pulse-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .pulse-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, #bd842a, transparent);
+            height: 1px;
+            width: 100px;
+            filter: drop-shadow(0 0 5px #bd842a);
+            opacity: 0;
+            z-index: 1;
+        }
+        
+        /* Custom Sharp Transitions for Professional Feel */
+        .nav-btn, .sidebar-item, .hover-lift, button {
+            transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+        }
+
+        /* Ultra-Professional Crystal Glass Desktop Nav */
+        .desktop-nav-wrap {
+            position: relative;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 5px;
+            border-radius: 20px;
+            display: flex;
+            gap: 2px;
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.1);
+        }
+        .dark .desktop-nav-wrap { background: rgba(255, 255, 255, 0.03); }
+
+        /* Smart Floating Indicator */
+        #nav-indicator {
+            position: absolute;
+            background: linear-gradient(165deg, rgba(var(--neon-glow-rgb), 1) 0%, rgba(var(--neon-glow-rgb), 0.6) 100%);
+            border-radius: 14px;
+            transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 0;
+            box-shadow: 0 4px 20px rgba(var(--neon-glow-rgb), 0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+            pointer-events: none;
+            will-change: left, width, transform;
+        }
+
+        /* Neon Pulse Animation for Navigation */
+        @keyframes nav-neon-pulse {
+            0% { box-shadow: 0 0 15px rgba(var(--neon-glow-rgb), 0.2), inset 0 0 10px rgba(var(--neon-glow-rgb), 0.1); }
+            50% { box-shadow: 0 0 35px rgba(var(--neon-glow-rgb), 0.8), inset 0 0 20px rgba(var(--neon-glow-rgb), 0.4); border-color: rgba(var(--neon-glow-rgb), 0.8); }
+            100% { box-shadow: 0 0 15px rgba(var(--neon-glow-rgb), 0.2), inset 0 0 10px rgba(var(--neon-glow-rgb), 0.1); }
+        }
+        .nav-pulse-trigger {
+            animation: nav-neon-pulse 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* Neon Glow Presets */
+        .btn-neon-gold:hover {
+            box-shadow: 0 0 20px rgba(212, 161, 59, 0.5), 0 0 40px rgba(212, 161, 59, 0.2);
+            border-color: rgba(212, 161, 59, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .btn-neon-burgundy:hover {
+            box-shadow: 0 0 20px rgba(128, 0, 32, 0.5), 0 0 40px rgba(128, 0, 32, 0.2);
+            border-color: rgba(231, 117, 147, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Congratulatory Ticker Animation */
+        .congrats-ticker-fade {
+            animation: tickerFadeIn 0.8s var(--spring-easing);
+        }
+        @keyframes tickerFadeIn {
+            from { opacity: 0; transform: translateY(10px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
 
         /* Speed Boost: Only render sections when needed */
         .app-view {
@@ -115,7 +213,7 @@
         }
 
         .animate-physical {
-            transition: all 0.4s var(--bounce-easing);
+            transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
             will-change: transform, opacity;
         }
 
@@ -125,25 +223,38 @@
 
         /* Active Navigation Line Hover Animations */
         .nav-link-active {
-            background: rgba(128, 0, 32, 0.08);
-            color: #800020 !important;
+            color: #000 !important;
             font-weight: 800;
+            z-index: 1;
         }
-        .dark .nav-link-active { background: rgba(231, 117, 147, 0.1); color: #e77593 !important; }
+        .dark .nav-link-active { color: #fff !important; }
+        
+        .nav-btn {
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
 
         /* Glassmorphism Styles */
         .glass-premium {
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(128, 0, 32, 0.12);
+            border-bottom: 1px solid rgba(128, 0, 32, 0.1);
         }
         .dark .glass-premium {
-            background: rgba(18, 18, 20, 0.85);
+            background: rgba(18, 18, 20, 0.75);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        /* Shimmer effects for gamified rewards and street screens */
+        .nav-scrolled {
+            padding-top: 0.5rem !important;
+            padding-bottom: 0.5rem !important;
+            background: rgba(255, 255, 255, 0.98) !important;
+        }
+        .dark .nav-scrolled { background: rgba(18, 18, 20, 0.95) !important; }
+
+        /* Shimmer effects */
         @keyframes pulse-glowing {
             0%, 100% { opacity: 0.6; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.02); }
@@ -188,9 +299,9 @@
         .app-view.active-view { display: block; animation: viewSlideIn 0.4s var(--spring-easing) forwards; content-visibility: visible; }
         
         .hover-lift:hover {
-            transform: translateY(-5px) scale(1.01);
-            box-shadow: 0 20px 40px -10px rgba(128, 0, 32, 0.15);
-            border-color: #800020 !important;
+            transform: translateY(-4px) scale(1.005);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.5);
+            border-color: rgba(128, 0, 32, 0.4) !important;
         }
 
         button:active {
@@ -207,10 +318,51 @@
         /* Mobile Sidebar Drawer */
         .sidebar-overlay { opacity: 0; pointer-events: none; transition: all 0.3s ease; }
         .sidebar-overlay.active { opacity: 1; pointer-events: auto; backdrop-filter: blur(4px); }
-        .sidebar-content { transform: translateX(-100%); transition: all 0.5s var(--bounce-easing); }
-        .sidebar-overlay.active .sidebar-content { transform: translateX(0); }
+        
+        .sidebar-content { 
+            transform: translateX(-110%) scale(0.95); 
+            transition: all 0.5s var(--bounce-easing);
+            background: linear-gradient(270deg, rgba(255,255,255,0.95), rgba(241,245,249,0.95), rgba(251,242,244,0.95));
+            background-size: 400% 400%;
+            animation: sidebar-gradient 8s ease infinite;
+        }
+        .dark .sidebar-content {
+            background: linear-gradient(270deg, rgba(9,9,11,0.98), rgba(18,18,20,0.98), rgba(66,2,17,0.98));
+        }
+        .sidebar-overlay.active .sidebar-content { transform: translateX(0) scale(1); }
+
+        @keyframes sidebar-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Biometric Scan Line */
+        .scan-line {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(var(--neon-glow-rgb), 0.8), transparent);
+            box-shadow: 0 0 15px rgba(var(--neon-glow-rgb), 0.5);
+            z-index: 50;
+            pointer-events: none;
+            opacity: 0;
+        }
+        .sidebar-overlay.active .scan-line {
+            animation: scan-move 3s linear infinite;
+        }
+        @keyframes scan-move {
+            0% { top: 0%; opacity: 0; }
+            5% { opacity: 1; }
+            95% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
 
         .sidebar-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 0.75rem;
             opacity: 0;
             transform: translateX(-20px);
             transition: all 0.5s var(--bounce-easing);
@@ -218,6 +370,17 @@
         .sidebar-overlay.active .sidebar-item {
             opacity: 1;
             transform: translateX(0);
+        }
+        .sidebar-item:hover {
+            transform: translateX(8px) scale(1.02) !important;
+            background: rgba(var(--neon-glow-rgb), 0.05) !important;
+            border-color: rgba(var(--neon-glow-rgb), 0.2) !important;
+        }
+        .sidebar-item:hover .sidebar-icon {
+            box-shadow: 0 0 15px rgba(var(--neon-glow-rgb), 0.5);
+            border-color: rgba(var(--neon-glow-rgb), 0.4) !important;
+            background: rgba(var(--neon-glow-rgb), 0.1) !important;
+            color: rgb(var(--neon-glow-rgb)) !important;
         }
 
         /* Mobile Bottom Nav */
@@ -260,16 +423,14 @@
         #theme-curtain {
             position: fixed;
             top: 0;
-            right: -110%; /* Increased to hide shadow/edge completely */
-            width: 105%;
+            right: -100%;
+            width: 100%;
             height: 100%;
-            background-color: #420211;
-            background-image: url('https://www.transparenttextures.com/patterns/luxury.png'); /* Elegant Etched Pattern */
-            background-blend-mode: overlay;
             z-index: 10000;
-            pointer-events: none;
-            box-shadow: -20px 0 100px rgba(0,0,0,0.8);
-            will-change: right;
+            transition: transform 0.4s cubic-bezier(0.8, 0, 0.2, 1);
+            background-color: #420211;
+            background-image: linear-gradient(to left, #800020, #420211);
+            will-change: transform;
         }
 
         /* Special "Golden Glory" State for 1000+ Points */
@@ -313,20 +474,38 @@
         #user-modal-overlay.active #user-modal-content {
             transform: scale(1) translateY(0);
         }
+
+        /* Professional Gradient Text */
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #d4a13b 0%, #f6f1cd 50%, #bd842a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        @keyframes gradient-pan {
+            from { background-position: 0% center; }
+            to { background-position: 200% center; }
+        }
     </style>
 </head>
 <body class="bg-[#F8FAFC] text-slate-800 dark:bg-charcoal-950 dark:text-slate-100 font-sans antialiased min-h-screen">
+
+    <!-- Gold Dust Luxury Canvas -->
+    <canvas id="gold-dust-canvas"></canvas>
+
+    <!-- Electric Pulse Container -->
+    <div id="pulse-canvas"></div>
 
     <!-- Cinematic Theme Curtain -->
     <div id="theme-curtain"></div>
 
     <!-- Top Navigation Bar -->
-    <nav class="fixed w-full top-0 z-50 glass-premium shadow-xl transition-all duration-500">
+    <nav id="main-nav" class="fixed w-full top-0 z-50 glass-premium shadow-xl transition-all duration-500 py-2">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 lg:h-20 items-center">
                 
                 <!-- Logo & Brand Header -->
-                <div class="flex items-center gap-3 lg:gap-4 cursor-pointer group" onclick="app.switchTab('home')">
+                <div class="flex items-center gap-3 lg:gap-4 cursor-pointer group transition-transform active:scale-95" onclick="app.switchTab('home')">
                     <div class="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-gradient-to-br from-burgundy-800 to-burgundy-600 dark:from-burgundy-600 dark:to-burgundy-900 flex items-center justify-center text-white shadow-lg">
                         <i class="fa-solid fa-ribbon text-2xl group-hover:scale-110 transition-transform will-change-transform"></i>
                     </div>
@@ -339,13 +518,15 @@
                 </div>
 
                 <!-- Desktop Nav Tabs links -->
-                <div class="hidden lg:flex items-center space-x-reverse space-x-2">
-                    <button onclick="app.switchTab('home')" id="tab-btn-home" class="nav-btn nav-link-active px-4 py-2 rounded-xl text-[14px] font-bold transition-all duration-300 hover:bg-burgundy-50 dark:hover:bg-charcoal-800">الرئيسية</button>
-                    <button onclick="app.switchTab('tasks')" id="tab-btn-tasks" class="nav-btn px-4 py-2 rounded-xl text-[14px] font-bold transition-all duration-300 hover:bg-burgundy-50 dark:hover:bg-charcoal-800">المهام</button>
-                    <button onclick="app.switchTab('salon')" id="tab-btn-salon" class="nav-btn px-4 py-2 rounded-xl text-[14px] font-bold transition-all duration-300 hover:bg-burgundy-50 dark:hover:bg-charcoal-800">الصالون</button>
-                    <button onclick="app.switchTab('leaderboard')" id="tab-btn-leaderboard" class="nav-btn px-4 py-2 rounded-xl text-[14px] font-bold transition-all duration-300 hover:bg-burgundy-50 dark:hover:bg-charcoal-800">الميدان</button>
-                    <button onclick="app.switchTab('ai')" id="tab-btn-ai" class="nav-btn px-4 py-2 rounded-xl text-[14px] font-bold transition-all duration-300 hover:bg-burgundy-50 dark:hover:bg-charcoal-800 text-burgundy-700 dark:text-burgundy-400 flex items-center gap-2"><i class="fa-solid fa-robot"></i>AI</button>
-                    <button onclick="app.switchTab('admin')" id="tab-btn-admin" class="nav-btn px-4 py-2 rounded-xl text-[14px] font-bold transition-all duration-300 hover:bg-red-50 dark:hover:bg-red-950/20 text-red-700 dark:text-red-400"><i class="fa-solid fa-shield-halved"></i></button>
+                <div class="hidden lg:flex items-center desktop-nav-wrap space-x-reverse relative">
+                    <canvas id="nav-particle-canvas" class="absolute inset-0 pointer-events-none z-0 rounded-2xl"></canvas>
+                    <div id="nav-indicator"></div>
+                    <button onclick="app.switchTab('home')" id="tab-btn-home" class="nav-btn nav-link-active px-5 py-2 rounded-lg text-[13px] font-black hover:scale-105 transition-transform">الرئيسية</button>
+                    <button onclick="app.switchTab('tasks')" id="tab-btn-tasks" class="nav-btn px-5 py-2 rounded-lg text-[13px] font-black hover:scale-105 transition-transform">المهام</button>
+                    <button onclick="app.switchTab('salon')" id="tab-btn-salon" class="nav-btn px-5 py-2 rounded-lg text-[13px] font-black">الصالون</button>
+                    <button onclick="app.switchTab('leaderboard')" id="tab-btn-leaderboard" class="nav-btn px-5 py-2 rounded-lg text-[13px] font-black">الميدان</button>
+                    <button onclick="app.switchTab('ai')" id="tab-btn-ai" class="nav-btn px-5 py-2 rounded-lg text-[13px] font-black text-burgundy-600 dark:text-burgundy-400 flex items-center gap-2"><i class="fa-solid fa-robot"></i>AI</button>
+                    <button onclick="app.switchTab('admin')" id="tab-btn-admin" class="nav-btn px-5 py-2 rounded-lg text-[13px] font-black text-red-500"><i class="fa-solid fa-shield-halved"></i></button>
                 </div>
 
                 <!-- Right Quick Badge Profile, Points, Theme Switcher -->
@@ -354,7 +535,7 @@
                     <!-- Real-Time Points counter badge -->
                     <div class="bg-burgundy-50/50 dark:bg-charcoal-900/50 border border-burgundy-100/50 dark:border-charcoal-800 px-3 lg:px-4 py-1.5 rounded-full flex items-center gap-2 lg:gap-3 shadow-inner transition-all duration-500">
                         <i class="fa-solid fa-award text-gold-500 text-base lg:text-lg"></i>
-                        <span id="user-points" class="font-mono font-black text-base lg:text-lg text-burgundy-800 dark:text-gold-400">350</span>
+                        <span id="user-points" class="font-mono font-black text-base lg:text-lg text-burgundy-800 dark:text-gold-400">0</span>
                         <span class="hidden lg:inline text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Pts</span>
                     </div>
 
@@ -386,8 +567,9 @@
 
     <!-- Mobile Sidebar Drawer Overlay -->
     <div id="sidebar-overlay" class="sidebar-overlay fixed inset-0 z-[100] bg-black/40 lg:hidden" onclick="app.toggleSidebar()">
-        <div class="sidebar-content absolute left-0 top-0 h-full w-72 bg-white/70 dark:bg-charcoal-950/70 backdrop-blur-2xl border-r border-white/20 dark:border-white/5 shadow-2xl p-6 flex flex-col" onclick="event.stopPropagation()">
-            <div class="flex justify-between items-center mb-10 pb-4 border-b border-burgundy-100/20 dark:border-charcoal-800">
+        <div class="sidebar-content absolute left-4 top-4 bottom-24 w-[280px] backdrop-blur-3xl border border-white/20 dark:border-white/5 shadow-2xl p-6 flex flex-col rounded-[2rem] neon-nav-wrap overflow-hidden" onclick="event.stopPropagation()">
+            <div class="scan-line"></div>
+            <div class="flex justify-between items-center mb-8 pb-4 border-b border-burgundy-100/20 dark:border-charcoal-800">
                 <h2 class="text-xl font-black text-burgundy-800 dark:text-white">القائمة</h2>
                 <button onclick="app.toggleSidebar()" class="w-9 h-9 rounded-xl bg-white/50 dark:bg-charcoal-800/50 flex items-center justify-center shadow-sm">
                     <i class="fa-solid fa-xmark"></i>
@@ -395,24 +577,24 @@
             </div>
             
             <div class="space-y-4 flex flex-col">
-                <button onclick="app.switchTab('home'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl hover:bg-white/40 dark:hover:bg-charcoal-800/40 transition-all duration-300" style="transition-delay: 0.1s">
-                    <div class="w-10 h-10 rounded-xl bg-sky-50 dark:bg-sky-950/30 text-sky-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform"><i class="fa-solid fa-house"></i></div>
+                <button onclick="app.switchTab('home'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl transition-all duration-300" style="transition-delay: 0.1s">
+                    <div class="sidebar-icon w-11 h-11 rounded-xl bg-white/5 dark:bg-charcoal-800/50 flex items-center justify-center shadow-sm transition-all duration-300 border border-white/10 text-slate-400"><i class="fa-solid fa-house"></i></div>
                     <span class="font-bold text-slate-700 dark:text-slate-200">الرئيسية</span>
                 </button>
-                <button onclick="app.switchTab('community'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl hover:bg-white/40 dark:hover:bg-charcoal-800/40 transition-all duration-300" style="transition-delay: 0.12s">
-                    <div class="w-10 h-10 rounded-xl bg-gold-50 dark:bg-gold-950/30 text-gold-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform"><i class="fa-solid fa-people-group"></i></div>
+                <button onclick="app.switchTab('community'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl transition-all duration-300" style="transition-delay: 0.12s">
+                    <div class="sidebar-icon w-11 h-11 rounded-xl bg-white/5 dark:bg-charcoal-800/50 flex items-center justify-center shadow-sm transition-all duration-300 border border-white/10 text-slate-400"><i class="fa-solid fa-people-group"></i></div>
                     <span class="font-bold text-slate-700 dark:text-slate-200">مجتمع الرواد</span>
                 </button>
-                <button onclick="app.switchTab('tasks'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl hover:bg-white/40 dark:hover:bg-charcoal-800/40 transition-all duration-300" style="transition-delay: 0.15s">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 text-emerald-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform"><i class="fa-solid fa-list-check"></i></div>
+                <button onclick="app.switchTab('tasks'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl transition-all duration-300" style="transition-delay: 0.15s">
+                    <div class="sidebar-icon w-11 h-11 rounded-xl bg-white/5 dark:bg-charcoal-800/50 flex items-center justify-center shadow-sm transition-all duration-300 border border-white/10 text-slate-400"><i class="fa-solid fa-list-check"></i></div>
                     <span class="font-bold text-slate-700 dark:text-slate-200">المهام الميدانية</span>
                 </button>
-                <button onclick="app.switchTab('salon'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl hover:bg-white/40 dark:hover:bg-charcoal-800/40 transition-all duration-300" style="transition-delay: 0.2s">
-                    <div class="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950/30 text-rose-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform"><i class="fa-solid fa-microphone-lines"></i></div>
+                <button onclick="app.switchTab('salon'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl transition-all duration-300" style="transition-delay: 0.2s">
+                    <div class="sidebar-icon w-11 h-11 rounded-xl bg-white/5 dark:bg-charcoal-800/50 flex items-center justify-center shadow-sm transition-all duration-300 border border-white/10 text-slate-400"><i class="fa-solid fa-microphone-lines"></i></div>
                     <span class="font-bold text-slate-700 dark:text-slate-200">صالون التمكين</span>
                 </button>
-                <button onclick="app.switchTab('ai'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl hover:bg-white/40 dark:hover:bg-charcoal-800/40 transition-all duration-300" style="transition-delay: 0.25s">
-                    <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/30 text-amber-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform"><i class="fa-solid fa-robot"></i></div>
+                <button onclick="app.switchTab('ai'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl transition-all duration-300" style="transition-delay: 0.25s">
+                    <div class="sidebar-icon w-11 h-11 rounded-xl bg-white/5 dark:bg-charcoal-800/50 flex items-center justify-center shadow-sm transition-all duration-300 border border-white/10 text-slate-400"><i class="fa-solid fa-robot"></i></div>
                     <span class="font-bold text-slate-700 dark:text-slate-200">مستشار AI</span>
                 </button>
                 <hr class="border-burgundy-100/20 dark:border-charcoal-800 my-2">
@@ -428,7 +610,7 @@
     </div>
 
     <!-- Mobile Bottom Navigation Bar -->
-    <nav class="mobile-nav fixed bottom-0 w-full z-50 glass-premium border-t border-burgundy-100 dark:border-charcoal-800 flex justify-around items-center py-3 lg:hidden shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
+    <nav class="mobile-nav fixed bottom-0 w-full z-50 glass-premium neon-nav-wrap border-t border-burgundy-100 dark:border-charcoal-800 flex justify-around items-center py-3 lg:hidden shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
         <button onclick="app.switchTab('home')" class="flex flex-col items-center gap-1 text-burgundy-800 dark:text-slate-400"><i class="fa-solid fa-house text-lg"></i><span class="text-[10px] font-bold">الرئيسية</span></button>
         <button onclick="app.switchTab('community')" class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400"><i class="fa-solid fa-people-group text-lg"></i><span class="text-[10px] font-bold">المجتمع</span></button>
         <button onclick="app.switchTab('tasks')" class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400"><i class="fa-solid fa-list-check text-lg"></i><span class="text-[10px] font-bold">المهام</span></button>
@@ -460,52 +642,31 @@
                         <span class="inline-flex items-center gap-2 py-2 px-5 sm:px-6 rounded-full bg-gold-500/10 text-gold-400 text-[10px] sm:text-xs font-black mb-6 sm:mb-8 border border-gold-500/20 backdrop-blur-xl animate-bounce">
                             <i class="fa-solid fa-sparkles text-gold-500"></i> مدعوم بالكامل بتقنيات Gemini 3.1 AI المتطورة
                         </span>
-                        <h2 class="font-calligraphy text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.25] sm:leading-[1.3] mb-6 sm:mb-8 tracking-wide">
+                        <h2 class="font-calligraphy text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.25] sm:leading-[1.3] mb-6 sm:mb-8 tracking-wide drop-shadow-2xl">
                             نظام تنمية قومي محلي مصغر.. <br>
-                            <span class="text-glow-gold bg-clip-text text-transparent bg-gradient-to-l from-gold-500 via-gold-200 to-white">نتطوع لنبني الفشن،</span> <br>
-                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-white to-burgundy-400">ونتعلم لنقود التمكين الرقمي</span>
+                            <span class="text-gradient-gold">نتطوع لنبني الفشن،</span> <br>
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-burgundy-400">ونتعلم لنقود التمكين الرقمي</span>
                         </h2>
                         <p class="text-slate-400 text-sm sm:text-base md:text-lg mb-8 sm:mb-10 max-w-2xl leading-relaxed font-medium opacity-80">
                             مبادرة ذكية تربط العمل البيئي والميداني في الشارع بتعليم الشباب البرمجة واستخدام الـ AI والعمل الحر من المنزل. شارك، اجمع النقاط، كرم والديك على شاشة الميدان، واستشر الذكاء الاصطناعي للتوجيه المهني.
                         </p>
                         
                         <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                            <button onclick="app.switchTab('tasks')" class="px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-b from-gold-400 to-gold-600 hover:from-gold-300 hover:to-gold-500 text-charcoal-950 rounded-2xl sm:rounded-[1.5rem] font-black shadow-2xl shadow-gold-500/20 transform hover:-translate-y-1 transition-all duration-300 text-sm sm:text-base border-t border-white/20">
+                            <button onclick="app.switchTab('tasks')" class="btn-neon-gold px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-b from-gold-400 to-gold-600 text-charcoal-950 rounded-2xl sm:rounded-[1.5rem] font-black shadow-xl transform transition-all duration-200 text-sm sm:text-base border-t border-white/20">
                                 ابدأ رحلتك الميدانية
                             </button>
-                            <button onclick="app.switchTab('ai')" class="px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-b from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 text-white border border-white/10 rounded-2xl sm:rounded-[1.5rem] font-black backdrop-blur-md transform hover:-translate-y-1 transition-all duration-300 text-sm sm:text-base">
+                            <button onclick="app.switchTab('ai')" class="btn-neon-burgundy px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-b from-white/10 to-white/5 text-white border border-white/10 rounded-2xl sm:rounded-[1.5rem] font-black backdrop-blur-md transform transition-all duration-200 text-sm sm:text-base">
                                 استشر المستشار الذكي
                             </button>
                         </div>
                     </div>
 
-                    <!-- Creative Visual Asset -->
+                    <!-- Minimalist Professional Hero Visual -->
                     <div class="lg:w-1/3 flex justify-center relative mt-10 lg:mt-0 perspective-container">
                         <div id="hero-image-card" class="relative w-64 h-64 sm:w-80 sm:h-80 transition-transform duration-200 ease-out will-change-transform">
-                            <!-- Background Glow for Image -->
-                            <div class="absolute inset-0 bg-gold-500/20 rounded-full blur-[60px]"></div>
-                            <!-- Image Container -->
-                            <div class="relative z-10 w-full h-full rounded-[2.5rem] sm:rounded-[3rem] border border-white/10 overflow-hidden bg-gradient-to-br from-white/10 to-transparent backdrop-blur-3xl shadow-2xl neon-pulse-gold transition-all duration-500 glass-reflection">
+                            <div class="absolute inset-0 bg-gold-500/10 rounded-full blur-[100px]"></div>
+                            <div class="relative z-10 w-full h-full rounded-[2.5rem] border border-white/5 overflow-hidden bg-charcoal-900 shadow-[0_0_50px_rgba(128,0,32,0.3)] transition-all duration-500 glass-reflection">
                                 <img src="1.png" alt="Creative Empowerment" class="w-full h-full object-cover p-3 sm:p-4 opacity-95 group-hover:opacity-100 transition-opacity" decoding="async" style="transform: translateZ(50px);">
-                            </div>
-                            
-                            <!-- Floating Badges -->
-                            <div class="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 bg-white p-4 sm:p-5 rounded-2xl sm:rounded-[2rem] shadow-2xl z-20 border border-slate-100 animate-bounce" style="animation-duration: 4s">
-                                <div class="text-center">
-                                    <i class="fa-solid fa-star text-gold-500 text-base sm:text-xl block mb-0.5 sm:mb-1"></i>
-                                    <span class="text-charcoal-950 font-black text-sm sm:text-lg">+1000</span>
-                                    <p class="text-[10px] text-slate-400 font-bold">نقطة تمكين</p>
-                                </div>
-                            </div>
-
-                            <div class="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 glass-premium p-3 sm:p-4 rounded-2xl sm:rounded-3xl shadow-xl z-20 flex items-center gap-3 sm:gap-4">
-                                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-burgundy-800 rounded-xl sm:rounded-2xl flex items-center justify-center text-white text-lg sm:text-xl">
-                                    <i class="fa-solid fa-building-columns"></i>
-                                </div>
-                                <div class="text-right">
-                                    <p class="text-[10px] text-burgundy-600 dark:text-gold-400 font-black uppercase tracking-tighter">رعاية حكومية</p>
-                                    <p class="text-sm sm:text-base font-black text-slate-800 dark:text-white">وزارة الشباب</p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -565,23 +726,23 @@
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 bg-white dark:bg-charcoal-800 p-8 rounded-3xl border border-slate-200 dark:border-charcoal-700 shadow-premium stagger-item" style="animation-delay: 0.5s">
                 <div class="text-center">
                     <p class="text-slate-400 text-xs font-bold uppercase mb-1">إجمالي المتطوعين الموثقين</p>
-                    <h4 class="text-3xl font-mono font-black text-burgundy-800 dark:text-white">1,482</h4>
-                    <span class="text-xs text-emerald-500 font-bold"><i class="fa-solid fa-caret-up ml-1"></i>+12% هذا الأسبوع</span>
+                    <h4 class="text-3xl font-mono font-black text-burgundy-800 dark:text-white">0</h4>
+                    <span class="text-xs text-slate-500 font-bold">بانتظار أول متطوع</span>
                 </div>
                 <div class="text-center border-r border-slate-100 dark:border-charcoal-700">
                     <p class="text-slate-400 text-xs font-bold uppercase mb-1">مناطق ومداخل تم تنظيفها وتجميلها</p>
-                    <h4 class="text-3xl font-mono font-black text-burgundy-800 dark:text-white">143</h4>
-                    <span class="text-xs text-emerald-500 font-bold"><i class="fa-solid fa-circle-check ml-1"></i>بتقارير GPS حية</span>
+                    <h4 class="text-3xl font-mono font-black text-burgundy-800 dark:text-white">0</h4>
+                    <span class="text-xs text-slate-500 font-bold">بانتظار رصد الميدان</span>
                 </div>
                 <div class="text-center border-r border-slate-100 dark:border-charcoal-700">
                     <p class="text-slate-400 text-xs font-bold uppercase mb-1">ساعات دراسة البرمجة والـ AI</p>
-                    <h4 class="text-3xl font-mono font-black text-burgundy-800 dark:text-white">5,910</h4>
-                    <span class="text-xs text-amber-500 font-bold"><i class="fa-solid fa-clock ml-1"></i>متوسط 4 ساعات للمستفيد</span>
+                    <h4 class="text-3xl font-mono font-black text-burgundy-800 dark:text-white">0</h4>
+                    <span class="text-xs text-slate-500 font-bold">ابدأ التعلم الآن</span>
                 </div>
                 <div class="text-center border-r border-slate-100 dark:border-charcoal-700">
                     <p class="text-slate-400 text-xs font-bold uppercase mb-1">عقود عمل حر مستحوذة للشباب</p>
-                    <h4 class="text-3xl font-mono font-black text-burgundy-800 dark:text-white">$14,250</h4>
-                    <span class="text-xs text-emerald-500 font-bold"><i class="fa-solid fa-arrow-trend-up ml-1"></i>من العمل المنزلي</span>
+                    <h4 class="text-3xl font-mono font-black text-burgundy-800 dark:text-white">$0</h4>
+                    <span class="text-xs text-slate-500 font-bold">أول دولار في الطريق</span>
                 </div>
             </div>
         </section>
@@ -639,7 +800,7 @@
                         </div>
 
                         <button type="submit" class="w-full bg-gradient-to-b from-burgundy-700 to-burgundy-900 hover:from-burgundy-600 hover:to-burgundy-800 text-white font-extrabold py-3 rounded-xl transition shadow-md shadow-burgundy-800/20 border-t border-white/10">
-                            أرسل للتثبيت في نظام المهام المتاحة
+                            أرسل للتثبيت في نظام المهام
                         </button>
                     </form>
                 </div>
@@ -891,6 +1052,13 @@
                             <p class="text-slate-400 text-[12px] sm:text-sm font-medium tracking-widest opacity-70">تحديث لحظي من قواعد البيانات الرسمية بالتعاون مع المحليات</p>
                         </div>
 
+                        <!-- Dynamic Congrats Banner -->
+                        <div id="congrats-banner-container" class="mb-10 min-h-[80px] flex items-center justify-center">
+                            <div id="congrats-banner" class="bg-gradient-to-r from-gold-500/10 via-gold-500/20 to-gold-500/10 border-y border-gold-500/30 w-full py-4 text-center">
+                                <p class="text-gold-400 font-black text-lg sm:text-2xl font-calligraphy">بانتظار أبطال التنمية الجدد في مركز الفشن...</p>
+                            </div>
+                        </div>
+
                         <!-- Top 3 Podium Placement -->
                         <div class="flex flex-col lg:flex-row justify-center items-center lg:items-end gap-10 lg:gap-14 mb-20">
                             <!-- 2nd Place: Silver -->
@@ -1099,7 +1267,7 @@
                         </div>
                         <div>
                             <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">المتطوعين</p>
-                            <h4 id="stat-volunteers" class="text-2xl font-mono font-black text-slate-800 dark:text-white">1,482</h4>
+                            <h4 id="stat-volunteers" class="text-2xl font-mono font-black text-slate-800 dark:text-white">0</h4>
                         </div>
                     </div>
                     <div class="mt-4 pt-3 border-t border-slate-50 dark:border-charcoal-700 flex justify-between items-center">
@@ -1116,7 +1284,7 @@
                         </div>
                         <div>
                             <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">قيد المراجعة</p>
-                            <h4 id="stat-pending" class="text-2xl font-mono font-black text-slate-800 dark:text-white">14</h4>
+                            <h4 id="stat-pending" class="text-2xl font-mono font-black text-slate-800 dark:text-white">0</h4>
                         </div>
                     </div>
                     <div class="mt-4 pt-3 border-t border-slate-50 dark:border-charcoal-700">
@@ -1134,7 +1302,7 @@
                         </div>
                         <div>
                             <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">مهام جارية</p>
-                            <h4 id="stat-active" class="text-2xl font-mono font-black text-slate-800 dark:text-white">42</h4>
+                            <h4 id="stat-active" class="text-2xl font-mono font-black text-slate-800 dark:text-white">0</h4>
                         </div>
                     </div>
                     <div class="mt-4 flex -space-x-reverse space-x-2">
@@ -1152,7 +1320,7 @@
                         </div>
                         <div>
                             <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">العائد المجتمعي</p>
-                            <h4 id="stat-impact" class="text-2xl font-mono font-black text-slate-800 dark:text-white">$14,250</h4>
+                            <h4 id="stat-impact" class="text-2xl font-mono font-black text-slate-800 dark:text-white">$0</h4>
                         </div>
                     </div>
                     <div class="mt-4 pt-3 border-t border-slate-50 dark:border-charcoal-700 flex items-center gap-2">
@@ -1252,130 +1420,83 @@
                     </div>
                 </div>
 
-                <div class="overflow-x-auto custom-scrollbar">
-                    <table class="w-full text-sm text-right text-slate-500 dark:text-slate-400 min-w-[800px] lg:min-w-full">
-                        <thead class="text-[11px] text-slate-400 dark:text-slate-500 uppercase tracking-widest bg-slate-50/50 dark:bg-charcoal-900/50">
-                            <tr>
-                                <th class="px-6 py-4 font-black rounded-r-2xl">المتطوع / المجموعة</th>
-                                <th class="px-6 py-4 font-black">الحي والموقع الميداني</th>
-                                <th class="px-6 py-4 font-black">توثيق الـ GPS الجغرافي</th>
-                                <th class="px-6 py-4 font-black">دليل الرصد (قبل / بعد)</th>
-                                <th class="px-6 py-4 font-black">حالة التدقيق</th>
-                                <th class="px-6 py-4 font-black text-center rounded-l-2xl">الإجراء الإداري</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-table-queue">
-                            <!-- Queue Row 1 -->
-                            <tr class="border-b border-slate-100 dark:border-charcoal-700/50 hover:bg-burgundy-50/20 dark:hover:bg-charcoal-900/40 transition-colors" id="queue-item-101">
-                                <td class="px-6 py-6">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-burgundy-100 dark:bg-burgundy-900/30 flex items-center justify-center text-burgundy-800 dark:text-burgundy-400 shadow-inner">
-                                            <i class="fa-solid fa-users-gear"></i>
-                                        </div>
-                                        <span class="font-black text-slate-800 dark:text-white text-base">فريق مدرسة الفشن الثانوية العسكرية</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-6">
-                                    <div class="flex flex-col">
-                                        <span class="font-bold text-slate-700 dark:text-slate-200">تنظيف شارع المحطة الرئيسي وتلوينه</span>
-                                        <span class="text-[10px] text-slate-400">مركز الفشن - منطقة المحطة</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-6">
-                                    <div class="bg-emerald-50 dark:bg-emerald-950/20 px-3 py-1.5 rounded-lg border border-emerald-100 dark:border-emerald-900/50 w-fit">
-                                        <span class="text-emerald-700 dark:text-emerald-400 font-mono font-black text-xs"><i class="fa-solid fa-location-dot ml-2"></i>28.831 , 30.891</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-6">
-                                    <div class="flex items-center gap-2">
-                                        <div class="group relative cursor-help">
-                                            <span class="text-[10px] bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800/50 rounded-lg px-2.5 py-1.5 font-black flex items-center gap-1.5">
-                                                <i class="fa-solid fa-image"></i> قبل (مخلفات)
-                                            </span>
-                                            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-slate-900 text-white p-2 rounded-lg text-[9px] w-24 text-center">صورة رصد المخلفات</div>
-                                        </div>
-                                        <div class="group relative cursor-help">
-                                            <span class="text-[10px] bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50 rounded-lg px-2.5 py-1.5 font-black flex items-center gap-1.5">
-                                                <i class="fa-solid fa-wand-magic-sparkles"></i> بعد (تلوين)
-                                            </span>
-                                            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-slate-900 text-white p-2 rounded-lg text-[9px] w-24 text-center">صورة الإنجاز والطلاء</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-6">
-                                    <div class="status-indicator-container">
-                                        <span class="status-badge-pending inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 text-[10px] font-black">
-                                            <span class="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse"></span> بانتظار المراجعة
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-6 text-center">
-                                    <div class="flex flex-col gap-2 items-center justify-center">
-                                        <div class="flex gap-2">
-                                            <button onclick="app.approveTaskPoints('queue-item-101', 30, 'مجموعة مدرسة الثانوية')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-black text-[11px] px-4 py-2 rounded-xl transition shadow-sm">اعتماد</button>
-                                            <button onclick="app.rejectTaskPoints('queue-item-101')" class="bg-slate-100 hover:bg-rose-500 hover:text-white dark:bg-charcoal-700 text-slate-600 dark:text-slate-400 font-black text-[11px] px-4 py-2 rounded-xl transition">رفض</button>
-                                        </div>
-                                        <button onclick="app.auditTaskWithAI('queue-item-101', 'فريق مدرسة الفشن الثانوية العسكرية', 'تنظيف شارع المحطة الرئيسي وتلوينه', '28.831 , 30.891')" class="text-[10px] bg-white dark:bg-charcoal-900 text-cyan-600 border border-cyan-200 dark:border-cyan-800 hover:bg-cyan-600 hover:text-white font-black px-4 py-1.5 rounded-full flex items-center gap-1.5 transition-all">
-                                            <i class="fa-solid fa-shield-halved animate-pulse"></i>
-                                            <span>تدقيق AI 🤖</span>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                <!-- Card-Based Audit Queue (Modern Grid) -->
+                <div id="admin-table-queue" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <!-- Modern Card 1 -->
+                    <div class="bg-charcoal-900/40 rounded-3xl border border-white/5 p-6 hover-lift group" id="queue-item-101">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-burgundy-800/20 flex items-center justify-center text-burgundy-400 border border-burgundy-800/30">
+                                <i class="fa-solid fa-users-gear"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-black text-white text-base leading-tight">فريق مدرسة الفشن الثانوية العسكرية</h4>
+                                <p class="text-[10px] text-slate-500 font-bold mt-1">شارع المحطة الرئيسي</p>
+                            </div>
+                        </div>
 
-                            <!-- Queue Row 2 -->
-                            <tr class="border-b border-slate-100 dark:border-charcoal-700/50 hover:bg-burgundy-50/20 dark:hover:bg-charcoal-900/40 transition-colors" id="queue-item-102">
-                                <td class="px-6 py-6">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-gold-100 dark:bg-gold-900/30 flex items-center justify-center text-gold-700 dark:text-gold-400 shadow-inner">
-                                            <i class="fa-solid fa-user-check"></i>
-                                        </div>
-                                        <span class="font-black text-slate-800 dark:text-white text-base">المتطوع أحمد الجيار</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-6">
-                                    <div class="flex flex-col">
-                                        <span class="font-bold text-slate-700 dark:text-slate-200">تشجير حديقة الطفل بجانب الكورنيش</span>
-                                        <span class="text-[10px] text-slate-400">منطقة الكورنيش</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-6">
-                                    <div class="bg-emerald-50 dark:bg-emerald-950/20 px-3 py-1.5 rounded-lg border border-emerald-100 dark:border-emerald-900/50 w-fit">
-                                        <span class="text-emerald-700 dark:text-emerald-400 font-mono font-black text-xs"><i class="fa-solid fa-location-dot ml-2"></i>28.835 , 30.898</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-6">
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-[10px] bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800/50 rounded-lg px-2.5 py-1.5 font-black flex items-center gap-1.5">
-                                            <i class="fa-solid fa-image"></i> قبل (ترابية)
-                                        </span>
-                                        <span class="text-[10px] bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50 rounded-lg px-2.5 py-1.5 font-black flex items-center gap-1.5">
-                                            <i class="fa-solid fa-seedling"></i> بعد (شتلات)
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-6">
-                                    <div class="status-indicator-container">
-                                        <span class="status-badge-audit inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 text-[10px] font-black">
-                                            <span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> قيد التدقيق الرقمي
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-6 text-center">
-                                    <div class="flex flex-col gap-2 items-center justify-center">
-                                        <div class="flex gap-2">
-                                            <button onclick="app.approveTaskPoints('queue-item-102', 20, 'أحمد الجيار')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-black text-[11px] px-4 py-2 rounded-xl transition shadow-sm">اعتماد</button>
-                                            <button onclick="app.rejectTaskPoints('queue-item-102')" class="bg-slate-100 hover:bg-rose-500 hover:text-white dark:bg-charcoal-700 text-slate-600 dark:text-slate-400 font-black text-[11px] px-4 py-2 rounded-xl transition">رفض</button>
-                                        </div>
-                                        <button onclick="app.auditTaskWithAI('queue-item-102', 'أحمد الجيار', 'تشجير حديقة الطفل بجانب الكورنيش', '28.835 , 30.898')" class="text-[10px] bg-white dark:bg-charcoal-900 text-cyan-600 border border-cyan-200 dark:border-cyan-800 hover:bg-cyan-600 hover:text-white font-black px-4 py-1.5 rounded-full flex items-center gap-1.5 transition-all">
-                                            <i class="fa-solid fa-shield-halved animate-pulse"></i>
-                                            <span>تدقيق AI 🤖</span>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <div class="bg-charcoal-950/60 p-4 rounded-2xl mb-4 border border-white/5">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">الموقع الموثق</span>
+                                <span class="text-emerald-400 font-mono text-[10px]">28.831, 30.891</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="bg-rose-500/10 text-rose-500 border border-rose-500/20 px-2 py-1 rounded-lg text-[9px] font-black">قبل <i class="fa-solid fa-image ml-1"></i></span>
+                                <span class="bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 px-2 py-1 rounded-lg text-[9px] font-black">بعد <i class="fa-solid fa-check-double ml-1"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="status-indicator-container mb-6 text-center">
+                            <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-amber-500/5 text-amber-500 border border-amber-500/10 text-[10px] font-black w-full justify-center">
+                                <span class="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse"></span> بانتظار المراجعة الإدارية
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="app.approveTaskPoints('queue-item-101', 30, 'مدرسة الثانوية')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs py-3 rounded-2xl transition shadow-lg shadow-emerald-500/10">اعتماد</button>
+                            <button onclick="app.rejectTaskPoints('queue-item-101')" class="bg-white/5 hover:bg-rose-600 text-slate-300 hover:text-white font-black text-xs py-3 rounded-2xl transition">رفض</button>
+                        </div>
+                        <button onclick="app.auditTaskWithAI('queue-item-101', 'مدرسة الثانوية', 'تنظيف وتلوين', '28.831')" class="w-full mt-3 bg-cyan-600/10 hover:bg-cyan-600 text-cyan-400 hover:text-white border border-cyan-600/20 font-black text-[10px] py-2.5 rounded-2xl flex items-center justify-center gap-2 transition-all">
+                            <i class="fa-solid fa-shield-halved animate-pulse"></i> تدقيق AI ذكي
+                        </button>
+                    </div>
+
+                    <!-- Modern Card 2 -->
+                    <div class="bg-charcoal-900/40 rounded-3xl border border-white/5 p-6 hover-lift group" id="queue-item-102">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-gold-800/20 flex items-center justify-center text-gold-400 border border-gold-800/30">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-black text-white text-base leading-tight">المتطوع أحمد الجيار</h4>
+                                <p class="text-[10px] text-slate-500 font-bold mt-1">منطقة الكورنيش</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-charcoal-950/60 p-4 rounded-2xl mb-4 border border-white/5">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">الموقع الموثق</span>
+                                <span class="text-emerald-400 font-mono text-[10px]">28.835, 30.898</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="bg-rose-500/10 text-rose-500 border border-rose-500/20 px-2 py-1 rounded-lg text-[9px] font-black">قبل <i class="fa-solid fa-image ml-1"></i></span>
+                                <span class="bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 px-2 py-1 rounded-lg text-[9px] font-black">بعد <i class="fa-solid fa-check-double ml-1"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="status-indicator-container mb-6 text-center">
+                            <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-cyan-500/5 text-cyan-500 border border-cyan-500/10 text-[10px] font-black w-full justify-center">
+                                <span class="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse"></span> قيد التدقيق الرقمي
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="app.approveTaskPoints('queue-item-102', 20, 'أحمد الجيار')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs py-3 rounded-2xl transition shadow-lg shadow-emerald-500/10">اعتماد</button>
+                            <button onclick="app.rejectTaskPoints('queue-item-102')" class="bg-white/5 hover:bg-rose-600 text-slate-300 hover:text-white font-black text-xs py-3 rounded-2xl transition">رفض</button>
+                        </div>
+                        <button onclick="app.auditTaskWithAI('queue-item-102', 'أحمد الجيار', 'تشجير الكورنيش', '28.835')" class="w-full mt-3 bg-cyan-600/10 hover:bg-cyan-600 text-cyan-400 hover:text-white border border-cyan-600/20 font-black text-[10px] py-2.5 rounded-2xl flex items-center justify-center gap-2 transition-all">
+                            <i class="fa-solid fa-shield-halved animate-pulse"></i> تدقيق AI ذكي
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1420,24 +1541,17 @@
     <script>
         const app = {
             state: {
-                points: 350,
-                highScore: 350,
+                points: 0,
+                highScore: 0,
                 adminStats: {
-                    volunteers: 1482,
-                    pending: 14,
-                    active: 42,
-                    impact: 14250
+                    volunteers: 0,
+                    pending: 0,
+                    active: 0,
+                    impact: 0
                 },
-                registeredUsers: [
-                    { id: 1, name: "عمر خالد الجندي", district: "حي الشيخ غنيم", points: 620, avatar: "Omar+K", badges: ["قائد ميداني", "صانع أثر"], hasRecentAchievement: true, history: [400, 480, 520, 590, 620] },
-                    { id: 2, name: "مريم الشافعي", district: "حي وسط البلد", points: 490, avatar: "Mariam+S", badges: ["مكافح تلوث", "خبير AI"], hasRecentAchievement: false, history: [320, 350, 410, 440, 490] },
-                    { id: 3, name: "أحمد الجيار", district: "منطقة الكورنيش", points: 410, avatar: "Ahmed+J", badges: ["مكافح تلوث"], hasRecentAchievement: true, history: [200, 260, 310, 380, 410] },
-                    { id: 4, name: "حسن مصطفى", district: "منطقة البحر", points: 380, avatar: "Hassan+M", badges: ["قائد ميداني"], hasRecentAchievement: false, history: [250, 290, 330, 350, 380] },
-                    { id: 5, name: "سارة فؤاد", district: "عزبة تابعة للفشن", points: 290, avatar: "Sara+F", badges: ["خبير AI"], history: [150, 180, 220, 260, 290] },
-                    { id: 6, name: "يوسف ابراهيم", district: "شارع المحطة", points: 210, avatar: "Youssef+I", badges: ["مكافح تلوث"], hasRecentAchievement: false, history: [100, 130, 160, 190, 210] }
-                ],
+                registeredUsers: [], // سيتم جلبهم من Firebase
                 activeTab: 'home',
-                isDarkTheme: false,
+                isDarkTheme: true,
                 isLowPower: false,
                 isGpsLocked: false,
                 aiIsProcessing: false,
@@ -1448,7 +1562,14 @@
                 // Chat history maintained with instructions for Gemini
                 aiChatHistory: [],
                 activeQuizCorrectIndex: 1,
-                chartInstance: null
+                chartInstance: null,
+                navParticles: [],
+                congratsTemplates: [
+                    "ألف مبروك للبطل [NAME] على تجاوز حاجز الـ 100 نقطة اليوم!",
+                    "تحية فخر واعتزاز لـ [NAME]، قدوة شباب الفشن في العمل التطوعي.",
+                    "شكر خاص لـ [NAME] على مجهوده الرائع في تجميل حي الشيخ غنيم.",
+                    "بطل الأسبوع: [NAME] يثبت أن شباب الفشن قادر على التغيير الرقمي."
+                ]
             },
 
             // Gemini API Setup
@@ -1489,11 +1610,14 @@
                 const savedHighScore = localStorage.getItem('fashn_highscore');
                 if (savedHighScore) this.state.highScore = parseInt(savedHighScore);
 
+                
+                // Default to Dark Mode if no preference is saved
                 const savedTheme = localStorage.getItem('fashn_theme');
-                if (savedTheme) this.state.isDarkTheme = savedTheme === 'dark';
-
-                const savedLowPower = localStorage.getItem('fashn_lowpower');
-                if (savedLowPower) this.state.isLowPower = savedLowPower === 'true';
+                if (savedTheme) {
+                    this.state.isDarkTheme = savedTheme === 'dark';
+                } else {
+                    this.state.isDarkTheme = true; 
+                }
 
                 this.updateThemeUI();
                 this.updateLowPowerUI();
@@ -1503,6 +1627,10 @@
                 this.updateAdminStatsUI();
                 this.renderUsersLeaderboard();
                 this.updateDynamicGlow();
+                this.initGoldDust();
+                this.initNavParticles();
+                this.startCongratsTicker();
+                setTimeout(() => this.updateNavIndicator('home'), 100);
 
                 // إضافة الصوت الميكانيكي لجميع الأزرار عند الضغط
                 document.addEventListener('mousedown', (e) => {
@@ -1513,13 +1641,15 @@
 
                 window.addEventListener('scroll', () => {
                     const btt = document.getElementById('back-to-top');
+                    const nav = document.getElementById('main-nav');
                     if (window.scrollY > 400) {
                         btt.classList.remove('opacity-0', 'translate-y-10');
                     } else {
                         btt.classList.add('opacity-0', 'translate-y-10');
                     }
+                    if (window.scrollY > 50) nav.classList.add('nav-scrolled');
+                    else nav.classList.remove('nav-scrolled');
                 });
-                
                 // Initialize default prompt setup inside chat history
                 const systemPrompt = "أنت المستشار المهني الذكي والمحفز لمنصة الفشن للتنمية الرقمية والمجتمعية التابعة لمحافظة بني سويف. وظيفتك إرشاد شباب وطلاب مركز الفشن بمصر لسوق العمل الحر (Freelancing) والبرمجة والذكاء الاصطناعي. تحدث باللهجة المصرية الودودة والذكية، كصديق خبير مبرمج. ركز على نصائح ملموسة حول منصات مستقل و Upwork، والتعلم عبر موقع W3Schools لـ HTML/CSS/JS، واستثمار أدوات AI مثل NotebookLM. قدم مسارات قصيرة ومحفزة وعاطفية لتمكين أسر الفشن اقتصادياً. اختم كل إرشاد دائماً بعبارة حماسية تذكرهم بحافز تكريم والديهم على الشاشة الكبرى لمركز الفشن بالشارع العام.";
                 
@@ -1531,6 +1661,30 @@
                     role: "model",
                     parts: [{ text: "أنا جاهز تماماً يا بطل التنمية في مركز الفشن! سأكون رفيقك ومستشارك المهني المعتمد لمساعدتك في تعلم كود البرمجة وأدوات الذكاء الاصطناعي وتجهيزك للفريلانس وكسب الرزق الحلال من منزلك لتفخر بك عائلتك كلها." }]
                 });
+            },
+
+            startCongratsTicker() {
+                const banner = document.getElementById('congrats-banner');
+                if (!banner) return;
+
+                setInterval(() => {
+                    if (this.state.registeredUsers.length === 0) {
+                        banner.innerHTML = `<p class="text-gold-400 font-black text-lg sm:text-2xl font-calligraphy congrats-ticker-fade">بانتظار أبطال التنمية الجدد في مركز الفشن...</p>`;
+                        return;
+                    }
+
+                    // اختر مستخدم عشوائي لديه نقاط
+                    const usersWithPoints = this.state.registeredUsers.filter(u => u.points > 0);
+                    if (usersWithPoints.length === 0) return;
+
+                    const randomUser = usersWithPoints[Math.floor(Math.random() * usersWithPoints.length)];
+                    const randomTemplate = this.state.congratsTemplates[Math.floor(Math.random() * this.state.congratsTemplates.length)];
+                    const finalMsg = randomTemplate.replace('[NAME]', randomUser.name);
+
+                    banner.classList.remove('congrats-ticker-fade');
+                    void banner.offsetWidth; // Reflow
+                    banner.innerHTML = `<p class="text-gold-400 font-black text-lg sm:text-2xl font-calligraphy congrats-ticker-fade">✨ ${finalMsg} ✨</p>`;
+                }, 10000);
             },
 
             // محرك الإمالة ثلاثي الأبعاد للصورة الرئيسية
@@ -1557,6 +1711,123 @@
 
                 card.parentElement.addEventListener('mousemove', handleMove);
                 card.parentElement.addEventListener('mouseleave', handleLeave);
+            },
+
+            // محرك "نبضات البرق" الكهربائية
+            triggerElectricPulse() {
+                const container = document.getElementById('pulse-canvas');
+                if (!container || this.state.isLowPower) return;
+
+                for (let i = 0; i < 5; i++) {
+                    const line = document.createElement('div');
+                    line.className = 'pulse-line';
+                    const top = Math.random() * 100;
+                    const left = Math.random() * 100;
+                    line.style.top = `${top}%`;
+                    line.style.left = `${left}%`;
+                    line.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    container.appendChild(line);
+
+                    line.animate([
+                        { opacity: 0, width: '0px' },
+                        { opacity: 1, width: '200px' },
+                        { opacity: 0, width: '400px' }
+                    ], { duration: 600, easing: 'ease-out' }).onfinish = () => line.remove();
+                }
+            },
+
+            // محرك "الغبار الذهبي" للفخامة (Gold Dust Engine)
+            initGoldDust() {
+                const canvas = document.getElementById('gold-dust-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                let particles = [];
+                let mouse = { x: null, y: null };
+                
+                const resize = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                };
+                window.addEventListener('resize', resize);
+                window.addEventListener('mousemove', (e) => {
+                    mouse.x = e.clientX;
+                    mouse.y = e.clientY;
+                });
+                window.addEventListener('mouseleave', () => {
+                    mouse.x = null;
+                    mouse.y = null;
+                });
+                resize();
+
+                class Particle {
+                    constructor() {
+                        this.reset();
+                    }
+                    reset() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                        this.size = Math.random() * 1.5 + 0.2;
+                        this.speedX = Math.random() * 0.4 - 0.2;
+                        this.speedY = Math.random() * 0.3 + 0.1;
+                        this.opacity = Math.random() * 0.4 + 0.1;
+                        this.fadeSpeed = Math.random() * 0.005 + 0.002;
+                    }
+                    update() {
+                        // Interaction: Attraction to Mouse
+                        if (mouse.x !== null) {
+                            const dx = mouse.x - this.x;
+                            const dy = mouse.y - this.y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+                            const maxDistance = 250; // Range of attraction
+                            
+                            if (distance < maxDistance) {
+                                const force = (maxDistance - distance) / maxDistance;
+                                const strength = 0.15; // Power of the magnet
+                                this.speedX += (dx / distance) * force * strength;
+                                this.speedY += (dy / distance) * force * strength;
+                            }
+                        }
+
+                        // Friction: Keeps movement smooth and professional
+                        this.speedX *= 0.98;
+                        this.speedY *= 0.98;
+
+                        this.x += this.speedX;
+                        this.y += this.speedY;
+                        this.opacity -= this.fadeSpeed;
+
+                        if (this.y > canvas.height || this.opacity <= 0) {
+                            this.reset();
+                            this.y = -10;
+                        }
+                    }
+                    draw() {
+                        ctx.fillStyle = `rgba(212, 161, 59, ${this.opacity})`;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                const spawnParticles = () => {
+                    particles = [];
+                    for (let i = 0; i < 70; i++) {
+                        particles.push(new Particle());
+                    }
+                };
+                spawnParticles();
+
+                const render = () => {
+                    if (!this.state.isLowPower) {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        particles.forEach(p => {
+                            p.update();
+                            p.draw();
+                        });
+                    }
+                    requestAnimationFrame(render);
+                };
+                render();
             },
 
             updateAdminStatsUI() {
@@ -1751,44 +2022,28 @@
 
             toggleTheme() {
                 const curtain = document.getElementById('theme-curtain');
+                if (!curtain) return;
 
-                // Check if current points set a new record for the shimmer effect
-                const isNewRecord = this.state.points > this.state.highScore;
-                if (isNewRecord) {
-                    this.state.highScore = this.state.points;
-                    localStorage.setItem('fashn_highscore', this.state.highScore);
-                    curtain.classList.add('record-shimmer');
-                } else {
-                    curtain.classList.remove('record-shimmer');
-                }
-
-                // Play luxury slide sound
                 this.playSlideSound();
                 
-                // Check points for "Golden Glory" effect
-                if (this.state.points >= 1000) {
-                    curtain.classList.add('gold-glory');
-                } else {
-                    curtain.classList.remove('gold-glory');
-                }
-
-                curtain.style.transition = 'right 0.7s cubic-bezier(0.7, 0, 0.3, 1)';
-                curtain.style.right = '0';
+                // Side magnetic slide animation
+                curtain.style.transform = 'translateX(-100%)';
+                
+                setTimeout(() => {
+                    curtain.style.transform = 'translateX(-200%)';
+                    setTimeout(() => {
+                        curtain.style.transition = 'none';
+                        curtain.style.transform = 'translateX(0)';
+                        setTimeout(() => curtain.style.transition = 'transform 0.5s cubic-bezier(0.8, 0, 0.2, 1)', 50);
+                    }, 500);
+                }, 500);
 
                 setTimeout(() => {
                     this.state.isDarkTheme = !this.state.isDarkTheme;
                     localStorage.setItem('fashn_theme', this.state.isDarkTheme ? 'dark' : 'light');
                     this.updateThemeUI();
                     this.updateDynamicGlow();
-                    
-                    setTimeout(() => {
-                        curtain.style.right = '100%';
-                        setTimeout(() => {
-                            curtain.style.transition = 'none';
-                            curtain.style.right = '-110%';
-                        }, 700);
-                    }, 50);
-                }, 350);
+                }, 400);
 
                 this.showNotification(
                     this.state.isDarkTheme ? 'تم تفعيل الوضع الليلي الاحترافي 🌙' : 'تم تفعيل الوضع الفاتح المشرق ☀️', 
@@ -1886,7 +2141,88 @@
 
             toggleSidebar() {
                 const sidebar = document.getElementById('sidebar-overlay');
-                sidebar.classList.toggle('active');
+                const isActive = sidebar.classList.toggle('active');
+                this.playSlideSound();
+            },
+
+            // محرك جزيئات التنقل الإبداعي
+            initNavParticles() {
+                const canvas = document.getElementById('nav-particle-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                
+                const resize = () => {
+                    const rect = canvas.parentElement.getBoundingClientRect();
+                    canvas.width = rect.width;
+                    canvas.height = rect.height;
+                };
+                resize();
+                window.addEventListener('resize', resize);
+
+                const render = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    this.navParticles.forEach((p, i) => {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.alpha *= 0.94;
+                        p.size *= 0.96;
+                        if (p.alpha < 0.05) this.navParticles.splice(i, 1);
+                        
+                        ctx.fillStyle = `rgba(212, 161, 59, ${p.alpha})`;
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    });
+                    requestAnimationFrame(render);
+                };
+                render();
+            },
+
+            spawnNavTrail() {
+                const indicator = document.getElementById('nav-indicator');
+                const canvas = document.getElementById('nav-particle-canvas');
+                if (!indicator || !canvas || this.state.isLowPower) return;
+                
+                let startTime = null;
+                const step = (timestamp) => {
+                    if (!startTime) startTime = timestamp;
+                    const progress = timestamp - startTime;
+                    
+                    const rect = indicator.getBoundingClientRect();
+                    const canvasRect = canvas.getBoundingClientRect();
+                    
+                    const x = rect.left - canvasRect.left + rect.width / 2;
+                    const y = rect.top - canvasRect.top + rect.height / 2;
+                    
+                    for(let i=0; i<4; i++) {
+                        this.navParticles.push({
+                            x: x + (Math.random() - 0.5) * 15,
+                            y: y + (Math.random() - 0.5) * 10,
+                            vx: (Math.random() - 0.5) * 1.5,
+                            vy: (Math.random() - 0.5) * 1.5,
+                            alpha: 1,
+                            size: Math.random() * 2.5 + 1
+                        });
+                    }
+                    if (progress < 450) requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+            },
+
+            updateNavIndicator(tabId) {
+                const btn = document.getElementById(`tab-btn-${tabId}`);
+                const indicator = document.getElementById('nav-indicator');
+                if (btn && indicator) {
+                    indicator.style.width = `${btn.offsetWidth}px`;
+                    indicator.style.height = `${btn.offsetHeight}px`;
+                    indicator.style.left = `${btn.offsetLeft}px`;
+                    indicator.style.top = `${btn.offsetTop}px`;
+                    
+                    // الفيزياء الإبداعية: تأثير التمدد اللحظي
+                    indicator.style.transform = 'scale(1.08, 0.95)';
+                    setTimeout(() => indicator.style.transform = 'scale(1)', 200);
+                    this.spawnNavTrail();
+                }
             },
 
             // Smoothed Tabs Changing System
@@ -1906,6 +2242,7 @@
                     activeView.classList.add('active-view');
                 }
 
+                this.updateNavIndicator(tabId);
                 document.querySelectorAll('.nav-btn').forEach(btn => {
                     btn.classList.remove('nav-link-active');
                 });
@@ -1922,11 +2259,24 @@
             // Improved logic to handle points and dynamic glow color
             updatePointsCountDisplay() {
                 const ptsCounterEl = document.getElementById('user-points');
+                const navContainers = document.querySelectorAll('.neon-nav-wrap, .desktop-nav-wrap');
                 if (!ptsCounterEl) return;
 
                 let currentVal = parseInt(ptsCounterEl.innerText) || 0;
                 const targetVal = this.state.points;
                 if (currentVal === targetVal) return;
+
+                // Trigger Neon Pulse on all Navigation Containers (Desktop & Mobile)
+                if (navContainers.length > 0 && targetVal > currentVal) {
+                    navContainers.forEach(container => {
+                        container.classList.remove('nav-pulse-trigger');
+                        void container.offsetWidth; // Force Reflow
+                        container.classList.add('nav-pulse-trigger');
+                    });
+                    setTimeout(() => {
+                        navContainers.forEach(container => container.classList.remove('nav-pulse-trigger'));
+                    }, 800);
+                }
 
                 const numericStep = targetVal > currentVal ? 1 : -1;
                 const counterIntervalTimer = setInterval(() => {
@@ -2027,6 +2377,7 @@
                 this.state.points += pointsAmount;
                 localStorage.setItem('fashn_points', this.state.points);
                 this.updatePointsCountDisplay();
+                this.triggerElectricPulse();
                 this.showNotification(`تم كسب +${pointsAmount} نقطة تطوع! السبب: ${reason}`, 'success');
             },
 
