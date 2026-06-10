@@ -1,0 +1,2566 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الفشن للتنمية الرقمية والمجتمعية</title>
+    
+    <!-- Google Fonts: Cairo & Inter for Professional Arabic & English Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons for Beautiful Visual Assets -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Chart.js for Professional Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Tailwind CSS with CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        burgundy: {
+                            50: '#fdf2f4',
+                            100: '#fbe5ea',
+                            200: '#f8ced7',
+                            300: '#f2a7b9',
+                            400: '#e77593',
+                            500: '#da4972',
+                            600: '#c32b57',
+                            700: '#a31d43',
+                            800: '#800020', // Main Premium Burgundy Color requested
+                            900: '#720b27',
+                            950: '#420211',
+                        },
+                        gold: {
+                            50: '#fbf9eb',
+                            100: '#f6f1cd',
+                            200: '#eddca0',
+                            300: '#e0c067',
+                            400: '#d4a13b',
+                            500: '#bd842a',
+                            600: '#a16520',
+                            700: '#80481c',
+                            800: '#68391a',
+                            900: '#583019',
+                            950: '#32180b',
+                        },
+                        charcoal: {
+                            50: '#f6f6f6',
+                            100: '#e7e7e7',
+                            200: '#d1d1d1',
+                            300: '#b0b0b0',
+                            400: '#888888',
+                            500: '#6d6d6d',
+                            600: '#5d5d5d',
+                            700: '#4f4f4f',
+                            800: '#1c1c1e', // Premium Matte Black base
+                            900: '#121214', // Jet Black
+                            950: '#09090b', // Deep Midnight Black
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        mono: ['Inter', 'monospace']
+                    },
+                    boxShadow: {
+                        'neon-burgundy': '0 0 15px rgba(128, 0, 32, 0.4)',
+                        'neon-gold': '0 0 15px rgba(212, 161, 59, 0.4)',
+                        'premium': '0 20px 40px -12px rgba(0, 0, 0, 0.1), 0 10px 20px -10px rgba(128, 0, 32, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        .dark ::-webkit-scrollbar-track { background: #1c1c1e; }
+        ::-webkit-scrollbar-thumb { background: #800020; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a31d43; }
+
+        :root {
+            --spring-easing: cubic-bezier(0.4, 0, 0.2, 1);
+            --bounce-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --neon-glow-rgb: 212, 161, 59; /* Default Gold */
+            --mesh-color-1: rgba(128, 0, 32, 0.15);
+            --mesh-color-2: rgba(189, 132, 42, 0.1);
+        }
+
+        /* Smooth UI transitions and background shifts */
+        body {
+            transition: background-color 0.4s ease, color 0.3s ease;
+            scroll-padding-top: 100px;
+            background-image: 
+                radial-gradient(at 0% 0%, var(--mesh-color-1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, var(--mesh-color-2) 0, transparent 50%);
+            background-attachment: fixed;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Speed Boost: Only render sections when needed */
+        .app-view {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 500px;
+        }
+
+        .animate-physical {
+            transition: all 0.4s var(--bounce-easing);
+            will-change: transform, opacity;
+        }
+
+        .font-calligraphy {
+            font-family: 'Reem Kufi', sans-serif;
+        }
+
+        /* Active Navigation Line Hover Animations */
+        .nav-link-active {
+            background: rgba(128, 0, 32, 0.08);
+            color: #800020 !important;
+            font-weight: 800;
+        }
+        .dark .nav-link-active { background: rgba(231, 117, 147, 0.1); color: #e77593 !important; }
+
+        /* Glassmorphism Styles */
+        .glass-premium {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(128, 0, 32, 0.12);
+        }
+        .dark .glass-premium {
+            background: rgba(18, 18, 20, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Shimmer effects for gamified rewards and street screens */
+        @keyframes pulse-glowing {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+        .animate-glow {
+            animation: pulse-glowing 3s infinite ease-in-out;
+        }
+
+        .glass-reflection {
+            position: relative; overflow: hidden;
+        }
+        .glass-reflection::after { content: ''; position: absolute; top: -100%; left: -100%; width: 50%; height: 300%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent); transform: rotate(45deg); transition: 0.7s; }
+        .glass-reflection:hover::after { left: 150%; }
+
+        .text-glow-gold {
+            text-shadow: 0 0 20px rgba(212, 161, 59, 0.4), 0 0 40px rgba(212, 161, 59, 0.2);
+        }
+
+        /* Interactive 3D Perspective */
+        .perspective-container {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes neon-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(var(--neon-glow-rgb), 0.2), inset 0 0 10px rgba(var(--neon-glow-rgb), 0.1); border-color: rgba(var(--neon-glow-rgb), 0.2); }
+            50% { box-shadow: 0 0 40px rgba(var(--neon-glow-rgb), 0.6), inset 0 0 20px rgba(var(--neon-glow-rgb), 0.3); border-color: rgba(var(--neon-glow-rgb), 0.5); }
+        }
+
+        .neon-pulse-gold {
+            animation: neon-glow 4s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+        .animate-float { animation: float 6s infinite ease-in-out; }
+
+        /* Active view layout switch */
+        .app-view { display: none; }
+        .app-view.active-view { display: block; animation: viewSlideIn 0.4s var(--spring-easing) forwards; content-visibility: visible; }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 20px 40px -10px rgba(128, 0, 32, 0.15);
+            border-color: #800020 !important;
+        }
+
+        button:active {
+            transform: translateY(2px) scale(0.97) !important;
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+            transition: all 0.1s ease !important;
+        }
+
+        @keyframes viewSlideIn {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); filter: blur(8px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        }
+
+        /* Mobile Sidebar Drawer */
+        .sidebar-overlay { opacity: 0; pointer-events: none; transition: all 0.3s ease; }
+        .sidebar-overlay.active { opacity: 1; pointer-events: auto; backdrop-filter: blur(4px); }
+        .sidebar-content { transform: translateX(-100%); transition: all 0.5s var(--bounce-easing); }
+        .sidebar-overlay.active .sidebar-content { transform: translateX(0); }
+
+        .sidebar-item {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.5s var(--bounce-easing);
+        }
+        .sidebar-overlay.active .sidebar-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Mobile Bottom Nav */
+        .mobile-nav { display: none; }
+        @media (max-width: 1024px) { .mobile-nav { display: flex; } }
+
+        .stagger-item { opacity: 0; animation: fadeInSlide 0.6s var(--spring-easing) forwards; }
+        @keyframes fadeInSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Power Saving Mode Overrides */
+        .low-power-mode *, .low-power-mode *::after, .low-power-mode *::before {
+            animation: none !important;
+            transition: none !important;
+            backdrop-filter: none !important;
+        }
+        .low-power-mode .stagger-item {
+            opacity: 1 !important;
+            transform: none !important;
+            filter: none !important;
+        }
+        .row-fade-in {
+            animation: rowFadeIn 0.4s var(--spring-easing) forwards;
+            will-change: transform, opacity;
+        }
+        @keyframes rowFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .low-power-mode img {
+            filter: grayscale(1) contrast(0.8) opacity(0.7) !important;
+            image-rendering: -webkit-optimize-contrast;
+        }
+        .low-power-mode {
+            background-image: none !important;
+            background-color: #F8FAFC !important;
+        }
+        .dark.low-power-mode { background-color: #09090b !important; }
+
+        /* Cinematic Curtain Effect */
+        #theme-curtain {
+            position: fixed;
+            top: 0;
+            right: -110%; /* Increased to hide shadow/edge completely */
+            width: 105%;
+            height: 100%;
+            background-color: #420211;
+            background-image: url('https://www.transparenttextures.com/patterns/luxury.png'); /* Elegant Etched Pattern */
+            background-blend-mode: overlay;
+            z-index: 10000;
+            pointer-events: none;
+            box-shadow: -20px 0 100px rgba(0,0,0,0.8);
+            will-change: right;
+        }
+
+        /* Special "Golden Glory" State for 1000+ Points */
+        #theme-curtain.gold-glory {
+            background-color: #bd842a;
+            background-image: url('https://www.transparenttextures.com/patterns/luxury.png'), linear-gradient(135deg, #bd842a 0%, #f6f1cd 50%, #bd842a 100%);
+            box-shadow: -20px 0 100px rgba(189, 132, 42, 0.6);
+        }
+
+        /* New Record Shimmer Effect */
+        @keyframes shimmer-gold {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .record-shimmer::after {
+            content: "";
+            position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background-size: 200% 100%;
+            animation: shimmer-gold 1.5s infinite linear;
+        }
+
+        /* Achievement Neon Glow for recent activities */
+        @keyframes badge-pulse {
+            0%, 100% { filter: brightness(1) drop-shadow(0 0 2px currentColor); opacity: 0.9; }
+            50% { filter: brightness(1.3) drop-shadow(0 0 10px currentColor); opacity: 1; }
+        }
+        .recent-achievement-glow {
+            animation: badge-pulse 2s infinite ease-in-out;
+            border-width: 1.5px !important;
+        }
+
+        /* Modal Entrance Animation */
+        #user-modal-overlay {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #user-modal-content {
+            transition: all 0.5s var(--bounce-easing);
+            transform: scale(0.9) translateY(30px);
+        }
+        #user-modal-overlay.active #user-modal-content {
+            transform: scale(1) translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-slate-800 dark:bg-charcoal-950 dark:text-slate-100 font-sans antialiased min-h-screen">
+
+    <!-- Cinematic Theme Curtain -->
+    <div id="theme-curtain"></div>
+
+    <!-- Top Navigation Bar -->
+    <nav class="fixed w-full top-0 z-50 glass-premium shadow-xl transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 lg:h-20 items-center">
+                
+                <!-- Logo & Brand Header -->
+                <div class="flex items-center gap-3 lg:gap-4 cursor-pointer group" onclick="app.switchTab('home')">
+                    <div class="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-gradient-to-br from-burgundy-800 to-burgundy-600 dark:from-burgundy-600 dark:to-burgundy-900 flex items-center justify-center text-white shadow-lg">
+                        <i class="fa-solid fa-ribbon text-2xl group-hover:scale-110 transition-transform will-change-transform"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg lg:text-xl font-black text-burgundy-800 dark:text-white leading-tight">
+                            <span>منصة الفشن</span>
+                        </h1>
+                        <p class="hidden lg:block text-[11px] text-slate-500 dark:text-slate-400 font-medium">نظام التنمية والتمكين الرقمي</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Tabs links -->
+                <div class="hidden lg:flex items-center space-x-reverse space-x-2">
+                    <button onclick="app.switchTab('home')" id="tab-btn-home" class="nav-btn nav-link-active px-4 py-2 rounded-xl text-[14px] font-bold transition-all duration-300 hover:bg-burgundy-50 dark:hover:bg-charcoal-800">الرئيسية</button>
+                    <button onclick="app.switchTab('tasks')" id="tab-btn-tasks" class="nav-btn px-4 py-2 rounded-xl text-[14px] font-bold transition-all duration-300 hover:bg-burgundy-50 dark:hover:bg-charcoal-800">المهام</button>
+                    <button onclick="app.switchTab('salon')" id="tab-btn-salon" class="nav-btn px-4 py-2 rounded-xl text-[14px] font-bold transition-all duration-300 hover:bg-burgundy-50 dark:hover:bg-charcoal-800">الصالون</button>
+                    <button onclick="app.switchTab('leaderboard')" id="tab-btn-leaderboard" class="nav-btn px-4 py-2 rounded-xl text-[14px] font-bold transition-all duration-300 hover:bg-burgundy-50 dark:hover:bg-charcoal-800">الميدان</button>
+                    <button onclick="app.switchTab('ai')" id="tab-btn-ai" class="nav-btn px-4 py-2 rounded-xl text-[14px] font-bold transition-all duration-300 hover:bg-burgundy-50 dark:hover:bg-charcoal-800 text-burgundy-700 dark:text-burgundy-400 flex items-center gap-2"><i class="fa-solid fa-robot"></i>AI</button>
+                    <button onclick="app.switchTab('admin')" id="tab-btn-admin" class="nav-btn px-4 py-2 rounded-xl text-[14px] font-bold transition-all duration-300 hover:bg-red-50 dark:hover:bg-red-950/20 text-red-700 dark:text-red-400"><i class="fa-solid fa-shield-halved"></i></button>
+                </div>
+
+                <!-- Right Quick Badge Profile, Points, Theme Switcher -->
+                <div class="flex items-center gap-2 lg:gap-3">
+
+                    <!-- Real-Time Points counter badge -->
+                    <div class="bg-burgundy-50/50 dark:bg-charcoal-900/50 border border-burgundy-100/50 dark:border-charcoal-800 px-3 lg:px-4 py-1.5 rounded-full flex items-center gap-2 lg:gap-3 shadow-inner transition-all duration-500">
+                        <i class="fa-solid fa-award text-gold-500 text-base lg:text-lg"></i>
+                        <span id="user-points" class="font-mono font-black text-base lg:text-lg text-burgundy-800 dark:text-gold-400">350</span>
+                        <span class="hidden lg:inline text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Pts</span>
+                    </div>
+
+                    <!-- Power Saving Toggle (Desktop) -->
+                    <button onclick="app.toggleLowPowerMode()" class="hidden lg:flex w-10 h-10 rounded-xl bg-white dark:bg-charcoal-800 text-slate-500 dark:text-slate-400 items-center justify-center transition shadow-sm border border-slate-200 dark:border-charcoal-700" title="وضع توفير الطاقة">
+                        <i id="pwr-icon-desktop" class="fa-solid fa-battery-full text-lg"></i>
+                    </button>
+
+                    <!-- Black Theme Switcher -->
+                    <button onclick="app.toggleTheme()" class="hidden sm:flex w-10 h-10 rounded-xl bg-white dark:bg-charcoal-800 text-burgundy-800 dark:text-gold-400 items-center justify-center transition shadow-sm border border-burgundy-100 dark:border-charcoal-700" title="تبديل المظهر">
+                        <i class="fa-solid fa-circle-half-stroke text-lg"></i>
+                    </button>
+
+                    <!-- Hamburger Menu (Now on the LEFT side in RTL) -->
+                    <button onclick="app.toggleSidebar()" class="lg:hidden w-10 h-10 rounded-xl bg-burgundy-800 text-white flex items-center justify-center shadow-lg shadow-burgundy-800/20">
+                        <i class="fa-solid fa-bars-staggered text-lg"></i>
+                    </button>
+
+                    <!-- User Mini Profile -->
+                    <div class="hidden sm:flex items-center gap-2">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-gold-500 to-burgundy-800 p-[2px] shadow-sm">
+                            <img src="https://ui-avatars.com/api/?name=Fashn+Volunteer&background=800020&color=fff" alt="User Profile" class="w-full h-full object-cover rounded-[10px]" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Sidebar Drawer Overlay -->
+    <div id="sidebar-overlay" class="sidebar-overlay fixed inset-0 z-[100] bg-black/40 lg:hidden" onclick="app.toggleSidebar()">
+        <div class="sidebar-content absolute left-0 top-0 h-full w-72 bg-white/70 dark:bg-charcoal-950/70 backdrop-blur-2xl border-r border-white/20 dark:border-white/5 shadow-2xl p-6 flex flex-col" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-10 pb-4 border-b border-burgundy-100/20 dark:border-charcoal-800">
+                <h2 class="text-xl font-black text-burgundy-800 dark:text-white">القائمة</h2>
+                <button onclick="app.toggleSidebar()" class="w-9 h-9 rounded-xl bg-white/50 dark:bg-charcoal-800/50 flex items-center justify-center shadow-sm">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-4 flex flex-col">
+                <button onclick="app.switchTab('home'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl hover:bg-white/40 dark:hover:bg-charcoal-800/40 transition-all duration-300" style="transition-delay: 0.1s">
+                    <div class="w-10 h-10 rounded-xl bg-sky-50 dark:bg-sky-950/30 text-sky-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform"><i class="fa-solid fa-house"></i></div>
+                    <span class="font-bold text-slate-700 dark:text-slate-200">الرئيسية</span>
+                </button>
+                <button onclick="app.switchTab('community'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl hover:bg-white/40 dark:hover:bg-charcoal-800/40 transition-all duration-300" style="transition-delay: 0.12s">
+                    <div class="w-10 h-10 rounded-xl bg-gold-50 dark:bg-gold-950/30 text-gold-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform"><i class="fa-solid fa-people-group"></i></div>
+                    <span class="font-bold text-slate-700 dark:text-slate-200">مجتمع الرواد</span>
+                </button>
+                <button onclick="app.switchTab('tasks'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl hover:bg-white/40 dark:hover:bg-charcoal-800/40 transition-all duration-300" style="transition-delay: 0.15s">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 text-emerald-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform"><i class="fa-solid fa-list-check"></i></div>
+                    <span class="font-bold text-slate-700 dark:text-slate-200">المهام الميدانية</span>
+                </button>
+                <button onclick="app.switchTab('salon'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl hover:bg-white/40 dark:hover:bg-charcoal-800/40 transition-all duration-300" style="transition-delay: 0.2s">
+                    <div class="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950/30 text-rose-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform"><i class="fa-solid fa-microphone-lines"></i></div>
+                    <span class="font-bold text-slate-700 dark:text-slate-200">صالون التمكين</span>
+                </button>
+                <button onclick="app.switchTab('ai'); app.toggleSidebar()" class="sidebar-item group flex items-center gap-4 p-4 rounded-2xl hover:bg-white/40 dark:hover:bg-charcoal-800/40 transition-all duration-300" style="transition-delay: 0.25s">
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/30 text-amber-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform"><i class="fa-solid fa-robot"></i></div>
+                    <span class="font-bold text-slate-700 dark:text-slate-200">مستشار AI</span>
+                </button>
+                <hr class="border-burgundy-100/20 dark:border-charcoal-800 my-2">
+                <button onclick="app.toggleLowPowerMode(); app.toggleSidebar()" class="sidebar-item flex items-center gap-4 p-4 rounded-2xl text-slate-500 dark:text-slate-400" style="transition-delay: 0.3s">
+                    <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-charcoal-800 flex items-center justify-center"><i id="pwr-icon-mobile" class="fa-solid fa-battery-full"></i></div>
+                    <span class="font-bold">توفير الطاقة</span>
+                </button>
+                <button onclick="app.toggleTheme(); app.toggleSidebar()" class="sidebar-item flex items-center gap-4 p-4 rounded-2xl text-slate-500 dark:text-slate-400" style="transition-delay: 0.3s">
+                    <i class="fa-solid fa-moon"></i> تبديل المظهر
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-nav fixed bottom-0 w-full z-50 glass-premium border-t border-burgundy-100 dark:border-charcoal-800 flex justify-around items-center py-3 lg:hidden shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
+        <button onclick="app.switchTab('home')" class="flex flex-col items-center gap-1 text-burgundy-800 dark:text-slate-400"><i class="fa-solid fa-house text-lg"></i><span class="text-[10px] font-bold">الرئيسية</span></button>
+        <button onclick="app.switchTab('community')" class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400"><i class="fa-solid fa-people-group text-lg"></i><span class="text-[10px] font-bold">المجتمع</span></button>
+        <button onclick="app.switchTab('tasks')" class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400"><i class="fa-solid fa-list-check text-lg"></i><span class="text-[10px] font-bold">المهام</span></button>
+        <button onclick="app.switchTab('ai')" class="flex flex-col items-center gap-1 text-burgundy-600 dark:text-burgundy-400"><i class="fa-solid fa-robot text-lg"></i><span class="text-[10px] font-bold">المستشار</span></button>
+        <button onclick="app.switchTab('admin')" class="flex flex-col items-center gap-1 text-red-600 dark:text-red-400"><i class="fa-solid fa-shield text-lg"></i><span class="text-[10px] font-bold">الإدارة</span></button>
+    </nav>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-24 left-6 z-40 w-12 h-12 bg-burgundy-800 text-white rounded-full shadow-xl flex items-center justify-center opacity-0 translate-y-10 transition-all duration-300 hover:bg-burgundy-900 lg:bottom-10">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Main Container -->
+    <main class="pt-28 pb-24 lg:pb-16 min-h-screen">
+
+        <!-- VIEW 1: HOME (الرئيسية) -->
+        <section id="view-home" class="app-view active-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Hero Dashboard Header Banner -->
+            <div class="relative rounded-[3.5rem] bg-[#0A0A0C] overflow-hidden shadow-2xl mb-12 border border-white/5 stagger-item">
+                <!-- Advanced Mesh Gradient Background -->
+                <div class="absolute inset-0 opacity-30 pointer-events-none">
+                    <div class="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-burgundy-900/30 rounded-full blur-[80px]"></div>
+                    <div class="absolute bottom-[-20%] right-[-10%] w-[70%] h-[70%] bg-gold-900/20 rounded-full blur-[80px]"></div>
+                </div>
+                <!-- Interactive Grid pattern back -->
+                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 pointer-events-none"></div>
+                
+                <div class="relative z-10 px-6 sm:px-8 py-12 md:py-20 lg:py-24 text-right flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-12">
+                    <div class="lg:w-2/3">
+                        <span class="inline-flex items-center gap-2 py-2 px-5 sm:px-6 rounded-full bg-gold-500/10 text-gold-400 text-[10px] sm:text-xs font-black mb-6 sm:mb-8 border border-gold-500/20 backdrop-blur-xl animate-bounce">
+                            <i class="fa-solid fa-sparkles text-gold-500"></i> مدعوم بالكامل بتقنيات Gemini 3.1 AI المتطورة
+                        </span>
+                        <h2 class="font-calligraphy text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.25] sm:leading-[1.3] mb-6 sm:mb-8 tracking-wide">
+                            نظام تنمية قومي محلي مصغر.. <br>
+                            <span class="text-glow-gold bg-clip-text text-transparent bg-gradient-to-l from-gold-500 via-gold-200 to-white">نتطوع لنبني الفشن،</span> <br>
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-white to-burgundy-400">ونتعلم لنقود التمكين الرقمي</span>
+                        </h2>
+                        <p class="text-slate-400 text-sm sm:text-base md:text-lg mb-8 sm:mb-10 max-w-2xl leading-relaxed font-medium opacity-80">
+                            مبادرة ذكية تربط العمل البيئي والميداني في الشارع بتعليم الشباب البرمجة واستخدام الـ AI والعمل الحر من المنزل. شارك، اجمع النقاط، كرم والديك على شاشة الميدان، واستشر الذكاء الاصطناعي للتوجيه المهني.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                            <button onclick="app.switchTab('tasks')" class="px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-b from-gold-400 to-gold-600 hover:from-gold-300 hover:to-gold-500 text-charcoal-950 rounded-2xl sm:rounded-[1.5rem] font-black shadow-2xl shadow-gold-500/20 transform hover:-translate-y-1 transition-all duration-300 text-sm sm:text-base border-t border-white/20">
+                                ابدأ رحلتك الميدانية
+                            </button>
+                            <button onclick="app.switchTab('ai')" class="px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-b from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 text-white border border-white/10 rounded-2xl sm:rounded-[1.5rem] font-black backdrop-blur-md transform hover:-translate-y-1 transition-all duration-300 text-sm sm:text-base">
+                                استشر المستشار الذكي
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Creative Visual Asset -->
+                    <div class="lg:w-1/3 flex justify-center relative mt-10 lg:mt-0 perspective-container">
+                        <div id="hero-image-card" class="relative w-64 h-64 sm:w-80 sm:h-80 transition-transform duration-200 ease-out will-change-transform">
+                            <!-- Background Glow for Image -->
+                            <div class="absolute inset-0 bg-gold-500/20 rounded-full blur-[60px]"></div>
+                            <!-- Image Container -->
+                            <div class="relative z-10 w-full h-full rounded-[2.5rem] sm:rounded-[3rem] border border-white/10 overflow-hidden bg-gradient-to-br from-white/10 to-transparent backdrop-blur-3xl shadow-2xl neon-pulse-gold transition-all duration-500 glass-reflection">
+                                <img src="1.png" alt="Creative Empowerment" class="w-full h-full object-cover p-3 sm:p-4 opacity-95 group-hover:opacity-100 transition-opacity" decoding="async" style="transform: translateZ(50px);">
+                            </div>
+                            
+                            <!-- Floating Badges -->
+                            <div class="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 bg-white p-4 sm:p-5 rounded-2xl sm:rounded-[2rem] shadow-2xl z-20 border border-slate-100 animate-bounce" style="animation-duration: 4s">
+                                <div class="text-center">
+                                    <i class="fa-solid fa-star text-gold-500 text-base sm:text-xl block mb-0.5 sm:mb-1"></i>
+                                    <span class="text-charcoal-950 font-black text-sm sm:text-lg">+1000</span>
+                                    <p class="text-[10px] text-slate-400 font-bold">نقطة تمكين</p>
+                                </div>
+                            </div>
+
+                            <div class="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 glass-premium p-3 sm:p-4 rounded-2xl sm:rounded-3xl shadow-xl z-20 flex items-center gap-3 sm:gap-4">
+                                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-burgundy-800 rounded-xl sm:rounded-2xl flex items-center justify-center text-white text-lg sm:text-xl">
+                                    <i class="fa-solid fa-building-columns"></i>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-[10px] text-burgundy-600 dark:text-gold-400 font-black uppercase tracking-tighter">رعاية حكومية</p>
+                                    <p class="text-sm sm:text-base font-black text-slate-800 dark:text-white">وزارة الشباب</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Platform Strategic Advantages Columns -->
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-extrabold text-burgundy-800 dark:text-white mb-2">أركان استراتيجية الفشن الذكية</h3>
+                <p class="text-slate-500 dark:text-slate-400 max-w-xl mx-auto text-sm">أربعة أركان متكاملة تنقل مركز الفشن من حيز الإدارة التقليدية لحيز الحوكمة والتمكين المستدام</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <!-- Card Advantage 1 -->
+                <div class="bg-white dark:bg-charcoal-800 p-6 rounded-3xl border border-slate-200 dark:border-charcoal-700 shadow-premium hover-lift animate-physical stagger-item" style="animation-delay: 0.1s">
+                    <div class="w-12 h-12 bg-burgundy-50 dark:bg-burgundy-950/40 text-burgundy-800 dark:text-burgundy-400 rounded-2xl flex items-center justify-center text-xl mb-4 shadow-inner">
+                        <i class="fa-solid fa-map-location"></i>
+                    </div>
+                    <h4 class="text-lg font-extrabold text-burgundy-900 dark:text-white mb-2">اللامركزية وتفادي التشتت</h4>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                        عكس المنصات القومية الكبرى والمشتتة، هذه المنصة مخصصة لمركز الفشن وتفاصيله الإدارية والتعليمية بشكل دقيق لتجمع شباب المركز وتوحدهم.
+                    </p>
+                </div>
+                <!-- Card Advantage 2 -->
+                <div class="bg-white dark:bg-charcoal-800 p-6 rounded-3xl border border-slate-200 dark:border-charcoal-700 shadow-premium hover-lift animate-physical stagger-item" style="animation-delay: 0.2s">
+                    <div class="w-12 h-12 bg-gold-50 dark:bg-gold-950/40 text-gold-600 dark:text-gold-300 rounded-2xl flex items-center justify-center text-xl mb-4 shadow-inner">
+                        <i class="fa-solid fa-users-viewfinder"></i>
+                    </div>
+                    <h4 class="text-lg font-extrabold text-burgundy-900 dark:text-white mb-2">توجيه العمل الحر والـ AI</h4>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                        ربط الأنشطة المجتمعية بالتدريبات الحقيقية على منصات مستقل و Upwork وتعلم البرمجة عبر W3Schools باستخدام الذكاء الاصطناعي لتأهيل الشباب.
+                    </p>
+                </div>
+                <!-- Card Advantage 3 -->
+                <div class="bg-white dark:bg-charcoal-800 p-6 rounded-3xl border border-slate-200 dark:border-charcoal-700 shadow-premium hover-lift animate-physical stagger-item" style="animation-delay: 0.3s">
+                    <div class="w-12 h-12 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-2xl flex items-center justify-center text-xl mb-4 shadow-inner">
+                        <i class="fa-solid fa-handshake-angle"></i>
+                    </div>
+                    <h4 class="text-lg font-extrabold text-burgundy-900 dark:text-white mb-2">التوثيق الجغرافي الصارم</h4>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                        استخدام الكاميرا الفورية للموقع وربطها بإحداثيات الـ GPS قبل وبعد المهام لمنع أي تلاعب بالنقاط، وتحت إشراف مبرمجين خبراء لإدارة السيرفرات.
+                    </p>
+                </div>
+                <!-- Card Advantage 4 -->
+                <div class="bg-white dark:bg-charcoal-800 p-6 rounded-3xl border border-slate-200 dark:border-charcoal-700 shadow-premium hover-lift animate-physical stagger-item" style="animation-delay: 0.4s">
+                    <div class="w-12 h-12 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center text-xl mb-4 shadow-inner">
+                        <i class="fa-solid fa-people-roof"></i>
+                    </div>
+                    <h4 class="text-lg font-extrabold text-burgundy-900 dark:text-white mb-2">نظام تكريم الوالدين</h4>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                        حافز عائلي واجتماعي فريد! أعلى المتطوعين نقاطاً يتم دعوتهم مع والديهم وتكريمهم معاً في الحفل الأسبوعي وعرض صورهم بشاشة الميدان الكبرى كنوع من الشرف والمفاخرة المجتمعية.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Dashboard Numbers Grid -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 bg-white dark:bg-charcoal-800 p-8 rounded-3xl border border-slate-200 dark:border-charcoal-700 shadow-premium stagger-item" style="animation-delay: 0.5s">
+                <div class="text-center">
+                    <p class="text-slate-400 text-xs font-bold uppercase mb-1">إجمالي المتطوعين الموثقين</p>
+                    <h4 class="text-3xl font-mono font-black text-burgundy-800 dark:text-white">1,482</h4>
+                    <span class="text-xs text-emerald-500 font-bold"><i class="fa-solid fa-caret-up ml-1"></i>+12% هذا الأسبوع</span>
+                </div>
+                <div class="text-center border-r border-slate-100 dark:border-charcoal-700">
+                    <p class="text-slate-400 text-xs font-bold uppercase mb-1">مناطق ومداخل تم تنظيفها وتجميلها</p>
+                    <h4 class="text-3xl font-mono font-black text-burgundy-800 dark:text-white">143</h4>
+                    <span class="text-xs text-emerald-500 font-bold"><i class="fa-solid fa-circle-check ml-1"></i>بتقارير GPS حية</span>
+                </div>
+                <div class="text-center border-r border-slate-100 dark:border-charcoal-700">
+                    <p class="text-slate-400 text-xs font-bold uppercase mb-1">ساعات دراسة البرمجة والـ AI</p>
+                    <h4 class="text-3xl font-mono font-black text-burgundy-800 dark:text-white">5,910</h4>
+                    <span class="text-xs text-amber-500 font-bold"><i class="fa-solid fa-clock ml-1"></i>متوسط 4 ساعات للمستفيد</span>
+                </div>
+                <div class="text-center border-r border-slate-100 dark:border-charcoal-700">
+                    <p class="text-slate-400 text-xs font-bold uppercase mb-1">عقود عمل حر مستحوذة للشباب</p>
+                    <h4 class="text-3xl font-mono font-black text-burgundy-800 dark:text-white">$14,250</h4>
+                    <span class="text-xs text-emerald-500 font-bold"><i class="fa-solid fa-arrow-trend-up ml-1"></i>من العمل المنزلي</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 2: VOLUNTEERING TASKS (المهام والعمل الميداني) -->
+        <section id="view-tasks" class="app-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-black text-burgundy-800 dark:text-white mb-2">بوابة العمل الميداني والمهام</h2>
+                <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-sm">أرصد تحدياً، ارفع طلباً لتنظيف منطقة، انضم للمجموعات المحلية، واجني نقاطاً مجتمعية موثقة من وزارة الشباب والرياضة ومجلس المدينة.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Crowdsourcing Input Form (الرصد الذكي والأهالي) -->
+                <div class="lg:col-span-1 bg-white dark:bg-charcoal-800 p-6 rounded-3xl border border-burgundy-100 dark:border-charcoal-700 shadow-premium h-fit">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-charcoal-700">
+                        <div class="w-10 h-10 rounded-xl bg-burgundy-800 text-white flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <h3 class="text-lg font-black text-burgundy-900 dark:text-white">الإبلاغ ورصد تحدي بالشارع</h3>
+                    </div>
+
+                    <form onsubmit="app.handleReportIssue(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 dark:text-slate-300 mb-1.5">نوع المشكلة الميدانية</label>
+                            <select id="issue-type" class="w-full bg-slate-50 dark:bg-charcoal-900 border border-slate-200 dark:border-charcoal-700 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-burgundy-800">
+                                <option>تراكم مخلفات أو قمامة</option>
+                                <option>جدار حيوي يحتاج دهان وتجميل</option>
+                                <option>منطقة سكنية بحاجة إلى تشجير</option>
+                                <option>كبار السن بحاجة للتسجيل الرقمي في البريد</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 dark:text-slate-300 mb-1.5">الحي / المنطقة داخل الفشن</label>
+                            <select id="issue-region" class="w-full bg-slate-50 dark:bg-charcoal-900 border border-slate-200 dark:border-charcoal-700 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-burgundy-800">
+                                <option>منطقة البحر الساحلية</option>
+                                <option>حي الشيخ غنيم</option>
+                                <option>حي وسط البلد التجاري</option>
+                                <option>عزبة تابعة لمركز الفشن</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 dark:text-slate-300 mb-1.5">تفاصيل ووصف دقيق للتحدي</label>
+                            <textarea id="issue-desc" rows="3" class="w-full bg-slate-50 dark:bg-charcoal-900 border border-slate-200 dark:border-charcoal-700 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-burgundy-800" placeholder="ما الذي تحتاجه المنطقة بدقة؟..."></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 dark:text-slate-300 mb-2">إثبات فوري بالكاميرا (محاكاة)</label>
+                            <div class="border-2 border-dashed border-burgundy-100 dark:border-charcoal-700 rounded-xl p-4 text-center cursor-pointer hover:bg-burgundy-50 dark:hover:bg-burgundy-900/10 transition" onclick="app.simulateCameraUpload()">
+                                <i class="fa-solid fa-camera text-2xl text-burgundy-800 dark:text-burgundy-400 mb-2"></i>
+                                <p id="upload-status-text" class="text-xs text-slate-400">اضغط لالتقاط الصورة وتحديد إحداثيات الـ GPS فورياً</p>
+                                <span id="gps-coords-badge" class="hidden mt-2 inline-block text-[10px] font-mono bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded border border-emerald-300/30">GPS Locked</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gradient-to-b from-burgundy-700 to-burgundy-900 hover:from-burgundy-600 hover:to-burgundy-800 text-white font-extrabold py-3 rounded-xl transition shadow-md shadow-burgundy-800/20 border-t border-white/10">
+                            أرسل للتثبيت في نظام المهام المتاحة
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Active Tasks List Grid -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-black text-burgundy-900 dark:text-white">مهام تطوعية عاجلة ومتاحة للتنفيذ</h3>
+                        <span class="text-xs bg-burgundy-50 dark:bg-charcoal-800 border border-burgundy-100 dark:border-charcoal-700 px-3 py-1.5 rounded-xl text-slate-500 dark:text-slate-400 font-bold"><i class="fa-solid fa-filter ml-1"></i>الأعلى في رصيد النقاط</span>
+                    </div>
+
+                    <!-- Task 1 Card Container -->
+                    <div id="task-card-1" class="bg-white dark:bg-charcoal-800 rounded-3xl border border-burgundy-100/50 dark:border-charcoal-700 p-6 shadow-sm hover:shadow-md transition">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 text-[10px] font-black px-2.5 py-1 rounded-full border border-rose-300/30 inline-block mb-2">مهمة تطهير وتلوين حيوية</span>
+                                <h4 class="text-lg font-black text-burgundy-900 dark:text-white">طلاء وتجميل أرصفة مدخل منطقة البحر</h4>
+                                <p class="text-xs text-slate-400 mt-1"><i class="fa-solid fa-location-dot ml-1 text-red-500"></i>منطقة البحر، أمام مرسى النيل القديم</p>
+                            </div>
+                            <div class="bg-gold-50 dark:bg-charcoal-900 border border-gold-400/30 px-3.5 py-2 rounded-2xl text-center shadow-inner">
+                                <span class="block text-gold-600 dark:text-gold-400 font-mono font-black text-2xl leading-none">+25</span>
+                                <span class="text-[9px] text-slate-400 font-extrabold uppercase">نقطة</span>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-500 dark:text-slate-400 text-sm mb-4">تتطلب المهمة فريق عمل لتجميع المخلفات الملقاة، ثم طلاء الرصيف بالألوان الرسمية المحددة. الأدوات متوفرة للتسليم بمركز الشباب.</p>
+
+                        <div class="mb-5">
+                            <div class="flex justify-between text-xs font-bold text-slate-500 mb-1">
+                                <span>حجم الفريق المنضم للمجموعة</span>
+                                <span id="team-counter-1" class="font-mono text-burgundy-800 dark:text-gold-400">2 / 5 أفراد</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-charcoal-900 rounded-full h-2.5">
+                                <div id="team-progress-1" class="bg-gradient-to-r from-burgundy-800 to-gold-400 h-2.5 rounded-full transition-all duration-500" style="width: 40%"></div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <button id="join-btn-1" onclick="app.joinTaskGroup(1)" class="w-full bg-slate-100 hover:bg-slate-200 dark:bg-charcoal-700 dark:hover:bg-charcoal-600 text-slate-700 dark:text-slate-200 font-extrabold py-2.5 rounded-xl transition text-sm">
+                                <i class="fa-solid fa-user-plus ml-1.5"></i>الانضمام للفريق المقاتل
+                            </button>
+                            <button onclick="app.triggerVerifyTask(1, 25)" class="w-full bg-gradient-to-b from-burgundy-700 to-burgundy-900 hover:from-burgundy-600 hover:to-burgundy-800 text-white font-extrabold py-2.5 rounded-xl transition text-sm shadow-md border-t border-white/10">
+                                <i class="fa-solid fa-upload ml-1.5"></i>رفع إثبات (قبل / بعد)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Task 2 Card Container -->
+                    <div id="task-card-2" class="bg-white dark:bg-charcoal-800 rounded-3xl border border-burgundy-100/50 dark:border-charcoal-700 p-6 shadow-sm hover:shadow-md transition">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 text-[10px] font-black px-2.5 py-1 rounded-full border border-emerald-300/30 inline-block mb-2">رعاية ومساندة رقمية</span>
+                                <h4 class="text-lg font-black text-burgundy-900 dark:text-white">مساعدة كبار السن بتسجيل استمارات تكافل رقمياً</h4>
+                                <p class="text-xs text-slate-400 mt-1"><i class="fa-solid fa-location-dot ml-1 text-red-500"></i>مجمع بريد الفشن الرئيسي</p>
+                            </div>
+                            <div class="bg-gold-50 dark:bg-charcoal-900 border border-gold-400/30 px-3.5 py-2 rounded-2xl text-center shadow-inner">
+                                <span class="block text-gold-600 dark:text-gold-400 font-mono font-black text-2xl leading-none">+15</span>
+                                <span class="text-[9px] text-slate-400 font-extrabold uppercase">نقطة</span>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-500 dark:text-slate-400 text-sm mb-4">الوقوف بمكتب بريد الفشن لمساعدة الأهالي كبار السن في طباعة أرقامهم التأمينية عبر بوابة مصر الرقمية والتخفيف من تكدس طوابير الانتظار.</p>
+
+                        <div class="mb-5">
+                            <div class="flex justify-between text-xs font-bold text-slate-500 mb-1">
+                                <span>حجم الفريق المنضم للمجموعة</span>
+                                <span id="team-counter-2" class="font-mono text-burgundy-800 dark:text-gold-400">4 / 4 متطوعين (مكتمل)</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-charcoal-900 rounded-full h-2.5">
+                                <div id="team-progress-2" class="bg-gradient-to-r from-emerald-500 to-gold-400 h-2.5 rounded-full transition-all duration-500" style="width: 100%"></div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <button id="join-btn-2" disabled class="w-full bg-slate-100 dark:bg-charcoal-700 text-slate-400 dark:text-slate-500 font-extrabold py-2.5 rounded-xl cursor-not-allowed text-sm">
+                                <i class="fa-solid fa-check ml-1.5"></i>المجموعة ممتلئة
+                            </button>
+                            <button onclick="app.triggerVerifyTask(2, 15)" class="w-full bg-gradient-to-b from-burgundy-700 to-burgundy-900 hover:from-burgundy-600 hover:to-burgundy-800 text-white font-extrabold py-2.5 rounded-xl transition text-sm shadow-md border-t border-white/10">
+                                <i class="fa-solid fa-upload ml-1.5"></i>رفع إثبات (قبل / بعد)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 3: FRIDAY SALON & EMPOWERMENT (صالون الجمعة والتمكين) -->
+        <section id="view-salon" class="app-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-black text-burgundy-800 dark:text-white mb-2">صالون الجمعة التكنولوجي والتمكين المهني</h2>
+                <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-sm">جسور عبور الطلاب للفريلانس، البرمجة، وتعلم تقنيات الذكاء الاصطناعي الحديثة مع إشراف خبراء البرمجيات الكبار.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 mb-12">
+                <!-- Salon Details Banner -->
+                <div class="lg:col-span-2 bg-gradient-to-br from-burgundy-800 to-burgundy-950 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden border border-burgundy-700">
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/black-linen.png')] opacity-10"></div>
+                    <div class="relative z-10 flex flex-col h-full justify-between">
+                        <div>
+                            <span class="inline-block bg-gold-400 text-charcoal-950 text-xs font-black px-3 py-1.5 rounded-full mb-6 uppercase">صالون الجمعة القادم</span>
+                            <h3 class="text-2xl font-black text-white mb-4">صناعة الـ Freelancers وكتابة الكود للويب</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                                نلتقي كل جمعة في القاعة الكبرى والـ Zoom؛ لمراجعة مسارات الطلاب التعليمية وتكريم الأكثر تطوعاً في الأسبوع المنصرم. نخصص قسماً للتأهيل للعمل الحر: كيف تفتح حساباً على منصات العمل الحر، وتتعلم البرمجة عبر W3Schools وتستثمر أدوات الـ AI مثل NotebookLM كأكاديمية تعليمية مجانية كاملة.
+                            </p>
+
+                            <div class="grid sm:grid-cols-3 gap-4 bg-burgundy-950/60 p-4 rounded-2xl border border-burgundy-800/50 text-center mb-6">
+                                <div>
+                                    <span class="block text-gold-400 font-mono text-xl font-bold">12 يونيو 2026</span>
+                                    <span class="text-[10px] text-slate-400">تاريخ اللقاء</span>
+                                </div>
+                                <div class="border-r border-burgundy-800">
+                                    <span class="block text-gold-400 font-mono text-xl font-bold">04:00 عصراً</span>
+                                    <span class="text-[10px] text-slate-400">الموعد المحدد</span>
+                                </div>
+                                <div class="border-r border-burgundy-800">
+                                    <span class="block text-gold-400 font-mono text-xl font-bold">W3Schools & AI</span>
+                                    <span class="text-[10px] text-slate-400">الموضوع الرئيسي</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="app.reserveSeat()" class="w-full bg-gradient-to-b from-gold-400 to-gold-600 hover:from-gold-300 hover:to-gold-500 text-charcoal-950 font-black py-3 rounded-2xl transition shadow-lg shadow-gold-500/30 text-center border-t border-white/20">
+                            احجز مقعدك مجاناً الآن (+10 نقاط حضور تطوعي)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Learning Milestones & Free Courses Guidance -->
+                <div class="lg:col-span-1 bg-white dark:bg-charcoal-800 p-6 rounded-3xl border border-burgundy-100 dark:border-charcoal-700 shadow-premium">
+                    <h3 class="text-lg font-black text-burgundy-900 dark:text-white mb-4 flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-charcoal-700">
+                        <i class="fa-solid fa-graduation-cap text-gold-500"></i>
+                        <span>مسارات التعلم والربح المالي</span>
+                    </h3>
+
+                    <div class="space-y-4">
+                        <div class="p-3 bg-burgundy-50/50 dark:bg-charcoal-900 rounded-2xl border border-burgundy-100/30 dark:border-charcoal-700 flex gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-burgundy-800 text-white flex items-center justify-center text-lg shrink-0">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-burgundy-900 dark:text-white">مسار تعلم HTML/CSS للطلاب</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">موقع W3Schools الموثق</p>
+                                <span class="inline-block mt-2 text-[10px] font-bold text-gold-600 dark:text-gold-400 bg-gold-400/10 px-2 py-0.5 rounded">+30 نقطة تطوع</span>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-burgundy-50/50 dark:bg-charcoal-900 rounded-2xl border border-burgundy-100/30 dark:border-charcoal-700 flex gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-burgundy-800 text-white flex items-center justify-center text-lg shrink-0">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-burgundy-900 dark:text-white">الذكاء الاصطناعي NotebookLM</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">البحث واستخراج المعرفة الذكية</p>
+                                <span class="inline-block mt-2 text-[10px] font-bold text-gold-600 dark:text-gold-400 bg-gold-400/10 px-2 py-0.5 rounded">+40 نقطة تطوع</span>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-burgundy-50/50 dark:bg-charcoal-900 rounded-2xl border border-burgundy-100/30 dark:border-charcoal-700 flex gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-burgundy-800 text-white flex items-center justify-center text-lg shrink-0">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-burgundy-900 dark:text-white">إنشاء بورتفوليو على مستقل</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">تسويق المهارات وكسب العملة الأجنبية</p>
+                                <span class="inline-block mt-2 text-[10px] font-bold text-gold-600 dark:text-gold-400 bg-gold-400/10 px-2 py-0.5 rounded">+50 نقطة تطوع</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Component for local knowledge and news (بنك الأسئلة التفاعلي لمركز الفشن) -->
+            <div class="bg-white dark:bg-charcoal-800 p-8 rounded-3xl border border-burgundy-100 dark:border-charcoal-700 shadow-premium relative overflow-hidden">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-100 dark:border-charcoal-700 pb-5 mb-6 gap-4">
+                    <div>
+                        <h3 class="text-xl font-black text-burgundy-900 dark:text-white flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-gold-500"></i>
+                            <span>بنك الأسئلة المعرفي لمركز الفشن (اعرف مركزك المطور بالـ AI)</span>
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-1">المنصة تولد أسئلة دورية حية وحصرية عن تاريخ وجغرافيا ونظام الفشن الإداري والمحلي باستخدام ذكاء Gemini الاصطناعي.</p>
+                    </div>
+                    
+                    <div class="flex gap-2 w-full md:w-auto">
+                        <button onclick="app.generateNewAIQuiz()" id="btn-quiz-generator" class="bg-gradient-to-b from-burgundy-700 to-burgundy-900 hover:from-burgundy-600 hover:to-burgundy-800 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-md border-t border-white/10">
+                            <i class="fa-solid fa-wand-magic-sparkles animate-spin-slow"></i>
+                            <span>توليد سؤال جديد بالـ AI 🤖</span>
+                        </button>
+                        <div class="bg-gold-50 dark:bg-charcoal-900 text-gold-600 dark:text-gold-400 border border-gold-400/30 px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold shrink-0 flex items-center">
+                            +10 نقاط لكل إجابة صحيحة
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Interactive Container -->
+                <div id="quiz-wrapper-box" class="relative min-h-[160px]">
+                    <div id="quiz-loading-overlay" class="hidden absolute inset-0 bg-white/80 dark:bg-charcoal-800/80 z-10 flex flex-col items-center justify-center gap-3">
+                        <div class="w-12 h-12 rounded-full border-4 border-burgundy-200 border-t-burgundy-800 animate-spin"></div>
+                        <p class="text-xs font-bold text-burgundy-800 dark:text-gold-400">جاري الاتصال بـ Gemini API وتوليد سؤال الفشن التوعوي الجغرافي...</p>
+                    </div>
+
+                    <div id="quiz-body" class="space-y-6">
+                        <p class="text-slate-700 dark:text-slate-300 font-extrabold text-base mb-4" id="quiz-question-text">سؤال اليوم: ما هي المحطة المائية الأكبر التي تم افتتاحها لخدمة مركز الفشن وضمان نقاء مياه الشرب بالقرى؟</p>
+                        
+                        <div class="grid sm:grid-cols-2 gap-4" id="quiz-options-container">
+                            <button onclick="app.submitQuizAnswer(this, 1)" class="w-full text-right p-4 rounded-2xl bg-slate-50 hover:bg-burgundy-50 dark:bg-charcoal-900 dark:hover:bg-charcoal-700 border border-slate-100 dark:border-charcoal-700 font-semibold text-slate-700 dark:text-slate-200 transition">
+                                أ. محطة مياه بني سويف الكبرى بالمحافظة
+                            </button>
+                            <button onclick="app.submitQuizAnswer(this, 1)" class="w-full text-right p-4 rounded-2xl bg-slate-50 hover:bg-burgundy-50 dark:bg-charcoal-900 dark:hover:bg-charcoal-700 border border-slate-100 dark:border-charcoal-700 font-semibold text-slate-700 dark:text-slate-200 transition">
+                                ب. محطة مياه الفشن الجديدة بالمطاهرة (الحل الموثق)
+                            </button>
+                            <button onclick="app.submitQuizAnswer(this, 0)" class="w-full text-right p-4 rounded-2xl bg-slate-50 hover:bg-burgundy-50 dark:bg-charcoal-900 dark:hover:bg-charcoal-700 border border-slate-100 dark:border-charcoal-700 font-semibold text-slate-700 dark:text-slate-200 transition">
+                                ج. محطة تصفية المياه المركزية بمجلس المدينة
+                            </button>
+                            <button onclick="app.submitQuizAnswer(this, 0)" class="w-full text-right p-4 rounded-2xl bg-slate-50 hover:bg-burgundy-50 dark:bg-charcoal-900 dark:hover:bg-charcoal-700 border border-slate-100 dark:border-charcoal-700 font-semibold text-slate-700 dark:text-slate-200 transition">
+                                د. بئر مياه ارتوازية عشوائية
+                            </button>
+                        </div>
+                        
+                        <div id="quiz-explanation" class="hidden p-4 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 rounded-2xl text-xs text-emerald-800 dark:text-emerald-300">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 4: STREET SCREEN LEADERBOARD (شاشة الميدان الذكية) -->
+        <section id="view-leaderboard" class="app-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-black text-burgundy-800 dark:text-white mb-2">محاكاة شاشة ميدان الفشن الكبرى</h2>
+                <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-sm">تم تركيب هذه الشاشة العملاقة عند مجلس المدينة في الشارع الرئيسي لتكريم الفائزين وتحفيز الأهالي على التنافس اليومي والتطوع.</p>
+            </div>
+
+            <!-- Street Screen TV Frame Mockup -->
+            <div class="relative w-full max-w-5xl mx-auto rounded-[2rem] sm:rounded-[3rem] bg-[#0E0E10] p-4 sm:p-8 shadow-2xl border-[8px] sm:border-[12px] border-[#1A1A1E]">
+                <!-- Interactive Glossy screen reflections -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none rounded-[24px]"></div>
+                
+                <!-- Inner Screen -->
+                <div class="bg-gradient-to-b from-[#0D0D0F] via-[#16080D] to-[#050507] w-full rounded-[2rem] overflow-hidden p-6 sm:p-12 relative min-h-[500px] shadow-inner">
+                    <!-- Dynamic Grid background -->
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="text-center border-b border-white/5 pb-10 mb-14 flex flex-col items-center">
+                            <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-500/10 text-red-500 text-[10px] font-black border border-red-500/20 mb-5 uppercase tracking-[0.3em] backdrop-blur-md">
+                                <span class="w-2 h-2 bg-red-500 rounded-full animate-ping"></span> LIVE BROADCAST
+                            </span>
+                            <h2 class="font-calligraphy text-4xl sm:text-6xl font-bold text-white mb-4 tracking-wide text-glow-gold">لوحة شرف متطوعي الفشن</h2>
+                            <p class="text-slate-400 text-[12px] sm:text-sm font-medium tracking-widest opacity-70">تحديث لحظي من قواعد البيانات الرسمية بالتعاون مع المحليات</p>
+                        </div>
+
+                        <!-- Top 3 Podium Placement -->
+                        <div class="flex flex-col lg:flex-row justify-center items-center lg:items-end gap-10 lg:gap-14 mb-20">
+                            <!-- 2nd Place: Silver -->
+                            <div class="flex flex-col items-center order-2 lg:order-1 group">
+                                <div class="relative mb-4">
+                                    <div class="w-20 h-20 sm:w-28 sm:h-28 rounded-full border-4 border-slate-400/30 p-1.5 bg-white/5 backdrop-blur-xl group-hover:scale-110 transition-transform duration-500 shadow-2xl">
+                                        <img src="https://ui-avatars.com/api/?name=Mariam+S&background=94a3b8&color=fff" class="w-full h-full rounded-full object-cover" loading="lazy">
+                                    </div>
+                                    <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-slate-400 text-slate-900 text-sm font-black px-4 py-1 rounded-full shadow-lg border border-white/20">2</span>
+                                </div>
+                                <div class="text-center">
+                                    <h4 class="font-calligraphy text-xl text-white font-bold">مريم الشافعي</h4>
+                                    <p class="text-[10px] text-slate-400 font-black uppercase mb-2">حي وسط البلد</p>
+                                    <div class="bg-slate-400/10 border border-slate-400/20 px-4 py-1.5 rounded-full text-slate-400 font-mono text-sm font-black">490 Pts</div>
+                                </div>
+                            </div>
+
+                            <!-- 1st Place: Gold -->
+                            <div class="flex flex-col items-center order-1 lg:order-2 z-20 scale-110 lg:scale-[1.35] mb-14 lg:mb-0">
+                                <div class="mb-8 bg-gold-500 text-charcoal-950 text-[10px] font-black px-5 py-2 rounded-full shadow-[0_0_30px_rgba(212,161,59,0.5)] animate-pulse flex items-center gap-2">
+                                    <i class="fa-solid fa-heart-pulse"></i> تكريم الوالدين مفعل
+                                </div>
+                                <div class="relative mb-4">
+                                    <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-[6px] border-gold-500 p-2 bg-gold-500/10 shadow-[0_0_60px_rgba(212,161,59,0.3)] animate-float glass-reflection">
+                                        <img src="https://ui-avatars.com/api/?name=Omar+K&background=bd842a&color=fff" class="w-full h-full rounded-full object-cover" loading="lazy">
+                                    </div>
+                                    <span class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gold-500 text-charcoal-950 text-base font-black px-6 py-2 rounded-full shadow-2xl border border-white/20">1</span>
+                                </div>
+                                <div class="text-center">
+                                    <h4 class="font-calligraphy text-2xl text-white font-bold">عمر خالد الجندي</h4>
+                                    <p class="text-[10px] text-gold-400 font-black uppercase mb-2 tracking-widest">حي الشيخ غنيم</p>
+                                    <div class="bg-gold-500 text-charcoal-950 px-6 py-2 rounded-full font-mono text-lg font-black shadow-lg">620 Pts</div>
+                                </div>
+                            </div>
+
+                            <!-- 3rd Place: Bronze -->
+                            <div class="flex flex-col items-center order-3 group">
+                                <div class="relative mb-4">
+                                    <div class="w-20 h-20 sm:w-28 sm:h-28 rounded-full border-4 border-amber-700/30 p-1.5 bg-white/5 backdrop-blur-xl group-hover:scale-110 transition-transform duration-500 shadow-2xl">
+                                        <img src="https://ui-avatars.com/api/?name=Hassan+M&background=92400e&color=fff" class="w-full h-full rounded-full object-cover" loading="lazy">
+                                    </div>
+                                    <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-amber-700 text-white text-sm font-black px-4 py-1 rounded-full shadow-lg border border-white/20">3</span>
+                                </div>
+                                <div class="text-center">
+                                    <h4 class="font-calligraphy text-xl text-white font-bold">حسن مصطفى</h4>
+                                    <p class="text-[10px] text-slate-400 font-black uppercase mb-2">منطقة البحر</p>
+                                    <div class="bg-amber-700/10 border border-amber-700/20 px-4 py-1.5 rounded-full text-amber-600 font-mono text-sm font-black">410 Pts</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Clans / Neighborhoods Competitive rankings -->
+                        <div class="bg-white/5 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-white/5">
+                            <h3 class="text-white text-sm font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-map-location-dot text-gold-400"></i> ترتيب المنافسة بين أحياء مركز الفشن</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs text-slate-300 mb-1 font-bold">
+                                        <span>حي الشيخ غنيم</span>
+                                        <span class="font-mono text-gold-400">3,450 نقطة</span>
+                                    </div>
+                                    <div class="w-full bg-slate-800 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-burgundy-600 to-gold-400 h-2 rounded-full" style="width: 88%"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between text-xs text-slate-300 mb-1 font-bold">
+                                        <span>حي وسط البلد</span>
+                                        <span class="font-mono text-gold-400">2,910 نقاط</span>
+                                    </div>
+                                    <div class="w-full bg-slate-800 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-burgundy-600 to-gold-400 h-2 rounded-full" style="width: 70%"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between text-xs text-slate-300 mb-1 font-bold">
+                                        <span>منطقة البحر</span>
+                                        <span class="font-mono text-gold-400">2,500 نقطة</span>
+                                    </div>
+                                    <div class="w-full bg-slate-800 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-burgundy-600 to-gold-400 h-2 rounded-full" style="width: 58%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 5: AI CAREER NAVIGATOR (مستشار الـ AI المهني) -->
+        <section id="view-ai" class="app-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-black text-burgundy-800 dark:text-white mb-2">مستشار الـ AI للتأهيل لسوق العمل</h2>
+                <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-sm">البوت الذكي الحقيقي المغذى بالمهارات الدولية وموقع W3Schools لتحديد أفضل مساراتك للعمل من البيت.</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto bg-white dark:bg-charcoal-800 rounded-3xl shadow-premium border border-burgundy-100 dark:border-charcoal-700 flex flex-col h-[600px] overflow-hidden">
+                <!-- Chatbox Header -->
+                <div class="p-5 border-b border-slate-100 dark:border-charcoal-700 flex items-center justify-between bg-burgundy-50 dark:bg-charcoal-900">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-burgundy-800 text-white flex items-center justify-center relative shadow-md">
+                            <i class="fa-solid fa-robot text-xl text-gold-400 animate-pulse"></i>
+                            <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full"></span>
+                        </div>
+                        <div>
+                            <h3 class="font-black text-sm text-burgundy-900 dark:text-white">المستشار المهني المساعد للشباب</h3>
+                            <p class="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full inline-block animate-ping"></span> متصل بـ Gemini 3.1 Flash
+                            </p>
+                        </div>
+                    </div>
+                    <span class="text-xs text-slate-400 font-mono">Powered by Google Gemini</span>
+                </div>
+
+                <!-- Chatbox Message Area -->
+                <div id="ai-chat-scroller" class="flex-1 p-6 overflow-y-auto space-y-4 bg-slate-50/50 dark:bg-charcoal-900/30">
+                    <!-- AI First welcome message -->
+                    <div class="flex gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-burgundy-800 text-white flex items-center justify-center shrink-0 text-sm shadow-md">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="bg-white dark:bg-charcoal-800 p-4 rounded-2xl rounded-tr-none border border-slate-100 dark:border-charcoal-700 shadow-sm max-w-[85%] text-slate-700 dark:text-slate-200">
+                            <p class="text-sm font-bold">مرحباً بك يا بطل التنمية في الفشن! 👋</p>
+                            <p class="text-xs mt-1 leading-relaxed">أنا مستشارك الذكي الحقيقي المدعوم بـ Gemini. أخبرني بشغفك وميولك الأساسية (مثلاً: البرمجة، التصميم، كتابة المحتوى، الترجمة) وسأقوم برسم خارطة طريقك وتعيين نقاط مجانية إضافية في رصيدك لتنجزها في صالون الجمعة!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Typing Indicator -->
+                <div id="ai-typing-indicator" class="hidden px-6 py-2 flex items-center gap-2 text-xs text-slate-400">
+                    <div class="flex gap-1">
+                        <span class="w-1.5 h-1.5 bg-burgundy-800 rounded-full animate-bounce" style="animation-delay: 0.1s"></span>
+                        <span class="w-1.5 h-1.5 bg-burgundy-800 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
+                        <span class="w-1.5 h-1.5 bg-burgundy-800 rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
+                    </div>
+                    <span>جاري تحليل شغفك وصياغة المسار المهني عبر Gemini...</span>
+                </div>
+
+                <!-- Suggested Fast Inputs -->
+                <div class="px-5 py-3 bg-slate-100/50 dark:bg-charcoal-900/80 border-t border-slate-100 dark:border-charcoal-700 flex flex-wrap gap-2">
+                    <button onclick="app.sendSuggestedQuery('أنا مهتم بتعلم البرمجة وكتابة الكود')" class="text-xs bg-white hover:bg-burgundy-50 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-slate-200 dark:border-charcoal-700 px-3 py-1.5 rounded-xl font-bold transition text-slate-600 dark:text-slate-300">
+                        البرمجة وكود الويب 💻
+                    </button>
+                    <button onclick="app.sendSuggestedQuery('أحب الجرافيكس والتصميم الفني والتلوين')" class="text-xs bg-white hover:bg-burgundy-50 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-slate-200 dark:border-charcoal-700 px-3 py-1.5 rounded-xl font-bold transition text-slate-600 dark:text-slate-300">
+                        الجرافيك والتصميم 🎨
+                    </button>
+                    <button onclick="app.sendSuggestedQuery('كيف أسوق خدماتي كعامل حر على Upwork')" class="text-xs bg-white hover:bg-burgundy-50 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-slate-200 dark:border-charcoal-700 px-3 py-1.5 rounded-xl font-bold transition text-slate-600 dark:text-slate-300">
+                        العمل الحر الفريلانس 🚀
+                    </button>
+                </div>
+
+                <!-- Chatbox Form Input area -->
+                <div class="p-4 bg-white dark:bg-charcoal-800 border-t border-slate-100 dark:border-charcoal-700">
+                    <form onsubmit="app.handleAIChatSubmit(event)" class="flex gap-2">
+                        <input type="text" id="ai-chat-input" class="flex-1 bg-slate-50 dark:bg-charcoal-900 border border-slate-200 dark:border-charcoal-700 rounded-2xl px-5 py-3 text-sm outline-none focus:ring-2 focus:ring-burgundy-800 text-slate-800 dark:text-white" placeholder="اكتب مهاراتك أو شغفك هنا لاستخلاص المسار المهني الحقيقي...">
+                        <button type="submit" id="btn-chat-submit" class="bg-burgundy-800 hover:bg-burgundy-900 text-white w-12 h-12 rounded-2xl flex items-center justify-center transition shadow-md">
+                            <i class="fa-solid fa-paper-plane text-lg"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 7: COMMUNITY (مجتمع رواد الفشن) -->
+        <section id="view-community" class="app-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-600 dark:text-gold-400 text-xs font-black mb-4 uppercase tracking-widest">
+                    <i class="fa-solid fa-ranking-star"></i> قاعة المشاهير الرقمية
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-burgundy-800 dark:text-white mb-4">مجتمع رواد التمكين بالفشن</h2>
+                <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-sm">هنا يجتمع الأبطال الذين يغيرون وجه الفشن يوماً بعد يوم. كل وسام هو قصة نجاح، وكل نقطة هي خطوة نحو مستقبل رقمي أفضل.</p>
+            </div>
+
+            <div class="bg-white dark:bg-charcoal-800 p-6 sm:p-10 rounded-[3rem] border border-slate-100 dark:border-charcoal-700 shadow-premium">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+                    <h3 class="text-xl font-black text-burgundy-900 dark:text-white">قائمة المتطوعين المعتمدين</h3>
+                    <div class="text-[11px] font-black text-slate-400 bg-slate-50 dark:bg-charcoal-900 px-4 py-2 rounded-xl border border-slate-100 dark:border-charcoal-700">ترتيب تنازلي حسب الأثر الميداني</div>
+                </div>
+                <div id="community-users-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic Badged User Cards -->
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 6: GOVERNANCE DASHBOARD ADMIN (بوابة الحوكمة) -->
+        <section id="view-admin" class="app-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-burgundy-100 dark:border-charcoal-700 pb-5 mb-8 gap-4">
+                <div>
+                    <h2 class="text-3xl font-black text-burgundy-800 dark:text-white">بوابة التدقيق المركزي والوزارة (Governance Gate)</h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm">مخصصة لمشرفي المحليات بمركز الفشن، وزارة الشباب والرياضة، والـ UNICEF لمتابعة التقارير ومراجعة صور الـ GPS ومنع التلاعب.</p>
+                </div>
+                <div class="bg-red-500/10 text-red-700 dark:text-red-400 border border-red-500/20 px-4 py-1.5 rounded-2xl font-bold text-xs">
+                    <i class="fa-solid fa-lock-open ml-1"></i> صلاحيات مبرمج الإشراف والوزارة
+                </div>
+            </div>
+
+            <!-- Admin Dashboard Quick Stats Tiles -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Tile 1: Total Volunteers -->
+                <div class="bg-white dark:bg-charcoal-800 p-5 rounded-3xl border border-emerald-100 dark:border-emerald-900/30 shadow-sm hover-lift animate-physical stagger-item" style="animation-delay: 0.1s">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 flex items-center justify-center text-xl shadow-inner">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">المتطوعين</p>
+                            <h4 id="stat-volunteers" class="text-2xl font-mono font-black text-slate-800 dark:text-white">1,482</h4>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-50 dark:border-charcoal-700 flex justify-between items-center">
+                        <span class="text-[10px] font-bold text-emerald-500"><i class="fa-solid fa-arrow-trend-up ml-1"></i>+12.5%</span>
+                        <span class="text-[9px] text-slate-400">نمو أسبوعي</span>
+                    </div>
+                </div>
+
+                <!-- Tile 2: Pending Approvals -->
+                <div class="bg-white dark:bg-charcoal-800 p-5 rounded-3xl border border-amber-100 dark:border-amber-900/30 shadow-sm hover-lift animate-physical stagger-item" style="animation-delay: 0.2s">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 flex items-center justify-center text-xl shadow-inner">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">قيد المراجعة</p>
+                            <h4 id="stat-pending" class="text-2xl font-mono font-black text-slate-800 dark:text-white">14</h4>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-50 dark:border-charcoal-700">
+                        <div class="w-full bg-slate-100 dark:bg-charcoal-900 h-1.5 rounded-full">
+                            <div class="bg-amber-500 h-1.5 rounded-full animate-pulse" style="width: 45%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tile 3: Active Tasks -->
+                <div class="bg-white dark:bg-charcoal-800 p-5 rounded-3xl border border-sky-100 dark:border-sky-900/30 shadow-sm hover-lift animate-physical stagger-item" style="animation-delay: 0.3s">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-sky-50 dark:bg-sky-950/40 text-sky-600 flex items-center justify-center text-xl shadow-inner">
+                            <i class="fa-solid fa-person-digging"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">مهام جارية</p>
+                            <h4 id="stat-active" class="text-2xl font-mono font-black text-slate-800 dark:text-white">42</h4>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex -space-x-reverse space-x-2">
+                        <div class="w-6 h-6 rounded-full border-2 border-white dark:border-charcoal-800 bg-slate-200 overflow-hidden"><img src="https://ui-avatars.com/api/?name=U1"></div>
+                        <div class="w-6 h-6 rounded-full border-2 border-white dark:border-charcoal-800 bg-slate-200 overflow-hidden"><img src="https://ui-avatars.com/api/?name=U2"></div>
+                        <div class="w-6 h-6 rounded-full border-2 border-white dark:border-charcoal-800 bg-slate-300 flex items-center justify-center text-[8px] font-bold text-slate-600">+8</div>
+                    </div>
+                </div>
+
+                <!-- Tile 4: Total Impact/Donations -->
+                <div class="bg-white dark:bg-charcoal-800 p-5 rounded-3xl border border-burgundy-100 dark:border-burgundy-900/30 shadow-sm hover-lift animate-physical stagger-item" style="animation-delay: 0.4s">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-burgundy-50 dark:bg-burgundy-950/40 text-burgundy-800 flex items-center justify-center text-xl shadow-inner">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">العائد المجتمعي</p>
+                            <h4 id="stat-impact" class="text-2xl font-mono font-black text-slate-800 dark:text-white">$14,250</h4>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-50 dark:border-charcoal-700 flex items-center gap-2">
+                        <span class="text-[10px] font-bold text-burgundy-800 dark:text-gold-400">توزيع منزلي مباشر</span>
+                        <i class="fa-solid fa-circle-check text-[10px] text-emerald-500"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Heatmap Map representation & Charts Simulation -->
+            <div class="grid lg:grid-cols-3 gap-8 mb-8">
+                
+                <!-- Simulated GPS Heatmap of Volunteering Regions -->
+                <div class="lg:col-span-2 bg-white dark:bg-charcoal-800 p-6 rounded-3xl border border-burgundy-100 dark:border-charcoal-700 shadow-premium">
+                    <h3 class="text-lg font-black text-burgundy-900 dark:text-white mb-4"><i class="fa-solid fa-location-crosshairs text-burgundy-800 ml-1"></i> الخريطة الحرارية للمهام الميدانية بمركز الفشن</h3>
+                    
+                    <div class="bg-slate-100 dark:bg-charcoal-900 h-64 rounded-2xl relative overflow-hidden flex items-center justify-center border border-slate-200 dark:border-charcoal-700">
+                        <!-- Abstract Mock Map Grid Layout -->
+                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cartographer.png')] opacity-30"></div>
+                        
+                        <!-- Heat Circles -->
+                        <div class="absolute top-12 left-1/4 w-12 h-12 bg-burgundy-500/40 rounded-full blur-md animate-pulse"></div>
+                        <div class="absolute bottom-16 right-1/3 w-20 h-20 bg-emerald-500/30 rounded-full blur-md animate-pulse"></div>
+                        <div class="absolute top-1/2 right-1/4 w-16 h-16 bg-amber-500/40 rounded-full blur-md animate-pulse"></div>
+                        
+                        <div class="relative text-center">
+                            <i class="fa-solid fa-map-marked-alt text-4xl text-burgundy-800 dark:text-burgundy-400 mb-2"></i>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-bold">تتبع حي للمواقع الجغرافية الموثقة بـ GPS الهواتف الذكية</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Analytics Metrics -->
+                <div class="lg:col-span-1 bg-white dark:bg-charcoal-800 p-6 rounded-3xl border border-burgundy-100 dark:border-charcoal-700 shadow-premium flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-black text-burgundy-900 dark:text-white mb-4"><i class="fa-solid fa-chart-line text-burgundy-800 ml-1"></i> قياس كفاءة الأداء</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-slate-500 mb-1">
+                                    <span>مؤشر الشفافية ومكافحة التلاعب</span>
+                                    <span class="text-emerald-500 font-mono">100% الموثق</span>
+                                </div>
+                                <div class="w-full bg-slate-100 dark:bg-charcoal-900 h-2 rounded-full">
+                                    <div class="bg-emerald-500 h-2 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-slate-500 mb-1">
+                                    <span>معدل اكتمال المهام بالشارع</span>
+                                    <span class="text-burgundy-800 dark:text-gold-400 font-mono">82%</span>
+                                </div>
+                                <div class="w-full bg-slate-100 dark:bg-charcoal-900 h-2 rounded-full">
+                                    <div class="bg-burgundy-800 dark:bg-gold-400 h-2 rounded-full" style="width: 82%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-slate-500 mb-1">
+                                    <span>معدل تشغيل وتوظيف الخريجين بالمركز</span>
+                                    <span class="text-amber-500 font-mono">74%</span>
+                                </div>
+                                <div class="w-full bg-slate-100 dark:bg-charcoal-900 h-2 rounded-full">
+                                    <div class="bg-amber-500 h-2 rounded-full" style="width: 74%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="app.simulatePDFReport()" class="w-full bg-gradient-to-b from-slate-700 to-slate-900 hover:from-slate-600 hover:to-slate-800 text-white font-extrabold py-3 rounded-xl transition shadow-md mt-6 border-t border-white/10">
+                        <i class="fa-solid fa-file-pdf ml-2"></i>تصدير تقرير رسمي للوزارة والـ UNICEF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Approval Queue for Before/After Proof Review (طابور مراجعة أدلة التطوع بالـ GPS) -->
+            <div class="bg-white dark:bg-charcoal-800 p-6 rounded-3xl border border-burgundy-100 dark:border-charcoal-700 shadow-premium">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-4 border-b border-slate-100 dark:border-charcoal-700 gap-4">
+                    <h3 class="text-xl font-black text-burgundy-900 dark:text-white">
+                        <i class="fa-solid fa-shield-halved ml-2 text-red-500"></i> طابور مراجعة أدلة المتطوعين (حوكمة ذكية)
+                    </h3>
+                    <div class="flex items-center gap-2 bg-cyan-50 dark:bg-cyan-900/20 px-4 py-1.5 rounded-full border border-cyan-200 dark:border-cyan-800">
+                        <i class="fa-solid fa-robot text-cyan-600 animate-pulse"></i>
+                        <span class="text-[11px] font-bold text-cyan-700 dark:text-cyan-400 uppercase tracking-tighter">Gemini AI Audit Enabled</span>
+                    </div>
+                </div>
+
+                <!-- Search and Filter Bar -->
+                <div class="mb-6 flex flex-col sm:flex-row gap-4 items-center">
+                    <div class="relative flex-1 w-full">
+                        <i class="fa-solid fa-magnifying-glass absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                        <input type="text" id="admin-search-input" onkeyup="app.filterAdminQueue()" placeholder="ابحث باسم المتطوع، الحي، أو حالة المهمة..." class="w-full bg-white dark:bg-charcoal-900/50 border border-slate-200 dark:border-charcoal-700 rounded-2xl pr-11 pl-4 py-3.5 text-sm outline-none focus:ring-2 focus:ring-burgundy-800 dark:focus:ring-burgundy-700 transition-all shadow-sm">
+                    </div>
+                    <div id="search-count" class="hidden sm:block text-[11px] font-black text-slate-400 bg-slate-100/50 dark:bg-charcoal-900 px-4 py-2.5 rounded-xl border border-slate-200/50 dark:border-charcoal-700 uppercase tracking-widest">
+                        النتائج المكتشفة: <span id="visible-rows-count" class="text-burgundy-800 dark:text-gold-400 font-mono text-sm">0</span>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-sm text-right text-slate-500 dark:text-slate-400 min-w-[800px] lg:min-w-full">
+                        <thead class="text-[11px] text-slate-400 dark:text-slate-500 uppercase tracking-widest bg-slate-50/50 dark:bg-charcoal-900/50">
+                            <tr>
+                                <th class="px-6 py-4 font-black rounded-r-2xl">المتطوع / المجموعة</th>
+                                <th class="px-6 py-4 font-black">الحي والموقع الميداني</th>
+                                <th class="px-6 py-4 font-black">توثيق الـ GPS الجغرافي</th>
+                                <th class="px-6 py-4 font-black">دليل الرصد (قبل / بعد)</th>
+                                <th class="px-6 py-4 font-black">حالة التدقيق</th>
+                                <th class="px-6 py-4 font-black text-center rounded-l-2xl">الإجراء الإداري</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-queue">
+                            <!-- Queue Row 1 -->
+                            <tr class="border-b border-slate-100 dark:border-charcoal-700/50 hover:bg-burgundy-50/20 dark:hover:bg-charcoal-900/40 transition-colors" id="queue-item-101">
+                                <td class="px-6 py-6">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-burgundy-100 dark:bg-burgundy-900/30 flex items-center justify-center text-burgundy-800 dark:text-burgundy-400 shadow-inner">
+                                            <i class="fa-solid fa-users-gear"></i>
+                                        </div>
+                                        <span class="font-black text-slate-800 dark:text-white text-base">فريق مدرسة الفشن الثانوية العسكرية</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-6">
+                                    <div class="flex flex-col">
+                                        <span class="font-bold text-slate-700 dark:text-slate-200">تنظيف شارع المحطة الرئيسي وتلوينه</span>
+                                        <span class="text-[10px] text-slate-400">مركز الفشن - منطقة المحطة</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-6">
+                                    <div class="bg-emerald-50 dark:bg-emerald-950/20 px-3 py-1.5 rounded-lg border border-emerald-100 dark:border-emerald-900/50 w-fit">
+                                        <span class="text-emerald-700 dark:text-emerald-400 font-mono font-black text-xs"><i class="fa-solid fa-location-dot ml-2"></i>28.831 , 30.891</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-6">
+                                    <div class="flex items-center gap-2">
+                                        <div class="group relative cursor-help">
+                                            <span class="text-[10px] bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800/50 rounded-lg px-2.5 py-1.5 font-black flex items-center gap-1.5">
+                                                <i class="fa-solid fa-image"></i> قبل (مخلفات)
+                                            </span>
+                                            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-slate-900 text-white p-2 rounded-lg text-[9px] w-24 text-center">صورة رصد المخلفات</div>
+                                        </div>
+                                        <div class="group relative cursor-help">
+                                            <span class="text-[10px] bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50 rounded-lg px-2.5 py-1.5 font-black flex items-center gap-1.5">
+                                                <i class="fa-solid fa-wand-magic-sparkles"></i> بعد (تلوين)
+                                            </span>
+                                            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-slate-900 text-white p-2 rounded-lg text-[9px] w-24 text-center">صورة الإنجاز والطلاء</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-6">
+                                    <div class="status-indicator-container">
+                                        <span class="status-badge-pending inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 text-[10px] font-black">
+                                            <span class="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse"></span> بانتظار المراجعة
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-6 text-center">
+                                    <div class="flex flex-col gap-2 items-center justify-center">
+                                        <div class="flex gap-2">
+                                            <button onclick="app.approveTaskPoints('queue-item-101', 30, 'مجموعة مدرسة الثانوية')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-black text-[11px] px-4 py-2 rounded-xl transition shadow-sm">اعتماد</button>
+                                            <button onclick="app.rejectTaskPoints('queue-item-101')" class="bg-slate-100 hover:bg-rose-500 hover:text-white dark:bg-charcoal-700 text-slate-600 dark:text-slate-400 font-black text-[11px] px-4 py-2 rounded-xl transition">رفض</button>
+                                        </div>
+                                        <button onclick="app.auditTaskWithAI('queue-item-101', 'فريق مدرسة الفشن الثانوية العسكرية', 'تنظيف شارع المحطة الرئيسي وتلوينه', '28.831 , 30.891')" class="text-[10px] bg-white dark:bg-charcoal-900 text-cyan-600 border border-cyan-200 dark:border-cyan-800 hover:bg-cyan-600 hover:text-white font-black px-4 py-1.5 rounded-full flex items-center gap-1.5 transition-all">
+                                            <i class="fa-solid fa-shield-halved animate-pulse"></i>
+                                            <span>تدقيق AI 🤖</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Queue Row 2 -->
+                            <tr class="border-b border-slate-100 dark:border-charcoal-700/50 hover:bg-burgundy-50/20 dark:hover:bg-charcoal-900/40 transition-colors" id="queue-item-102">
+                                <td class="px-6 py-6">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-gold-100 dark:bg-gold-900/30 flex items-center justify-center text-gold-700 dark:text-gold-400 shadow-inner">
+                                            <i class="fa-solid fa-user-check"></i>
+                                        </div>
+                                        <span class="font-black text-slate-800 dark:text-white text-base">المتطوع أحمد الجيار</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-6">
+                                    <div class="flex flex-col">
+                                        <span class="font-bold text-slate-700 dark:text-slate-200">تشجير حديقة الطفل بجانب الكورنيش</span>
+                                        <span class="text-[10px] text-slate-400">منطقة الكورنيش</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-6">
+                                    <div class="bg-emerald-50 dark:bg-emerald-950/20 px-3 py-1.5 rounded-lg border border-emerald-100 dark:border-emerald-900/50 w-fit">
+                                        <span class="text-emerald-700 dark:text-emerald-400 font-mono font-black text-xs"><i class="fa-solid fa-location-dot ml-2"></i>28.835 , 30.898</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-6">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-[10px] bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800/50 rounded-lg px-2.5 py-1.5 font-black flex items-center gap-1.5">
+                                            <i class="fa-solid fa-image"></i> قبل (ترابية)
+                                        </span>
+                                        <span class="text-[10px] bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50 rounded-lg px-2.5 py-1.5 font-black flex items-center gap-1.5">
+                                            <i class="fa-solid fa-seedling"></i> بعد (شتلات)
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-6">
+                                    <div class="status-indicator-container">
+                                        <span class="status-badge-audit inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 text-[10px] font-black">
+                                            <span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> قيد التدقيق الرقمي
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-6 text-center">
+                                    <div class="flex flex-col gap-2 items-center justify-center">
+                                        <div class="flex gap-2">
+                                            <button onclick="app.approveTaskPoints('queue-item-102', 20, 'أحمد الجيار')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-black text-[11px] px-4 py-2 rounded-xl transition shadow-sm">اعتماد</button>
+                                            <button onclick="app.rejectTaskPoints('queue-item-102')" class="bg-slate-100 hover:bg-rose-500 hover:text-white dark:bg-charcoal-700 text-slate-600 dark:text-slate-400 font-black text-[11px] px-4 py-2 rounded-xl transition">رفض</button>
+                                        </div>
+                                        <button onclick="app.auditTaskWithAI('queue-item-102', 'أحمد الجيار', 'تشجير حديقة الطفل بجانب الكورنيش', '28.835 , 30.898')" class="text-[10px] bg-white dark:bg-charcoal-900 text-cyan-600 border border-cyan-200 dark:border-cyan-800 hover:bg-cyan-600 hover:text-white font-black px-4 py-1.5 rounded-full flex items-center gap-1.5 transition-all">
+                                            <i class="fa-solid fa-shield-halved animate-pulse"></i>
+                                            <span>تدقيق AI 🤖</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global User Profile Modal Overlay -->
+    <div id="user-modal-overlay" class="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none flex items-center justify-center p-4" onclick="app.closeUserModal()">
+        <div id="user-modal-content" class="bg-white dark:bg-charcoal-900 w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden border border-white/20" onclick="event.stopPropagation()">
+            <div class="relative h-32 bg-gradient-to-r from-burgundy-800 to-burgundy-950">
+                <button onclick="app.closeUserModal()" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-black/20 hover:bg-black/40 text-white flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="px-8 pb-10 -mt-16 relative">
+                <div id="modal-user-avatar-container" class="mb-4">
+                    <!-- Avatar injected here -->
+                </div>
+                <div id="modal-user-details">
+                    <!-- Name, District, Badges injected here -->
+                </div>
+                <div id="modal-user-stats" class="grid grid-cols-2 gap-4 mt-8 border-t border-slate-100 dark:border-charcoal-800 pt-6">
+                    <!-- Points & Rank injected here -->
+                </div>
+                
+                <!-- Analytics Chart Container -->
+                <div class="mt-8">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line text-burgundy-800"></i> نمو النقاط (آخر 30 يوم)
+                    </p>
+                    <div class="relative h-40 w-full">
+                        <canvas id="userPointsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Floating Toast Notification Engine -->
+    <div id="toast-wrapper" class="fixed bottom-6 left-6 z-[999] flex flex-col gap-3 max-w-sm w-full"></div>
+
+    <script>
+        const app = {
+            state: {
+                points: 350,
+                highScore: 350,
+                adminStats: {
+                    volunteers: 1482,
+                    pending: 14,
+                    active: 42,
+                    impact: 14250
+                },
+                registeredUsers: [
+                    { id: 1, name: "عمر خالد الجندي", district: "حي الشيخ غنيم", points: 620, avatar: "Omar+K", badges: ["قائد ميداني", "صانع أثر"], hasRecentAchievement: true, history: [400, 480, 520, 590, 620] },
+                    { id: 2, name: "مريم الشافعي", district: "حي وسط البلد", points: 490, avatar: "Mariam+S", badges: ["مكافح تلوث", "خبير AI"], hasRecentAchievement: false, history: [320, 350, 410, 440, 490] },
+                    { id: 3, name: "أحمد الجيار", district: "منطقة الكورنيش", points: 410, avatar: "Ahmed+J", badges: ["مكافح تلوث"], hasRecentAchievement: true, history: [200, 260, 310, 380, 410] },
+                    { id: 4, name: "حسن مصطفى", district: "منطقة البحر", points: 380, avatar: "Hassan+M", badges: ["قائد ميداني"], hasRecentAchievement: false, history: [250, 290, 330, 350, 380] },
+                    { id: 5, name: "سارة فؤاد", district: "عزبة تابعة للفشن", points: 290, avatar: "Sara+F", badges: ["خبير AI"], history: [150, 180, 220, 260, 290] },
+                    { id: 6, name: "يوسف ابراهيم", district: "شارع المحطة", points: 210, avatar: "Youssef+I", badges: ["مكافح تلوث"], hasRecentAchievement: false, history: [100, 130, 160, 190, 210] }
+                ],
+                activeTab: 'home',
+                isDarkTheme: false,
+                isLowPower: false,
+                isGpsLocked: false,
+                aiIsProcessing: false,
+                joinedTeams: {
+                    1: false,
+                    2: false
+                },
+                // Chat history maintained with instructions for Gemini
+                aiChatHistory: [],
+                activeQuizCorrectIndex: 1,
+                chartInstance: null
+            },
+
+            // Gemini API Setup
+            apiConfig: {
+                apiKey: "", // Left empty for runtime injection inside Canvas
+                model: "gemini-3-flash-preview",
+                get endpoint() {
+                    return `https://generativelanguage.googleapis.com/v1beta/models/${this.model}:generateContent?key=${this.apiKey}`;
+                }
+            },
+
+            // Exponential backoff for API calls to prevent throttling
+            async fetchWithBackoff(url, options, retries = 3, delay = 1000) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) {
+                        if (response.status === 429 && retries > 0) {
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            return this.fetchWithBackoff(url, options, retries - 1, delay * 2);
+                        }
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response;
+                } catch (error) {
+                    if (retries > 0) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        return this.fetchWithBackoff(url, options, retries - 1, delay * 2);
+                    }
+                    throw error;
+                }
+            },
+
+            init() {
+                // Load persistent state
+                const savedPoints = localStorage.getItem('fashn_points');
+                if (savedPoints) this.state.points = parseInt(savedPoints);
+                
+                const savedHighScore = localStorage.getItem('fashn_highscore');
+                if (savedHighScore) this.state.highScore = parseInt(savedHighScore);
+
+                const savedTheme = localStorage.getItem('fashn_theme');
+                if (savedTheme) this.state.isDarkTheme = savedTheme === 'dark';
+
+                const savedLowPower = localStorage.getItem('fashn_lowpower');
+                if (savedLowPower) this.state.isLowPower = savedLowPower === 'true';
+
+                this.updateThemeUI();
+                this.updateLowPowerUI();
+                this.autoDetectLowPower();
+                this.initHeroPerspective();
+                this.updatePointsCountDisplay();
+                this.updateAdminStatsUI();
+                this.renderUsersLeaderboard();
+                this.updateDynamicGlow();
+
+                // إضافة الصوت الميكانيكي لجميع الأزرار عند الضغط
+                document.addEventListener('mousedown', (e) => {
+                    if (e.target.closest('button')) {
+                        this.playClickSound();
+                    }
+                }, { passive: true });
+
+                window.addEventListener('scroll', () => {
+                    const btt = document.getElementById('back-to-top');
+                    if (window.scrollY > 400) {
+                        btt.classList.remove('opacity-0', 'translate-y-10');
+                    } else {
+                        btt.classList.add('opacity-0', 'translate-y-10');
+                    }
+                });
+                
+                // Initialize default prompt setup inside chat history
+                const systemPrompt = "أنت المستشار المهني الذكي والمحفز لمنصة الفشن للتنمية الرقمية والمجتمعية التابعة لمحافظة بني سويف. وظيفتك إرشاد شباب وطلاب مركز الفشن بمصر لسوق العمل الحر (Freelancing) والبرمجة والذكاء الاصطناعي. تحدث باللهجة المصرية الودودة والذكية، كصديق خبير مبرمج. ركز على نصائح ملموسة حول منصات مستقل و Upwork، والتعلم عبر موقع W3Schools لـ HTML/CSS/JS، واستثمار أدوات AI مثل NotebookLM. قدم مسارات قصيرة ومحفزة وعاطفية لتمكين أسر الفشن اقتصادياً. اختم كل إرشاد دائماً بعبارة حماسية تذكرهم بحافز تكريم والديهم على الشاشة الكبرى لمركز الفشن بالشارع العام.";
+                
+                this.state.aiChatHistory.push({
+                    role: "user",
+                    parts: [{ text: systemPrompt }]
+                });
+                this.state.aiChatHistory.push({
+                    role: "model",
+                    parts: [{ text: "أنا جاهز تماماً يا بطل التنمية في مركز الفشن! سأكون رفيقك ومستشارك المهني المعتمد لمساعدتك في تعلم كود البرمجة وأدوات الذكاء الاصطناعي وتجهيزك للفريلانس وكسب الرزق الحلال من منزلك لتفخر بك عائلتك كلها." }]
+                });
+            },
+
+            // محرك الإمالة ثلاثي الأبعاد للصورة الرئيسية
+            initHeroPerspective() {
+                const card = document.getElementById('hero-image-card');
+                if (!card) return;
+
+                const handleMove = (e) => {
+                    if (this.state.isLowPower) return;
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+
+                    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                };
+
+                const handleLeave = () => {
+                    card.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                };
+
+                card.parentElement.addEventListener('mousemove', handleMove);
+                card.parentElement.addEventListener('mouseleave', handleLeave);
+            },
+
+            updateAdminStatsUI() {
+                const stats = this.state.adminStats;
+                const els = {
+                    volunteers: document.getElementById('stat-volunteers'),
+                    pending: document.getElementById('stat-pending'),
+                    active: document.getElementById('stat-active'),
+                    impact: document.getElementById('stat-impact')
+                };
+
+                if (els.volunteers) els.volunteers.innerText = stats.volunteers.toLocaleString();
+                if (els.pending) els.pending.innerText = stats.pending;
+                if (els.active) els.active.innerText = stats.active;
+                if (els.impact) els.impact.innerText = `$${stats.impact.toLocaleString()}`;
+            },
+
+            renderUsersLeaderboard() {
+                const container = document.getElementById('community-users-list');
+                if (!container) return;
+
+                // Sort users by points descending
+                const sortedUsers = [...this.state.registeredUsers].sort((a, b) => b.points - a.points);
+
+                container.innerHTML = sortedUsers.map((user, index) => {
+                    let rankIcon = "";
+                    if (index === 0) rankIcon = '<i class="fa-solid fa-crown text-gold-500 text-lg absolute -top-4 -left-4 -rotate-12 animate-bounce"></i>';
+                    
+                    const badgeHtml = user.badges.map(b => {
+                        let bClass = "bg-slate-100 text-slate-600";
+                        if (b === "مكافح تلوث") bClass = "bg-emerald-500/10 text-emerald-600 border-emerald-500/20";
+                        if (b === "خبير AI") bClass = "bg-cyan-500/10 text-cyan-600 border-cyan-500/20";
+                        if (b === "قائد ميداني") bClass = "bg-burgundy-800/10 text-burgundy-800 border-burgundy-800/20";
+                        if (b === "صانع أثر") bClass = "bg-gold-500/10 text-gold-600 border-gold-500/20";
+                        
+                        const glow = (user.hasRecentAchievement && b === user.badges[user.badges.length - 1]) ? "recent-achievement-glow" : "";
+                        return `<span class="px-2 py-0.5 rounded-md border ${bClass} ${glow} text-[9px] font-black uppercase">${b}</span>`;
+                    }).join('');
+                    
+                    return `
+                        <div onclick="app.showUserModal(${user.id})" class="bg-slate-50/50 dark:bg-charcoal-900/40 p-5 rounded-[2rem] border border-slate-100 dark:border-charcoal-700/50 hover-lift animate-physical group transition-all duration-500 cursor-pointer">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="relative">
+                                    ${rankIcon}
+                                    <img src="https://ui-avatars.com/api/?name=${user.avatar}&background=800020&color=fff&size=128" class="w-16 h-16 rounded-2xl object-cover shadow-lg border-2 border-white dark:border-charcoal-800 group-hover:scale-105 transition-transform">
+                                    <span class="absolute -bottom-2 -right-2 w-7 h-7 bg-burgundy-800 text-white text-xs font-black rounded-xl flex items-center justify-center border-2 border-white dark:border-charcoal-800">${index + 1}</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-base font-black text-slate-800 dark:text-white">${user.name}</h4>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest"><i class="fa-solid fa-location-dot ml-1"></i>${user.district}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-1.5 mb-4">
+                                ${badgeHtml}
+                            </div>
+                            
+                            <div class="pt-4 border-t border-slate-100 dark:border-charcoal-700/50 flex justify-between items-end">
+                                <div>
+                                    <p class="text-[9px] text-slate-400 font-black uppercase mb-1">الرصيد الحالي</p>
+                                    <span class="text-xl font-mono font-black text-burgundy-800 dark:text-gold-400">${user.points}</span>
+                                    <span class="text-[10px] text-slate-400 font-bold ml-1">نقطة</span>
+                                </div>
+                                <div class="w-20 h-1.5 bg-slate-200 dark:bg-charcoal-900 rounded-full overflow-hidden mb-2">
+                                    <div class="bg-gold-500 h-full rounded-full" style="width: ${(user.points/1000)*100}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            showUserModal(userId) {
+                const user = this.state.registeredUsers.find(u => u.id === userId);
+                if (!user) return;
+
+                const overlay = document.getElementById('user-modal-overlay');
+                const avatarContainer = document.getElementById('modal-user-avatar-container');
+                const detailsContainer = document.getElementById('modal-user-details');
+                const statsContainer = document.getElementById('modal-user-stats');
+
+                avatarContainer.innerHTML = `
+                    <div class="relative inline-block">
+                        <img src="https://ui-avatars.com/api/?name=${user.avatar}&background=800020&color=fff&size=200" class="w-28 h-28 rounded-[2rem] border-4 border-white dark:border-charcoal-900 shadow-xl object-cover">
+                        ${user.points > 500 ? '<div class="absolute -bottom-2 -right-2 w-10 h-10 bg-gold-500 text-charcoal-950 rounded-full flex items-center justify-center shadow-lg border-2 border-white"><i class="fa-solid fa-award"></i></div>' : ''}
+                    </div>
+                `;
+
+                detailsContainer.innerHTML = `
+                    <h3 class="text-2xl font-black text-slate-800 dark:text-white mb-1">${user.name}</h3>
+                    <p class="text-sm text-slate-400 font-bold mb-4"><i class="fa-solid fa-location-dot ml-1 text-burgundy-800"></i> ${user.district}</p>
+                    <div class="flex flex-wrap gap-2">
+                        ${user.badges.map(b => `<span class="px-3 py-1 rounded-lg bg-slate-100 dark:bg-charcoal-800 text-[10px] font-black border border-slate-200 dark:border-charcoal-700 text-slate-600 dark:text-slate-400">${b}</span>`).join('')}
+                    </div>
+                `;
+
+                statsContainer.innerHTML = `
+                    <div class="bg-burgundy-50 dark:bg-burgundy-950/20 p-4 rounded-3xl text-center">
+                        <p class="text-[10px] font-black text-burgundy-800/60 dark:text-burgundy-400/60 uppercase mb-1">إجمالي النقاط</p>
+                        <span class="text-2xl font-mono font-black text-burgundy-800 dark:text-gold-400">${user.points}</span>
+                    </div>
+                    <div class="bg-gold-50 dark:bg-gold-950/20 p-4 rounded-3xl text-center">
+                        <p class="text-[10px] font-black text-gold-600/60 dark:text-gold-400/60 uppercase mb-1">الرتبة الحالية</p>
+                        <span class="text-xl font-black text-gold-600 dark:text-gold-400">${user.points > 500 ? 'رائد تمكين' : 'متطوع نشط'}</span>
+                    </div>
+                `;
+
+                overlay.classList.add('active', 'opacity-100', 'pointer-events-auto');
+                this.playClickSound();
+
+                // Initialize Chart after modal is visible
+                this.renderUserChart(user.history);
+            },
+
+            renderUserChart(historyData) {
+                const ctx = document.getElementById('userPointsChart').getContext('2d');
+                const isDark = this.state.isDarkTheme;
+                
+                // Destroy existing chart to prevent overlap
+                if (this.state.chartInstance) {
+                    this.state.chartInstance.destroy();
+                }
+
+                const burgundyColor = '#800020';
+                const goldColor = '#bd842a';
+
+                this.state.chartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'الأسبوع 4', 'اليوم'],
+                        datasets: [{
+                            label: 'إجمالي النقاط',
+                            data: historyData,
+                            borderColor: burgundyColor,
+                            backgroundColor: isDark ? 'rgba(128, 0, 32, 0.2)' : 'rgba(128, 0, 32, 0.05)',
+                            fill: true,
+                            tension: 0.4, // Smooth curves
+                            pointBackgroundColor: goldColor,
+                            pointBorderColor: '#fff',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                grid: { color: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' },
+                                ticks: { 
+                                    color: isDark ? '#888' : '#666',
+                                    font: { family: 'Cairo', size: 10 }
+                                }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { 
+                                    color: isDark ? '#888' : '#666',
+                                    font: { family: 'Cairo', size: 10 }
+                                }
+                            }
+                        }
+                    }
+                });
+            },
+
+            closeUserModal() {
+                const overlay = document.getElementById('user-modal-overlay');
+                overlay.classList.remove('opacity-100', 'pointer-events-auto');
+                setTimeout(() => {
+                    overlay.classList.remove('active');
+                }, 400);
+            },
+
+            // Helper to update specific user points in the registered list
+            updateUserPointsInList(name, pointsToAdd) {
+                const user = this.state.registeredUsers.find(u => u.name.includes(name));
+                if (user) {
+                    user.points += pointsToAdd;
+                } else {
+                    // Add new user if not found
+                    this.state.registeredUsers.push({
+                        id: Date.now(), name, district: "مركز الفشن", points: pointsToAdd, avatar: name.charAt(0)
+                    });
+                }
+                this.renderUsersLeaderboard();
+            },
+
+            toggleTheme() {
+                const curtain = document.getElementById('theme-curtain');
+
+                // Check if current points set a new record for the shimmer effect
+                const isNewRecord = this.state.points > this.state.highScore;
+                if (isNewRecord) {
+                    this.state.highScore = this.state.points;
+                    localStorage.setItem('fashn_highscore', this.state.highScore);
+                    curtain.classList.add('record-shimmer');
+                } else {
+                    curtain.classList.remove('record-shimmer');
+                }
+
+                // Play luxury slide sound
+                this.playSlideSound();
+                
+                // Check points for "Golden Glory" effect
+                if (this.state.points >= 1000) {
+                    curtain.classList.add('gold-glory');
+                } else {
+                    curtain.classList.remove('gold-glory');
+                }
+
+                curtain.style.transition = 'right 0.7s cubic-bezier(0.7, 0, 0.3, 1)';
+                curtain.style.right = '0';
+
+                setTimeout(() => {
+                    this.state.isDarkTheme = !this.state.isDarkTheme;
+                    localStorage.setItem('fashn_theme', this.state.isDarkTheme ? 'dark' : 'light');
+                    this.updateThemeUI();
+                    this.updateDynamicGlow();
+                    
+                    setTimeout(() => {
+                        curtain.style.right = '100%';
+                        setTimeout(() => {
+                            curtain.style.transition = 'none';
+                            curtain.style.right = '-110%';
+                        }, 700);
+                    }, 50);
+                }, 350);
+
+                this.showNotification(
+                    this.state.isDarkTheme ? 'تم تفعيل الوضع الليلي الاحترافي 🌙' : 'تم تفعيل الوضع الفاتح المشرق ☀️', 
+                    'info'
+                );
+            },
+
+            updateThemeUI() {
+                const htmlEl = document.documentElement;
+                if (this.state.isDarkTheme) {
+                    htmlEl.classList.add('dark');
+                } else {
+                    htmlEl.classList.remove('dark');
+                }
+            },
+
+            toggleLowPowerMode() {
+                this.state.isLowPower = !this.state.isLowPower;
+                localStorage.setItem('fashn_lowpower', this.state.isLowPower);
+                this.updateLowPowerUI();
+                this.showNotification(
+                    this.state.isLowPower ? 'تم تفعيل وضع توفير الطاقة: تم إيقاف الأنيميشن لزيادة السرعة!' : 'تم العودة لوضع الأداء الكامل والأنيميشن الإبداعي!',
+                    'info'
+                );
+            },
+
+            updateLowPowerUI() {
+                const body = document.body;
+                const iconDesktop = document.getElementById('pwr-icon-desktop');
+                const iconMobile = document.getElementById('pwr-icon-mobile');
+                
+                // Image Quality Reduction Logic
+                const allImages = document.querySelectorAll('img');
+                
+                if (this.state.isLowPower) {
+                    body.classList.add('low-power-mode');
+                    if (iconDesktop) iconDesktop.className = 'fa-solid fa-battery-quarter text-amber-500';
+                    if (iconMobile) iconMobile.className = 'fa-solid fa-battery-quarter text-amber-500';
+                    
+                    // Reduce external API image sizes to save data
+                    allImages.forEach(img => {
+                        if (img.src.includes('ui-avatars.com')) {
+                            img.src = img.src.replace(/size=\d+/, 'size=32');
+                        }
+                    });
+                } else {
+                    body.classList.remove('low-power-mode');
+                    if (iconDesktop) iconDesktop.className = 'fa-solid fa-battery-full text-emerald-500';
+                    if (iconMobile) iconMobile.className = 'fa-solid fa-battery-full text-emerald-500';
+                    
+                    allImages.forEach(img => {
+                        if (img.src.includes('ui-avatars.com')) {
+                            img.src = img.src.replace('size=32', 'size=128');
+                        }
+                    });
+                }
+            },
+
+            async autoDetectLowPower() {
+                if (this.state.isLowPower) return;
+
+                let autoReason = "";
+                const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+                
+                // 1. Check for "Save Data" system preference
+                if (conn && conn.saveData) autoReason = "تفعيل توفير البيانات";
+                // 2. Check for weak hardware (RAM < 4GB)
+                else if (navigator.deviceMemory && navigator.deviceMemory < 4) autoReason = "محدودية ذاكرة الجهاز";
+                // 3. Check for low CPU cores (2 or less)
+                else if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) autoReason = "محدودية قدرة المعالج";
+
+                if (autoReason) {
+                    this.state.isLowPower = true;
+                    this.updateLowPowerUI();
+                    this.showNotification(`تم اكتشاف ${autoReason}: تفعيل وضع توفير الطاقة تلقائياً للأداء الأفضل`, 'info');
+                }
+
+                // 4. Asynchronous Battery Monitoring (Auto-detect low battery)
+                if ('getBattery' in navigator) {
+                    try {
+                        const battery = await navigator.getBattery();
+                        const checkBattery = () => {
+                            if (battery.level <= 0.2 && !battery.charging && !this.state.isLowPower) {
+                                this.state.isLowPower = true;
+                                this.updateLowPowerUI();
+                                this.showNotification('تنبيه: البطارية أقل من 20%. تم تفعيل وضع توفير الطاقة تلقائياً', 'info');
+                            }
+                        };
+                        checkBattery();
+                        battery.addEventListener('levelchange', checkBattery);
+                        battery.addEventListener('chargingchange', checkBattery);
+                    } catch (e) {}
+                }
+            },
+
+            toggleSidebar() {
+                const sidebar = document.getElementById('sidebar-overlay');
+                sidebar.classList.toggle('active');
+            },
+
+            // Smoothed Tabs Changing System
+            switchTab(tabId) {
+                document.querySelectorAll('.app-view').forEach(view => {
+                    view.classList.remove('active-view');
+                });                
+
+                // Mobile Nav UI Update
+                document.querySelectorAll('.mobile-nav button').forEach(btn => {
+                    btn.classList.remove('text-burgundy-800', 'dark:text-white');
+                    btn.classList.add('text-slate-500', 'dark:text-slate-400');
+                });
+                
+                const activeView = document.getElementById(`view-${tabId}`);
+                if (activeView) {
+                    activeView.classList.add('active-view');
+                }
+
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('nav-link-active');
+                });
+                
+                const targetBtn = document.getElementById(`tab-btn-${tabId}`);
+                if (targetBtn) {
+                    targetBtn.classList.add('nav-link-active');
+                }
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                this.state.activeTab = tabId;
+            },
+
+            // Improved logic to handle points and dynamic glow color
+            updatePointsCountDisplay() {
+                const ptsCounterEl = document.getElementById('user-points');
+                if (!ptsCounterEl) return;
+
+                let currentVal = parseInt(ptsCounterEl.innerText) || 0;
+                const targetVal = this.state.points;
+                if (currentVal === targetVal) return;
+
+                const numericStep = targetVal > currentVal ? 1 : -1;
+                const counterIntervalTimer = setInterval(() => {
+                    currentVal += numericStep;
+                    
+                    // Batch update condition to save DOM cycles
+                    if (Math.abs(targetVal - currentVal) < 2 || currentVal === targetVal) {
+                        ptsCounterEl.innerText = targetVal;
+                        clearInterval(counterIntervalTimer);
+                    } else {
+                        ptsCounterEl.innerText = currentVal;
+                    }
+                }, 15);
+
+                ptsCounterEl.parentElement.classList.add('scale-110', 'border-gold-400');
+                this.updateDynamicGlow();
+
+                setTimeout(() => {
+                    ptsCounterEl.parentElement.classList.remove('scale-110', 'border-gold-400');
+                }, 400);
+            },
+
+            updateDynamicGlow() {
+                const pts = this.state.points;
+                let rgb = '6, 182, 212'; // Default Cyan for beginners
+                if (pts >= 1000) {
+                    rgb = '212, 161, 59'; // Premium Gold
+                } else if (pts >= 500) {
+                    rgb = '128, 0, 32'; // Royal Burgundy
+                }
+                
+                document.documentElement.style.setProperty('--neon-glow-rgb', rgb);
+            },
+
+            // محاكاة صوت نقرة ميكانيكية خفيفة باستخدام Web Audio API
+            playClickSound() {
+                try {
+                    if (!this.audioCtx) {
+                        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    if (this.audioCtx.state === 'suspended') {
+                        this.audioCtx.resume();
+                    }
+                    
+                    const oscillator = this.audioCtx.createOscillator();
+                    const gainNode = this.audioCtx.createGain();
+
+                    oscillator.type = 'sine'; 
+                    oscillator.frequency.setValueAtTime(150, this.audioCtx.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(0.1, this.audioCtx.currentTime + 0.04);
+
+                    gainNode.gain.setValueAtTime(0.04, this.audioCtx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioCtx.currentTime + 0.04);
+
+                    oscillator.connect(gainNode);
+                    gainNode.connect(this.audioCtx.destination);
+
+                    oscillator.start();
+                    oscillator.stop(this.audioCtx.currentTime + 0.04);
+                } catch (e) {
+                    // صمت اختياري في حال عدم دعم المتصفح للصوت
+                }
+            },
+
+            // محاكاة صوت انزلاق فخم (Whoosh)
+            playSlideSound() {
+                try {
+                    if (!this.audioCtx) {
+                        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+
+                    const oscillator = this.audioCtx.createOscillator();
+                    const gainNode = this.audioCtx.createGain();
+                    const filter = this.audioCtx.createBiquadFilter();
+
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(400, this.audioCtx.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(50, this.audioCtx.currentTime + 0.7);
+
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(1000, this.audioCtx.currentTime);
+
+                    gainNode.gain.setValueAtTime(0, this.audioCtx.currentTime);
+                    gainNode.gain.linearRampToValueAtTime(0.05, this.audioCtx.currentTime + 0.1);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioCtx.currentTime + 0.7);
+
+                    oscillator.connect(filter);
+                    filter.connect(gainNode);
+                    gainNode.connect(this.audioCtx.destination);
+
+                    oscillator.start();
+                    oscillator.stop(this.audioCtx.currentTime + 0.7);
+                } catch (e) {}
+            },
+
+            addPoints(pointsAmount, reason) {
+                this.state.points += pointsAmount;
+                localStorage.setItem('fashn_points', this.state.points);
+                this.updatePointsCountDisplay();
+                this.showNotification(`تم كسب +${pointsAmount} نقطة تطوع! السبب: ${reason}`, 'success');
+            },
+
+            simulateCameraUpload() {
+                const textEl = document.getElementById('upload-status-text');
+                const badgeEl = document.getElementById('gps-coords-badge');
+                
+                this.showNotification('جاري تشغيل الكاميرا وتحديد إحداثيات GPS...', 'info');
+                
+                setTimeout(() => {
+                    this.state.isGpsLocked = true;
+                    if (textEl) textEl.innerText = 'صورة حية مثبتة من كاميرا الميدان وموثقة بالـ GPS!';
+                    if (badgeEl) badgeEl.classList.remove('hidden');
+                    this.showNotification('تم التقاط الصورة بنجاح وربط الموقع الجغرافي (Fashn GPS: 28.834, 30.893)', 'success');
+                }, 1200);
+            },
+
+            handleReportIssue(event) {
+                event.preventDefault();
+                if (!this.state.isGpsLocked) {
+                    this.showNotification('تنبيه: الرجاء التقاط الصورة الحية وتأمين قفل الـ GPS لتفادي التلاعب بالتقارير!', 'error');
+                    return;
+                }
+
+                const type = document.getElementById('issue-type').value;
+                const region = document.getElementById('issue-region').value;
+                const desc = document.getElementById('issue-desc').value.trim();
+
+                if (!desc) {
+                    this.showNotification('الرجاء كتابة تفاصيل المشكلة أولاً!', 'error');
+                    return;
+                }
+
+                const queueTable = document.getElementById('admin-table-queue');
+                const newRowId = `queue-item-${Math.floor(Math.random() * 1000)}`;
+                const randomGps = "28.834 , 30.893";
+                
+                const newTr = document.createElement('tr');
+                newTr.className = "border-b border-slate-100 dark:border-charcoal-700 hover:bg-slate-50/50 dark:hover:bg-charcoal-900/40";
+                newTr.id = newRowId;
+                newTr.innerHTML = `
+                    <td class="px-6 py-4 font-extrabold text-slate-800 dark:text-white">أهالي منطقة الفشن (مواطن)</td>
+                    <td class="px-6 py-4">${type} - ${region}</td>
+                    <td class="px-6 py-4 text-emerald-600 dark:text-emerald-400 font-mono font-bold text-xs"><i class="fa-solid fa-location-dot ml-1"></i>${randomGps}</td>
+                    <td class="px-6 py-4">
+                        <div class="flex gap-2">
+                            <span class="text-[10px] bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 border border-amber-300/20 rounded px-1.5 py-0.5 font-bold">بلاغ جديد (مرفق GPS)</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4"><span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-600 border border-amber-500/20 text-[10px] font-black"><span class="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse"></span> بانتظار المراجعة</span></td>
+                    <td class="px-6 py-4 text-center">
+                        <div class="flex flex-col gap-2 items-center justify-center">
+                            <div class="flex gap-2">
+                                <button onclick="app.approveTaskPoints('${newRowId}', 20, 'تقرير بلاغ')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs px-3 py-1.5 rounded-lg transition shadow-sm">اعتماد كمهمة معلنة (+20 ن)</button>
+                                <button onclick="app.rejectTaskPoints('${newRowId}')" class="bg-slate-100 hover:bg-red-600 hover:text-white text-slate-700 dark:bg-charcoal-700 dark:text-slate-200 font-extrabold text-xs px-3 py-1.5 rounded-lg transition">رفض</button>
+                            </div>
+                            <button onclick="app.auditTaskWithAI('${newRowId}', 'أهالي الفشن', '${type} - ${region}', '${randomGps}')" class="text-[10px] bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-2 py-1 rounded border border-cyan-400/30 flex items-center gap-1">
+                                <i class="fa-solid fa-shield-halved animate-pulse"></i>
+                                <span>تدقيق ذكي بـ AI 🤖</span>
+                            </button>
+                        </div>
+                    </td>
+                `;
+
+                if (queueTable) {
+                    queueTable.prepend(newTr);
+                }
+
+                this.showNotification('تم إرسال بلاغك لبوابة الحوكمة للمراجعة، وسيتم الإعلان عنها كفرصة تطوع جديدة!', 'success');
+                
+                event.target.reset();
+                this.state.isGpsLocked = false;
+                document.getElementById('upload-status-text').innerText = 'اضغط لالتقاط الصورة وتحديد إحداثيات الـ GPS فورياً';
+                document.getElementById('gps-coords-badge').classList.add('hidden');
+            },
+
+            joinTaskGroup(taskId) {
+                if (this.state.joinedTeams[taskId]) return;
+                
+                this.state.joinedTeams[taskId] = true;
+                const counterEl = document.getElementById(`team-counter-${taskId}`);
+                const progressEl = document.getElementById(`team-progress-${taskId}`);
+                const btnEl = document.getElementById(`join-btn-${taskId}`);
+
+                if (taskId === 1) {
+                    if (counterEl) counterEl.innerText = "3 / 5 أفراد";
+                    if (progressEl) progressEl.style.width = "60%";
+                }
+
+                if (btnEl) {
+                    btnEl.innerHTML = '<i class="fa-solid fa-check ml-1.5"></i>تم الانضمام للفريق';
+                    btnEl.className = "w-full bg-emerald-600 text-white font-extrabold py-2.5 rounded-xl transition text-sm cursor-default";
+                    btnEl.disabled = true;
+                }
+
+                this.showNotification('مبروك! تم حجز مقعدك في فريق المهمة الميدانية، جهز أدواتك والتزم بالـ GPS!', 'success');
+            },
+
+            triggerVerifyTask(taskId, rewardPoints) {
+                this.showNotification('جاري تتبع موقعك الجغرافي وفتح الكاميرا الميدانية لإثبات حالة "قبل وبعد" الإنجاز...', 'info');
+                
+                setTimeout(() => {
+                    this.addPoints(rewardPoints, 'إثبات حالة وإتمام مهمة بالشارع بالـ GPS');
+                    this.showNotification('رائع! تمت مراجعة صور "قبل وبعد" المرفقة بنجاح وتم صرف الرصيد في حسابك وتحديث شاشة الشارع!', 'success');
+                }, 1500);
+            },
+
+            submitQuizAnswer(btnElement, isCorrect) {
+                const parent = btnElement.parentElement;
+                parent.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    btn.classList.add('opacity-50');
+                });
+
+                if (isCorrect === 1 || isCorrect === true) {
+                    btnElement.className = "w-full text-right p-4 rounded-2xl bg-emerald-100 border border-emerald-400 font-black text-emerald-800 transition dark:bg-emerald-950/50 dark:text-emerald-300";
+                    this.addPoints(10, 'الإجابة بشكل صحيح على بنك أسئلة الفشن وتفادي تشتيتها');
+                    document.getElementById('quiz-explanation').classList.remove('hidden');
+                } else {
+                    btnElement.className = "w-full text-right p-4 rounded-2xl bg-rose-100 border border-rose-400 font-black text-rose-800 transition dark:bg-rose-950/50 dark:text-rose-300";
+                    this.showNotification('للأسف الإجابة غير صحيحة! راجع دليل صالون الجمعة لمعرفة المزيد عن مفاخر مركز الفشن!', 'error');
+                }
+            },
+
+            reserveSeat() {
+                this.addPoints(10, 'حجز مقعد حضور صالون الجمعة والتمكين الرقمي');
+                this.showNotification('تم حجز مقعدك في صالون الجمعة وإرسال الكود التعريفي لهاتفك الموثق!', 'success');
+            },
+
+            async generateNewAIQuiz() {
+                if (!this.apiConfig.apiKey) {
+                    this.showNotification('يرجى ضبط API Key الخاص بـ Gemini أولاً في الكود!', 'error');
+                    return;
+                }
+
+                const loader = document.getElementById('quiz-loading-overlay');
+                const btn = document.getElementById('btn-quiz-generator');
+                if (loader) loader.classList.remove('hidden');
+                if (btn) btn.disabled = true;
+
+                const systemPrompt = "Act as an expert historian and geographer of El-Fashn center in Beni Suef Governorate, Egypt. Generate exactly one challenging multiple-choice question about El-Fashn (its history, famous figures, administration, geography, local agriculture, canals, or current national development projects) to educate local students. Provide exactly 4 options. Identify the correct option index (0 to 3) and provide a rich explanation. Your response MUST be valid JSON strictly matching the provided schema, written in standard Arabic.";
+                const userPrompt = "Generate a new local knowledge question about El-Fashn.";
+
+                const payload = {
+                    contents: [{ parts: [{ text: userPrompt }] }],
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "OBJECT",
+                            properties: {
+                                question: { type: "STRING" },
+                                options: {
+                                    type: "ARRAY",
+                                    items: { type: "STRING" }
+                                },
+                                correctIndex: { type: "INTEGER" },
+                                explanation: { type: "STRING" }
+                            },
+                            required: ["question", "options", "correctIndex", "explanation"]
+                        }
+                    },
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    }
+                };
+
+                try {
+                    const response = await this.fetchWithBackoff(this.apiConfig.endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+                    const jsonText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    if (jsonText) {
+                        const quizData = JSON.parse(jsonText);
+                        
+                        // Update UI
+                        document.getElementById('quiz-question-text').innerText = quizData.question;
+                        const optionsContainer = document.getElementById('quiz-options-container');
+                        optionsContainer.innerHTML = '';
+                        
+                        quizData.options.forEach((opt, idx) => {
+                            const isCorr = (idx === quizData.correctIndex) ? 1 : 0;
+                            const button = document.createElement('button');
+                            button.className = "w-full text-right p-4 rounded-2xl bg-slate-50 hover:bg-burgundy-50 dark:bg-charcoal-900 dark:hover:bg-charcoal-700 border border-slate-100 dark:border-charcoal-700 font-semibold text-slate-700 dark:text-slate-200 transition";
+                            button.innerText = opt;
+                            button.onclick = function() { app.submitQuizAnswer(this, isCorr); };
+                            optionsContainer.appendChild(button);
+                        });
+
+                        const expBox = document.getElementById('quiz-explanation');
+                        expBox.innerText = `💡 الشرح التوضيحي للـ AI: ${quizData.explanation}`;
+                        expBox.classList.add('hidden'); // Hide until answered
+                        
+                        this.showNotification('تم توليد سؤال جديد لمركز الفشن بنجاح وبشكل مباشر من Gemini API!', 'success');
+                    }
+                } catch (error) {
+                    console.error("Gemini Quiz Generation failed", error);
+                    this.showNotification('فشل الاتصال بـ Gemini API. جاري استخدام بنك الأسئلة الاحتياطي.', 'error');
+                } finally {
+                    if (loader) loader.classList.add('hidden');
+                    if (btn) btn.disabled = false;
+                }
+            },
+
+            sendSuggestedQuery(queryText) {
+                const inputEl = document.getElementById('ai-chat-input');
+                if (inputEl) {
+                    inputEl.value = queryText;
+                    this.handleAIChatSubmit(new Event('submit'));
+                }
+            },
+
+            async handleAIChatSubmit(event) {
+                if (event) event.preventDefault();
+                if (this.state.aiIsProcessing) return;
+
+                const inputEl = document.getElementById('ai-chat-input');
+                const userMsgText = inputEl ? inputEl.value.trim() : '';
+
+                if (!userMsgText) return;
+
+                // Append user message to UI
+                this.appendChatMessage(userMsgText, 'user');
+                if (inputEl) inputEl.value = '';
+
+                // Show loading & disable buttons
+                this.state.aiIsProcessing = true;
+                const indicator = document.getElementById('ai-typing-indicator');
+                const submitBtn = document.getElementById('btn-chat-submit');
+                if (indicator) indicator.classList.remove('hidden');
+                if (submitBtn) submitBtn.disabled = true;
+
+                // Append user turn to API chat history
+                this.state.aiChatHistory.push({
+                    role: "user",
+                    parts: [{ text: userMsgText }]
+                });
+
+                // Call Gemini API with the entire conversation context
+                const payload = {
+                    contents: this.state.aiChatHistory.slice(-10) // Send the last 10 messages to keep context without hitting token limits
+                };
+
+                try {
+                    const response = await this.fetchWithBackoff(this.apiConfig.endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+                    const replyText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (replyText) {
+                        this.appendChatMessage(replyText, 'ai');
+                        
+                        // Push model reply to history context
+                        this.state.aiChatHistory.push({
+                            role: "model",
+                            parts: [{ text: replyText }]
+                        });
+
+                        // Reward points for interaction
+                        this.addPoints(15, 'تفاعل حقيقي ونشط مع مستشار الـ AI المهني بالفشن');
+                    } else {
+                        throw new Error("Empty model response parts.");
+                    }
+
+                } catch (error) {
+                    console.error("Gemini API Career Chatbot failed", error);
+                    const fallbackMsg = "عذراً يا بطل، يبدو أن هناك ضغطاً كبيراً على السيرفرات حالياً! يمكنك متابعة المسارات التعليمية في صالون الجمعة أو المحاولة مجدداً بعد ثوانٍ.";
+                    this.appendChatMessage(fallbackMsg, 'ai');
+                } finally {
+                    this.state.aiIsProcessing = false;
+                    if (indicator) indicator.classList.add('hidden');
+                    if (submitBtn) submitBtn.disabled = false;
+                }
+            },
+
+            appendChatMessage(messageText, senderRole) {
+                const chatContainer = document.getElementById('ai-chat-scroller');
+                if (!chatContainer) return;
+
+                const wrapper = document.createElement('div');
+                wrapper.className = `flex gap-3 animate-fade-in ${senderRole === 'user' ? 'flex-row-reverse' : ''}`;
+
+                let avatarHtml = senderRole === 'ai'
+                    ? `<div class="w-9 h-9 rounded-xl bg-burgundy-800 text-white flex items-center justify-center shrink-0 text-sm shadow-md"><i class="fa-solid fa-robot text-gold-400"></i></div>`
+                    : `<div class="w-9 h-9 rounded-xl bg-slate-800 text-white flex items-center justify-center shrink-0 text-sm shadow-md"><i class="fa-solid fa-user"></i></div>`;
+
+                let bubbleClass = senderRole === 'ai'
+                    ? 'bg-white dark:bg-charcoal-800 text-slate-700 dark:text-slate-200 border-slate-100 dark:border-charcoal-700 rounded-tr-none shadow-sm'
+                    : 'bg-burgundy-800 text-white border-burgundy-700 rounded-tl-none shadow-md';
+
+                wrapper.innerHTML = `
+                    ${avatarHtml}
+                    <div class="p-4 rounded-2xl border max-w-[85%] ${bubbleClass} text-xs leading-relaxed">
+                        <p>${messageText}</p>
+                    </div>
+                `;
+
+                chatContainer.appendChild(wrapper);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            },
+
+            async auditTaskWithAI(rowId, volunteerName, taskTitle, gpsCoords) {
+                this.showNotification(`جاري استدعاء خبير تدقيق الـ AI من Gemini لتقييم وثائق ${volunteerName}...`, 'info');
+
+                // Update status badge to "Auditing"
+                const card = document.getElementById(rowId);
+                const statusContainer = card ? card.querySelector('.status-indicator-container') : null;
+                if (statusContainer) {
+                    statusContainer.innerHTML = `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan-500/10 text-cyan-600 border border-cyan-500/20 text-[10px] font-black animate-pulse"><i class="fa-solid fa-robot text-[8px]"></i> جاري تدقيق AI...</span>`;
+                }
+
+                const systemPrompt = "You are a senior auditor for the Ministry of Youth and Sports in Egypt. Analyze the volunteer report. Give a fast 2-sentence review in Arabic. Return output strictly in valid JSON matching the schema.";
+                const userPrompt = `Review this submission: Volunteer: ${volunteerName}, Task: ${taskTitle}, GPS: ${gpsCoords}. Validate details and recommend acceptance.`;
+
+                const payload = {
+                    contents: [{ parts: [{ text: userPrompt }] }],
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "OBJECT",
+                            properties: {
+                                auditScore: { type: "INTEGER" }, // Confidence percentage (0-100)
+                                reviewMessage: { type: "STRING" }, // Short review report in Arabic
+                                decision: { type: "STRING" } // APPROVED, REJECTED, or NEEDS_REVIEW
+                            },
+                            required: ["auditScore", "reviewMessage", "decision"]
+                        }
+                    },
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    }
+                };
+
+                try {
+                    const response = await this.fetchWithBackoff(this.apiConfig.endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+                    const auditText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (auditText) {
+                        const auditData = JSON.parse(auditText);
+                        
+                        // Create a visual modal or alert to display the AI audit report
+                        const card = document.getElementById(rowId);
+                        if (card) {
+                            let scoreColor = auditData.auditScore >= 75 ? 'text-emerald-500' : 'text-amber-500';
+                            
+                            const auditReportDiv = document.createElement('div');
+                            auditReportDiv.className = "mt-3 p-3 bg-cyan-50 dark:bg-charcoal-900 border border-cyan-200 dark:border-cyan-900 rounded-xl text-xs text-right animate-glow";
+                            auditReportDiv.innerHTML = `
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-cyan-800 dark:text-cyan-400">🤖 تقرير التدقيق الذكي (Gemini API)</span>
+                                    <span class="font-mono font-black ${scoreColor}">ثقة الـ AI: ${auditData.auditScore}%</span>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300 mb-2">${auditData.reviewMessage}</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded ${auditData.decision === 'APPROVED' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${auditData.decision}</span>
+                                    <button onclick="app.approveTaskPoints('${rowId}', 30, '${volunteerName}')" class="bg-cyan-600 text-white font-bold px-2 py-1 rounded hover:bg-cyan-700 transition">تأكيد التدقيق والاعتماد</button>
+                                </div>
+                            `;
+                            
+                            // Prevent multiple reports appending
+                            const existing = card.querySelector('.animate-glow');
+                            if (existing) existing.remove();
+                            
+                            card.querySelector('td:nth-child(4)').appendChild(auditReportDiv);
+                            
+                            // Update status badge to "Final Review" after AI finishes
+                            if (statusContainer) {
+                                statusContainer.innerHTML = `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 text-[10px] font-black"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> بانتظار الموافقة النهائية</span>`;
+                            }
+                            this.showNotification(`أتم Gemini بنجاح عملية التدقيق الأمني لـ ${volunteerName}!`, 'success');
+                        }
+                    }
+
+                } catch (error) {
+                    console.error("Gemini Task Audit failed", error);
+                    this.showNotification('فشل تدقيق الـ AI. يرجى المراجعة والاعتماد يدوياً.', 'error');
+                }
+            },
+
+            filterAdminQueue() {
+                const input = document.getElementById('admin-search-input');
+                const filter = input.value.toLowerCase();
+                const tbody = document.getElementById('admin-table-queue');
+                const rows = Array.from(tbody.querySelectorAll('tr:not(.no-results-row)'));
+                const countEl = document.getElementById('visible-rows-count');
+                let visibleCount = 0;
+
+                rows.forEach(row => {
+                    const text = row.innerText.toLowerCase();
+                    if (text.includes(filter)) {
+                        if (row.style.display === "none") {
+                            row.style.display = "";
+                            if (!this.state.isLowPower) {
+                                row.classList.remove('row-fade-in');
+                                void row.offsetWidth; // Trigger reflow for animation restart
+                                row.classList.add('row-fade-in');
+                            }
+                        }
+                        visibleCount++;
+                    } else {
+                        row.style.display = "none";
+                        row.classList.remove('row-fade-in');
+                    }
+                });
+
+                if (countEl) countEl.innerText = visibleCount;
+
+                // Handle empty state professionally
+                const existingNoResults = tbody.querySelector('.no-results-row');
+                if (visibleCount === 0 && filter !== "") {
+                    if (!existingNoResults) {
+                        const noResults = document.createElement('tr');
+                        noResults.className = "no-results-row";
+                        noResults.innerHTML = `
+                            <td colspan="6" class="px-6 py-16 text-center">
+                                <div class="flex flex-col items-center gap-4 opacity-40">
+                                    <i class="fa-solid fa-magnifying-glass-chart text-5xl text-slate-300"></i>
+                                    <p class="font-black text-slate-500 text-base">عذراً، لم نجد متطوعين يطابقون بحثك عن "${input.value}"</p>
+                                    <button onclick="document.getElementById('admin-search-input').value=''; app.filterAdminQueue()" class="text-xs text-burgundy-800 underline font-bold">إعادة تعيين البحث</button>
+                                </div>
+                            </td>
+                        `;
+                        tbody.appendChild(noResults);
+                    }
+                } else if (existingNoResults) {
+                    existingNoResults.remove();
+                }
+            },
+
+            approveTaskPoints(rowId, pointsToGrant, volunteerName) {
+                const trToClear = document.getElementById(rowId);
+                if (trToClear) {
+                    trToClear.remove();
+                }
+                
+                // Update Real-time Admin Stats
+                this.state.adminStats.pending = Math.max(0, this.state.adminStats.pending - 1);
+                this.state.adminStats.impact += (pointsToGrant * 2); // Simulating impact
+                this.updateAdminStatsUI();
+
+                this.addPoints(pointsToGrant, `اعتماد طلب وصرف مكافأة لـ ${volunteerName}`);
+                this.showNotification(`تم الاعتماد بنجاح وتوجيه النقاط وتحديث إحصائيات الوزارة والـ UNICEF في الفشن!`, 'success');
+
+                const checkEmpty = document.querySelectorAll('#admin-table-queue tr');
+                if (checkEmpty.length === 0) {
+                    document.getElementById('admin-table-queue').innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-slate-400 font-bold">لا توجد طلبات أو أدلة معلقة بالانتظار حالياً!</td></tr>';
+                }
+                
+                // Update Leaderboard
+                this.updateUserPointsInList(volunteerName, pointsToGrant);
+            },
+
+            rejectTaskPoints(rowId) {
+                const trToClear = document.getElementById(rowId);
+                if (trToClear) {
+                    trToClear.remove();
+                }
+
+                // Update Stats
+                this.state.adminStats.pending = Math.max(0, this.state.adminStats.pending - 1);
+                this.updateAdminStatsUI();
+
+                this.showNotification('تم رفض الملف والطلب لعدم كفاية الأدلة الجغرافية والـ GPS!', 'error');
+
+                const checkEmpty = document.querySelectorAll('#admin-table-queue tr');
+                if (checkEmpty.length === 0) {
+                    document.getElementById('admin-table-queue').innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-slate-400 font-bold">لا توجد طلبات أو أدلة معلقة بالانتظار حالياً!</td></tr>';
+                }
+            },
+
+            simulatePDFReport() {
+                this.showNotification('جاري توليد التقرير التنموي المركزي بصيغة PDF ومطابقته بقواعد البيانات...', 'info');
+                setTimeout(() => {
+                    this.showNotification('تم إصدار التقرير بنجاح! تم رفعه تلقائياً لخادم وزارة الشباب والرياضة ومقر الأمم المتحدة.', 'success');
+                }, 1500);
+            },
+
+            showNotification(textMessage, alertType = 'info') {
+                const wrapper = document.getElementById('toast-wrapper');
+                if (!wrapper) return;
+
+                const card = document.createElement('div');
+                let backgroundStyle = 'bg-slate-900';
+                let iconMarkup = 'fa-info-circle';
+
+                if (alertType === 'success') {
+                    backgroundStyle = 'bg-emerald-600';
+                    iconMarkup = 'fa-circle-check';
+                } else if (alertType === 'error') {
+                    backgroundStyle = 'bg-rose-600';
+                    iconMarkup = 'fa-triangle-exclamation';
+                }
+
+                card.className = `${backgroundStyle} text-white text-xs font-bold px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 transition-all duration-300 transform translate-y-4 opacity-0`;
+                card.innerHTML = `
+                    <i class="fa-solid ${iconMarkup} text-base animate-pulse"></i>
+                    <p class="flex-1">${textMessage}</p>
+                `;
+
+                wrapper.appendChild(card);
+
+                // Entrance trigger
+                setTimeout(() => {
+                    card.classList.remove('translate-y-4', 'opacity-0');
+                }, 50);
+
+                // Destroy trigger
+                setTimeout(() => {
+                    card.classList.add('opacity-0', 'translate-y-4');
+                    setTimeout(() => {
+                        card.remove();
+                    }, 300);
+                }, 4000);
+            }
+        };
+
+        // Window OnLoad trigger
+        window.onload = function() {
+            app.init();
+        };
+    </script>
+</body>
+</html>
